@@ -14,9 +14,15 @@
 
 #head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; }
 
-#content { padding-top: 56px; }
+#content { padding-top: 56px; color: #fff; background: #465E6E; }
 
-#content table tr td:nth-child(2) { text-align: center; }
+#content table tr { color: #A5B7CA; }
+
+#content table tr th { color: #fff; }
+
+#content table tr td:nth-child(2) { color: #E9A844; text-align: center; }
+
+#content table tr td:nth-child(3) { color: #E9A844; }
 
 .highlight { background: darkorange; }
 /*# sourceMappingURL=main.min.css.map */

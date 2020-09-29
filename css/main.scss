@@ -58,10 +58,20 @@
 
 #content {
     padding-top: 56px;
+    color: #fff;
+    background: #465E6E;
     table {
         tr {
+            color: #A5B7CA;
+            th {
+                color: #fff;
+            }
             td:nth-child(2) {
+                color: #E9A844;
                 text-align: center;
+            }
+            td:nth-child(3) {
+                color: #E9A844;
             }
         }
     }
