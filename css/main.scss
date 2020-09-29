@@ -5,8 +5,10 @@
 }
 
 body {
-    background: url("../img/bg.jpeg") no-repeat fixed;
-    background-size: 100%;
+    &:before {
+        background: url("../img/bg.jpeg") no-repeat fixed;
+        background-size: 100%;
+    }
 }
 
 #head {

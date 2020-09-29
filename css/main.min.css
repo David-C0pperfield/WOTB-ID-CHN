@@ -1,6 +1,6 @@
 * { margin: 0; padding: 0; }
 
-body { background: url("../img/bg.jpeg") no-repeat fixed; background-size: 100%; }
+body:before { background: url("../img/bg.jpeg") no-repeat fixed; background-size: 100%; }
 
 #head { position: fixed; top: 0; width: 100%; }
 
