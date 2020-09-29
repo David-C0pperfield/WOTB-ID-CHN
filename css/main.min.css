@@ -20,7 +20,7 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #content table { padding: 10px 22.5px; table-layout: fixed; }
 
-#content table tr { color: #A5B7CA; }
+#content table tr { color: #A5B7CA; height: 36px; }
 
 #content table tr th { color: #fff; }
 
