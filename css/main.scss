@@ -15,6 +15,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 100;
     #searchbar {
         text-align: center;
         background: #00000080;
@@ -71,6 +72,7 @@ body {
     -webkit-overflow-scrolling: touch;
     overflow: hidden;
     overflow-x: scroll;
+    z-index: 50;
     // backdrop-filter: blur(20px) saturate(180%);
     // -webkit-backdrop-filter: blur(20px) saturate(180%);
     table {

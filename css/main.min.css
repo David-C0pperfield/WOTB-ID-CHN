@@ -2,7 +2,7 @@
 
 body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size: 100%; }
 
-#head { position: fixed; top: 0; width: 100%; }
+#head { position: fixed; top: 0; width: 100%; z-index: 100; }
 
 #head #searchbar { text-align: center; background: #00000080; padding: 10px 20px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 
@@ -16,7 +16,7 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; }
 
-#content { padding-top: 56px; color: #fff; background: #364955e0; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; }
+#content { padding-top: 56px; color: #fff; background: #364955e0; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
 #content table { padding: 10px 22.5px; table-layout: fixed; }
 
