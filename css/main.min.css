@@ -2,7 +2,7 @@
 
 #head { position: fixed; top: 0; width: 100%; }
 
-#head #searchbar { text-align: center; background: #000000c0; padding: 10px 20px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+#head #searchbar { text-align: center; background: #00000080; padding: 10px 20px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 
 #head #searchbar #inner_s_bar { display: flex; position: relative; }
 
