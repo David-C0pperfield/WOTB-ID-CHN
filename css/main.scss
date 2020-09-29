@@ -69,6 +69,8 @@ body {
     background: #364955e0;
     text-shadow: 0 0 10px #000000a0;
     -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+    overflow-x: scroll;
     // backdrop-filter: blur(20px) saturate(180%);
     // -webkit-backdrop-filter: blur(20px) saturate(180%);
     table {
@@ -76,7 +78,7 @@ body {
         table-layout: fixed;
         tr {
             color: #A5B7CA;
-            height: 36px;
+            height: 42px;
             th {
                 color: #fff;
                 &:nth-child(1),
@@ -89,10 +91,15 @@ body {
                 &:nth-child(2) {
                     color: #E9A844;
                     text-align: center;
+                    width: 5em;
                 }
                 &:nth-child(3) {
                     text-align: left;
                     color: #E9A844;
+                    width: 10em;
+                }
+                &:nth-child(4) {
+                    width: 20em;
                 }
             }
         }

@@ -16,19 +16,21 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; }
 
-#content { padding-top: 56px; color: #fff; background: #364955e0; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; }
+#content { padding-top: 56px; color: #fff; background: #364955e0; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; }
 
 #content table { padding: 10px 22.5px; table-layout: fixed; }
 
-#content table tr { color: #A5B7CA; height: 36px; }
+#content table tr { color: #A5B7CA; height: 42px; }
 
 #content table tr th { color: #fff; }
 
 #content table tr th:nth-child(1), #content table tr th:nth-child(3), #content table tr th:nth-child(4) { text-align: left; }
 
-#content table tr td:nth-child(2) { color: #E9A844; text-align: center; }
+#content table tr td:nth-child(2) { color: #E9A844; text-align: center; width: 5em; }
 
-#content table tr td:nth-child(3) { text-align: left; color: #E9A844; }
+#content table tr td:nth-child(3) { text-align: left; color: #E9A844; width: 10em; }
+
+#content table tr td:nth-child(4) { width: 20em; }
 
 .highlight { background: darkorange; }
 /*# sourceMappingURL=main.min.css.map */
