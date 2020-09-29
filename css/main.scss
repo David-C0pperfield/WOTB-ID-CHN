@@ -58,6 +58,13 @@
 
 #content {
     padding-top: 56px;
+    table {
+        tr {
+            td:nth-child(2) {
+                text-align: center;
+            }
+        }
+    }
 }
 
 .highlight {

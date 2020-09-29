@@ -16,5 +16,7 @@
 
 #content { padding-top: 56px; }
 
+#content table tr td:nth-child(2) { text-align: center; }
+
 .highlight { background: darkorange; }
 /*# sourceMappingURL=main.min.css.map */
