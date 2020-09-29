@@ -65,7 +65,7 @@ $(function() {
                 });
             }
             $("html, body").animate({
-                scrollTop: _top - 50
+                scrollTop: _top - 185
             });
             i++;
             if (i > $(".highlight").length - 1) {

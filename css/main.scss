@@ -66,12 +66,13 @@ body {
 #content {
     padding-top: 56px;
     color: #fff;
-    background: #465E6Ec0;
+    background: #465E6Ee0;
     text-shadow: 0 0 10px #000000a0;
     -webkit-overflow-scrolling: touch;
     // backdrop-filter: blur(20px) saturate(180%);
     // -webkit-backdrop-filter: blur(20px) saturate(180%);
     table {
+        padding: 10px 22.5px;
         tr {
             color: #A5B7CA;
             th {

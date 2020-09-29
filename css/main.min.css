@@ -16,7 +16,9 @@ body:before { background: url("../img/bg.jpeg") no-repeat fixed; background-size
 
 #head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; }
 
-#content { padding-top: 56px; color: #fff; background: #465E6Ec0; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; }
+#content { padding-top: 56px; color: #fff; background: #465E6Ee0; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; }
+
+#content table { padding: 10px 22.5px; }
 
 #content table tr { color: #A5B7CA; }
 
