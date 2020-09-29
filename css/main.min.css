@@ -16,7 +16,7 @@ body { background: url("../img/bg.jpeg") no-repeat fixed; background-size: 100%;
 
 #head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; }
 
-#content { padding-top: 56px; color: #fff; background: #465E6Ec0; }
+#content { padding-top: 56px; color: #fff; background: #465E6Ec0; text-shadow: 0 0 10px #000000a0; }
 
 #content table tr { color: #A5B7CA; }
 
