@@ -24,9 +24,11 @@ body:before { background: url("../img/bg.jpeg") no-repeat fixed; background-size
 
 #content table tr th { color: #fff; }
 
+#content table tr th:nth-child(1), #content table tr th:nth-child(3), #content table tr th:nth-child(4) { text-align: left; }
+
 #content table tr td:nth-child(2) { color: #E9A844; text-align: center; }
 
-#content table tr td:nth-child(3) { color: #E9A844; }
+#content table tr td:nth-child(3) { text-align: left; color: #E9A844; }
 
 .highlight { background: darkorange; }
 /*# sourceMappingURL=main.min.css.map */
