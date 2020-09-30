@@ -40,5 +40,5 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #content table tr td:nth-child(4) { width: 20em; }
 
-.highlight { background: mistyrose; }
+.highlight { background: red; }
 /*# sourceMappingURL=main.min.css.map */
