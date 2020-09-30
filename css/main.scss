@@ -1,4 +1,14 @@
 @charset "utf-8";
+@mixin disable-user-select {
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -59,6 +69,7 @@ body {
                 position: absolute;
                 right: 0;
                 padding: 0 10px;
+                @include disable-user-select;
             }
         }
     }
@@ -94,6 +105,7 @@ body {
                 color: #fff;
                 background-color: #4B5D6C;
                 border-right: 1px solid #34424C;
+                @include disable-user-select;
                 &:last-child {
                     border-right: none
                 }
