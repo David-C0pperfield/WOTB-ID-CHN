@@ -22,7 +22,7 @@ $(function() {
 
 
 
-        var regExp = new RegExp(searchText, 'g');
+        var regExp = new RegExp(searchText, 'gi');
         var content = $("#content").text(); //获取#content中的文本
         if (searchText == (null || '')) {
             tipPopup('关键词不能为空！')
@@ -37,7 +37,7 @@ $(function() {
         //高亮显示
         $('tr').each(function() {
             var html = $(this).html();
-            var newHtml = html.replace(regExp, '<span class="highlight">' + searchText + '</span>');
+            var newHtml = html.replace(regExp, '<span class="highlight">' + sCurText + '</span>');
             $(this).html(newHtml);
             flag = 1;
         });
