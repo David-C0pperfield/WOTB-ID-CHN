@@ -1,5 +1,7 @@
 * { margin: 0; padding: 0; }
 
+body { font-family: sans-serif; }
+
 body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size: 100%; }
 
 #head { position: fixed; top: 0; width: 100%; z-index: 100; }
