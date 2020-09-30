@@ -32,13 +32,15 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #content table tr th:nth-child(1), #content table tr th:nth-child(3), #content table tr th:nth-child(4) { text-align: left; }
 
+#content table tr td { color: #E9A844; }
+
 #content table tr td:first-child { width: 100px; }
 
-#content table tr td:nth-child(2) { color: #E9A844; text-align: center; width: 120px; }
+#content table tr td:nth-child(2) { width: 120px; }
 
-#content table tr td:nth-child(3) { text-align: left; color: #E9A844; width: 10em; }
+#content table tr td:nth-child(3) { width: 20em; }
 
-#content table tr td:nth-child(4) { width: 20em; }
+#content table tr td:first-child, #content table tr td:last-child { color: #fff; text-align: left; }
 
 .highlight { background: #ff0000c0; border-radius: 3px; padding: 1px; }
 /*# sourceMappingURL=main.min.css.map */

@@ -115,21 +115,20 @@ body {
                 }
             }
             td {
+                color: #E9A844;
                 &:first-child {
                     width: 100px;
                 }
                 &:nth-child(2) {
-                    color: #E9A844;
-                    text-align: center;
                     width: 120px;
                 }
                 &:nth-child(3) {
-                    text-align: left;
-                    color: #E9A844;
-                    width: 10em;
-                }
-                &:nth-child(4) {
                     width: 20em;
+                }
+                &:first-child,
+                &:last-child {
+                    color: #fff;
+                    text-align: left;
                 }
             }
         }
