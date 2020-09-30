@@ -1,4 +1,11 @@
 $(function() {
+    $(document).on('keydown', function(e) {
+        var keyFind = e.which
+        if ((e.ctrlKey && keyFind == 70) || (e.metaKey && keyFind == 70)) {
+            e.preventDefault();
+            $('#searchstr').focus();
+        }
+    })
     $('#search_btn').on('click', highlight)
     $('#searchstr').on('keydown', function(e) {
         var key = e.which;

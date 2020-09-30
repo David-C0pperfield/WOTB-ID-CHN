@@ -6,11 +6,11 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #head { position: fixed; top: 0; width: 100%; z-index: 100; }
 
-#head #searchbar { text-align: center; background: #00000080; padding: 10px 20px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+#head #searchbar { text-align: center; background: #00000060; padding: 10px 20px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 
 #head #searchbar #inner_s_bar { display: flex; position: relative; }
 
-#head #searchbar #inner_s_bar input#searchstr { height: 36px; line-height: 36px; width: 100%; margin: 0 auto; font-size: 16px; color: #fff; display: inline-block; border: none; border-radius: 6px; outline: none; box-sizing: border-box; vertical-align: middle; padding: 5px 60px 5px 10px; background-color: #00000040; transition: 0.2s ease-in; }
+#head #searchbar #inner_s_bar input#searchstr { height: 36px; line-height: 36px; width: 100%; margin: 0 auto; font-size: 16px; color: #fff; display: inline-block; border: none; border-radius: 6px; outline: none; box-sizing: border-box; vertical-align: middle; padding: 5px 60px 5px 10px; background-color: #ffffff20; transition: 0.2s ease-in; }
 
 #head #searchbar #inner_s_bar input#searchstr:hover { background-color: #00000080; }
 
