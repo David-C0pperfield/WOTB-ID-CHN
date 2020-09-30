@@ -36,7 +36,7 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #content table tr td { color: #E9A844; }
 
-#content table tr td:first-child { width: 100px; }
+#content table tr td:first-child { width: 50px; }
 
 #content table tr td:nth-child(2) { width: 120px; }
 
