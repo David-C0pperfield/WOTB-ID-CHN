@@ -101,4 +101,7 @@ $(function() {
             });
         });
     }
+    document.documentElement.addEventListener('gesturestart', function(event) {
+        event.preventDefault();
+    }, false);
 })
