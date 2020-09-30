@@ -83,7 +83,7 @@ body {
         tr {
             color: #A5B7CA;
             height: 42px;
-            border-bottom: 1px solid #ffffff20;
+            border-bottom: 1px solid #ffffff18;
             &>* {
                 padding: 0 12.5px;
             }
@@ -100,10 +100,13 @@ body {
                 }
             }
             td {
+                &:first-child {
+                    width: 100px;
+                }
                 &:nth-child(2) {
                     color: #E9A844;
                     text-align: center;
-                    width: 5em;
+                    width: 120px;
                 }
                 &:nth-child(3) {
                     text-align: left;
