@@ -35,6 +35,8 @@ body {
         #inner_s_bar {
             display: flex;
             position: relative;
+            border-radius: 6px;
+            overflow: hidden;
             input#searchstr {
                 height: 36px;
                 line-height: 36px;
@@ -44,7 +46,6 @@ body {
                 color: #fff;
                 display: inline-block;
                 border: none;
-                border-radius: 6px;
                 outline: none;
                 box-sizing: border-box;
                 vertical-align: middle;
@@ -61,7 +62,6 @@ body {
             #search_btn {
                 height: 36px;
                 line-height: 36px;
-                border-radius: 6px;
                 background-color: #fff;
                 box-sizing: border-box;
                 cursor: pointer;

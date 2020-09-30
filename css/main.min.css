@@ -8,15 +8,15 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #head #searchbar { text-align: center; background: #00000060; padding: 10px 20px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 
-#head #searchbar #inner_s_bar { display: flex; position: relative; }
+#head #searchbar #inner_s_bar { display: flex; position: relative; border-radius: 6px; overflow: hidden; }
 
-#head #searchbar #inner_s_bar input#searchstr { height: 36px; line-height: 36px; width: 100%; margin: 0 auto; font-size: 16px; color: #fff; display: inline-block; border: none; border-radius: 6px; outline: none; box-sizing: border-box; vertical-align: middle; padding: 5px 60px 5px 10px; background-color: #ffffff20; transition: 0.2s ease-in; }
+#head #searchbar #inner_s_bar input#searchstr { height: 36px; line-height: 36px; width: 100%; margin: 0 auto; font-size: 16px; color: #fff; display: inline-block; border: none; outline: none; box-sizing: border-box; vertical-align: middle; padding: 5px 60px 5px 10px; background-color: #ffffff20; transition: 0.2s ease-in; }
 
 #head #searchbar #inner_s_bar input#searchstr:hover { background-color: #ffffff40; }
 
 #head #searchbar #inner_s_bar input#searchstr:focus { background-color: #00000040; }
 
-#head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; -o-user-select: none; user-select: none; }
+#head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; -o-user-select: none; user-select: none; }
 
 #content { padding-top: 56px; color: #fff; background: #333333; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
