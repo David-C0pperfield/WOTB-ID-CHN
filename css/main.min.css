@@ -16,13 +16,17 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; }
 
-#content { padding-top: 56px; color: #fff; background: #364955e0; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
+#content { padding-top: 56px; color: #fff; background: #666; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
-#content table { padding: 10px 22.5px; table-layout: fixed; }
+#content table { margin: 10px auto; table-layout: fixed; border-collapse: collapse; background: #364955e0; }
 
-#content table tr { color: #A5B7CA; height: 42px; }
+#content table tr { color: #A5B7CA; height: 42px; border-bottom: 1px solid #ffffff20; }
 
-#content table tr th { color: #fff; }
+#content table tr > * { padding: 0 12.5px; }
+
+#content table tr:last-child { border-bottom: none; }
+
+#content table tr th { color: #fff; background-color: #4B5D6C; }
 
 #content table tr th:nth-child(1), #content table tr th:nth-child(3), #content table tr th:nth-child(4) { text-align: left; }
 

@@ -67,7 +67,7 @@ body {
 #content {
     padding-top: 56px;
     color: #fff;
-    background: #364955e0;
+    background: #666;
     text-shadow: 0 0 10px #000000a0;
     -webkit-overflow-scrolling: touch;
     overflow: hidden;
@@ -76,13 +76,23 @@ body {
     // backdrop-filter: blur(20px) saturate(180%);
     // -webkit-backdrop-filter: blur(20px) saturate(180%);
     table {
-        padding: 10px 22.5px;
+        margin: 10px auto;
         table-layout: fixed;
+        border-collapse: collapse;
+        background: #364955e0;
         tr {
             color: #A5B7CA;
             height: 42px;
+            border-bottom: 1px solid #ffffff20;
+            &>* {
+                padding: 0 12.5px;
+            }
+            &:last-child {
+                border-bottom: none
+            }
             th {
                 color: #fff;
+                background-color: #4B5D6C;
                 &:nth-child(1),
                 &:nth-child(3),
                 &:nth-child(4) {
