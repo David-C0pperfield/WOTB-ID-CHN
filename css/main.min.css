@@ -14,19 +14,19 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #head #searchbar #inner_s_bar input#searchstr:focus { background-color: #000000a0; }
 
-#head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; moz-user-select: -moz-none; -o-user-select: none; user-select: none; }
+#head #searchbar #inner_s_bar #search_btn { height: 36px; line-height: 36px; border-radius: 6px; background-color: #fff; box-sizing: border-box; cursor: pointer; vertical-align: middle; position: absolute; right: 0; padding: 0 10px; -o-user-select: none; user-select: none; }
 
 #content { padding-top: 56px; color: #fff; background: #333333; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
 #content table { margin: 10px auto; table-layout: fixed; border-collapse: collapse; background: #364955e0; }
 
-#content table tr { color: #A5B7CA; height: 42px; border-bottom: 1px solid #ffffff18; }
+#content table tr { color: #A5B7CA; height: 48px; border-bottom: 1px solid #ffffff18; }
 
 #content table tr > * { padding: 0 12.5px; }
 
 #content table tr:last-child { border-bottom: none; }
 
-#content table tr th { color: #fff; background-color: #4B5D6C; border-right: 1px solid #34424C; moz-user-select: -moz-none; -o-user-select: none; user-select: none; }
+#content table tr th { color: #fff; background-color: #4B5D6C; border-right: 1px solid #34424C; -o-user-select: none; user-select: none; }
 
 #content table tr th:last-child { border-right: none; }
 
@@ -40,5 +40,5 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #content table tr td:nth-child(4) { width: 20em; }
 
-.highlight { background: darkorange; }
+.highlight { background: mistyrose; }
 /*# sourceMappingURL=main.min.css.map */

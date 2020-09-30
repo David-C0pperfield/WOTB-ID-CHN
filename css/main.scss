@@ -1,10 +1,9 @@
 @charset "utf-8";
 @mixin disable-user-select {
-    moz-user-select: -moz-none;
+    -webkit-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
     -khtml-user-select: none;
-    -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
@@ -93,7 +92,7 @@ body {
         background: #364955e0;
         tr {
             color: #A5B7CA;
-            height: 42px;
+            height: 48px;
             border-bottom: 1px solid #ffffff18;
             &>* {
                 padding: 0 12.5px;
@@ -138,5 +137,5 @@ body {
 }
 
 .highlight {
-    background: darkorange;
+    background: mistyrose;
 }
