@@ -67,7 +67,7 @@ body {
 #content {
     padding-top: 56px;
     color: #fff;
-    background: #666;
+    background: rgb(51, 51, 51);
     text-shadow: 0 0 10px #000000a0;
     -webkit-overflow-scrolling: touch;
     overflow: hidden;
@@ -93,6 +93,10 @@ body {
             th {
                 color: #fff;
                 background-color: #4B5D6C;
+                border-right: 1px solid #34424C;
+                &:last-child {
+                    border-right: none
+                }
                 &:nth-child(1),
                 &:nth-child(3),
                 &:nth-child(4) {
