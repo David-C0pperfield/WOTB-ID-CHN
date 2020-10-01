@@ -6,17 +6,43 @@ $(function() {
             $('#searchstr').focus();
         }
     })
-    $('#search_btn').on('click', highlight)
-    $('#searchstr').on('keydown', function(e) {
-        var key = e.which;
-        if (key == 13) highlight();
-    });
+    $('#search_btn').on('click', function() {
+        startSearching()
+    })
 
+    $('#searchstr').on('click', function() {
+        if ($('#searchstr').is(':focus')) {
+            $('#notification_zone').slideDown(250);
+        }
+    })
+    $('#searchstr').on('keydown', function() {
+        var key = e.which;
+        if (key == 13) startSearching();
+    });
+    $(document).on('click', function(e) {
+        var target = $(e.target)
+        console.log(target)
+        if (!target.is('#searchstr') && !target.is('#notification_zone') && !target.is('#notification_zone *')) {
+            slideUpNotification()
+        }
+    })
     var i = 0;
     var sCurText;
 
+    function startSearching() {
+        highlight()
+        slideUpNotification()
+    }
+
+    function slideUpNotification() {
+        if ($('#notification_zone').css('display') != 'none') {
+            $('#notification_zone').slideUp(250);
+        }
+    }
+
     function highlight() {
         clearSelection();
+
         var searchText = String($('#searchstr').val())
         var flag = 0
 
@@ -25,9 +51,10 @@ $(function() {
         var regExp = new RegExp(searchText, 'gi');
         var content = $("#content").text(); //获取#content中的文本
         if (searchText == (null || '')) {
-            tipPopup('关键词不能为空！')
+            alert('关键词不能为空！')
+            return
         } else if (!regExp.test(content)) {
-            tipPopup("没有找到相关内容");
+            alert("没有找到相关内容");
             return;
         } else if (sCurText != searchText) {
             i = 0;
@@ -101,20 +128,5 @@ $(function() {
             });
         });
     }
-
+    $('#notification_zone').slideDown(250);
 })
-window.onload = function() {
-    document.addEventListener('touchstart', function(event) {
-        if (event.touches.length > 1) {
-            event.preventDefault(); //阻止元素的默认行为
-        }
-    })
-    var lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-        var now = (new Date()).getTime();
-        if (now - lastTouchEnd <= 300) {
-            event.preventDefault();
-        }
-        lastTouchEnd = now; //当前为最后一次触摸
-    }, false)
-}
