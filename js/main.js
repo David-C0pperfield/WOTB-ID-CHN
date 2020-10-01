@@ -15,7 +15,7 @@ $(function() {
             $('#notification_zone').slideDown(250);
         }
     })
-    $('#searchstr').on('keydown', function() {
+    $('#searchstr').on('keydown', function(e) {
         var key = e.which;
         if (key == 13) startSearching();
     });
