@@ -22,7 +22,7 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #head hr { margin: 10px auto; }
 
-#head #notification_zone { display: none; height: 320px; background: #00000020; color: #fff; box-sizing: border-box; padding: 15px 30px; line-height: 1.5em; overflow: scroll; box-shadow: 0 0 20px 5px #00000060; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+#head #notification_zone { display: none; height: 320px; background: #00000080; color: #fff; box-sizing: border-box; padding: 15px 30px; line-height: 1.5em; overflow: scroll; box-shadow: 0 0 20px 5px #00000060; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 
 #head #notification_zone section { margin-bottom: 10px; }
 
