@@ -12,7 +12,7 @@ def xlsxToCsv():#首先导出csv
 
     with open(csv_name,'w+',encoding='utf-8') as f:
         write=csv.writer(f)
-        print('共{}条数据'.format(table.nrows))
+        print('共{}条数据\n==========\n'.format(table.nrows))
         for i in range(1,table.nrows):
             row_content=[]
             for j in range(table.ncols):
@@ -46,7 +46,7 @@ def clanHTML():
                 cInfo='<tr><td>{ID}</td><td>[{Tag}] {Fullname}</td><td>{Desc}</td></tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
                 HTML_content += cInfo
     f.close()
-    print(r'csv转换完毕')
+
 
     HTML_content+='</table>'
     processedF=open("clanhtml.txt","w+")
