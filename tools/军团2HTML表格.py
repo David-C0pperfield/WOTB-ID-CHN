@@ -1,15 +1,18 @@
-﻿import xlrd
-data=xlrd.open_workbook(r'闪击战ID情报.xlsx')
+﻿#!/usr/bin/env python3
+import xlrd
 import csv
 import re
 import os
 import subprocess
 csv_name=r'闪击战军团ID.csv'
+excel_name=r'闪击战ID情报.xlsx'
 def xlsxToCsv():#首先导出csv
-    data=xlrd.open_workbook(r'闪击战ID情报.xlsx')
-    
-    table=data.sheet_by_name(r'军团列表')
+    while os.path.exists(excel_name) == False:
+        data = input('找不到“{}”，请寻找相关文件后键入路径。\n寻找文件：'.format\
+                     (excel_name))
 
+    data=xlrd.open_workbook(excel_name)
+    table=data.sheet_by_name(r'军团列表')
     with open(csv_name,'w+',encoding='utf-8') as f:
         write=csv.writer(f)
         print('共{}条数据\n==========\n'.format(table.nrows))
