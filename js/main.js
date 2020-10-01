@@ -8,6 +8,7 @@ $(function() {
     })
     $('#search_btn').on('click', function() {
         startSearching()
+
     })
 
     $('#searchstr').on('click', function() {
@@ -21,13 +22,11 @@ $(function() {
     });
     $(document).on('click', function(e) {
         var target = $(e.target)
-        console.log(target)
         if (!target.is('#searchstr') && !target.is('#notification_zone') && !target.is('#notification_zone *')) {
             slideUpNotification()
         }
     })
-    var i = 0;
-    var sCurText;
+
 
     function startSearching() {
         highlight()
@@ -39,6 +38,8 @@ $(function() {
             $('#notification_zone').slideUp(250);
         }
     }
+    var i = 0;
+    var sCurText;
 
     function highlight() {
         clearSelection();
@@ -64,21 +65,25 @@ $(function() {
         //高亮显示
         $('tr').each(function() {
             var html = $(this).html();
-            var newHtml = html.replace(regExp, '<span class="highlight">' + sCurText + '</span>');
+            var newHtml = html.replace(regExp, '<strong><span class="highlight">' + sCurText + '</span></strong>');
             $(this).html(newHtml);
             flag = 1;
         });
         //定位并提示信息
         if (flag == 1) {
             if ($(".highlight").length > 1) {
+
                 var _top = $(".highlight").eq(i).offset().top +
                     $(".highlight").eq(i).height();
                 var _tip = $(".highlight").eq(i).parent().find("strong").text();
+                $(".highlight").eq(i).css('background', '#FF0000')
                 if (_tip == "") {
                     _tip = $(".highlight").eq(i).parent().parent().find("strong").text();
                 }
+
                 var _left = $(".highlight").eq(i).offset().left;
                 var _tipWidth = $("#tip").width();
+
                 if (_left > $(document).width() - _tipWidth) {
                     _left = _left - _tipWidth;
                 }

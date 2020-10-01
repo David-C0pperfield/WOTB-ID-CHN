@@ -66,5 +66,5 @@ body:after { background: url("../img/bg.jpeg") no-repeat fixed; background-size:
 
 #content table tr td:first-child, #content table tr td:last-child { color: #fff; text-align: left; }
 
-.highlight { background: #ff0000c0; border-radius: 3px; padding: 1px; }
+.highlight { background: #cd5c5c; border-radius: 3px; padding: 1px; }
 /*# sourceMappingURL=main.min.css.map */
