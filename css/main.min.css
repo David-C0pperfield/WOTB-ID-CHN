@@ -70,7 +70,7 @@ body { font-family: sans-serif; }
 
 .highlight { background: #cd5c5c; border-radius: 3px; padding: 1px; }
 
-@media (prefers-color-scheme: dark) { :root { background: #eee; }
+@media (prefers-color-scheme: dark) { :root { background: #333; }
   #head #searchbar { background: #00000060; }
   #head #searchbar #inner_s_bar input#searchstr { color: #fff; background-color: #ffffff20; transition: 0.2s ease-in; }
   #head #searchbar #inner_s_bar input#searchstr:hover { background-color: #ffffff40; }
