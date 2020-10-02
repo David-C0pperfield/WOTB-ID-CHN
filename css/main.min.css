@@ -44,7 +44,9 @@ body { font-family: sans-serif; }
 
 #content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
-#content table { margin: 10px auto; table-layout: fixed; border-collapse: collapse; background: #364955e0; }
+#content #register-banner { height: 42px; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); }
+
+#content table { margin: auto; table-layout: fixed; border-collapse: collapse; background: #364955e0; }
 
 #content table tr { color: #A5B7CA; height: 48px; border-bottom: 1px solid #ffffff18; }
 

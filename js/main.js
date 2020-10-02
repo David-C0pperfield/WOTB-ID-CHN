@@ -136,4 +136,15 @@ $(function() {
     setTimeout(function() {
         $('#notification_zone').slideDown(250);
     }, 250)
+    replaceBrackets('#register-banner', 'total_entries', ($('#content table tr').length - 1))
+
+    function replaceBrackets(target, name, content) {
+        //替换某个含有{{xxxx}}的文本
+        var origin = $(target).text()
+        if (name == '') {
+            var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
+        } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
+        $(target).text(processedText)
+
+    }
 })
