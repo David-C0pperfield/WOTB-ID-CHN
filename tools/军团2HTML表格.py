@@ -46,7 +46,7 @@ def clanHTML():
             cDesc=row[3]
             if row[3]=='':
                 cDesc='无'
-            cInfo='<tr><td>{ID}</td><td>[{Tag}] {Fullname}</td><td>{Desc}</td></tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
+            cInfo='<tr id="id_{ID}"><td>{ID}</td><td>[{Tag}] {Fullname}</td><td>{Desc}</td></tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
             HTML_content += cInfo
     f.close()
 
