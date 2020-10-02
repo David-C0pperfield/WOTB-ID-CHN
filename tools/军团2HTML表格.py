@@ -39,15 +39,15 @@ def clanHTML():
     with open(csv_name,"r",newline='') as f:
         reader = csv.reader(f)
         for i,row in enumerate(reader):
-            if i>0:
-                cID=row[0]
-                cTag=row[1]
-                cFullname=row[2]
-                cDesc=row[3]
-                if row[3]=='':
-                    cDesc='无'
-                cInfo='<tr><td>{ID}</td><td>[{Tag}] {Fullname}</td><td>{Desc}</td></tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
-                HTML_content += cInfo
+            #if i>0:
+            cID=row[0]
+            cTag=row[1]
+            cFullname=row[2]
+            cDesc=row[3]
+            if row[3]=='':
+                cDesc='无'
+            cInfo='<tr><td>{ID}</td><td>[{Tag}] {Fullname}</td><td>{Desc}</td></tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
+            HTML_content += cInfo
     f.close()
 
 
