@@ -133,5 +133,7 @@ $(function() {
             });
         });
     }
-    $('#notification_zone').slideDown(250);
+    setTimeout(function() {
+        $('#notification_zone').slideDown(250);
+    }, 250)
 })
