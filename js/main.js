@@ -135,7 +135,7 @@ $(function() {
     }
     setTimeout(function() {
         $('#notification_zone').slideDown(250);
-    }, 250)
+    }, 450)
     replaceBrackets('#register-banner', 'total_entries', ($('#content table tr').length - 1))
 
     function replaceBrackets(target, name, content) {
