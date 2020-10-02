@@ -15,7 +15,7 @@ def xlsxToCsv():#首先导出csv
     table=data.sheet_by_name(r'军团列表')
     with open(csv_name,'w+',encoding='utf-8') as f:
         write=csv.writer(f)
-        print('共{}条数据\n==========\n'.format(table.nrows))
+        print('共{}条数据\n==========\n'.format(table.nrows-1))
         for i in range(1,table.nrows):
             row_content=[]
             for j in range(table.ncols):
