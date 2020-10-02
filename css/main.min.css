@@ -42,9 +42,9 @@ body { font-family: sans-serif; }
 
 #head #notification_zone #part2 #links a { color: darkviolet; }
 
-#content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
+#content { padding-top: calc(56px + 42px); color: #fff; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
-#content #register-banner { height: 42px; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); }
+#content #register-banner { height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; top: 56px; }
 
 #content table { margin: auto; table-layout: fixed; border-collapse: collapse; background: #364955e0; }
 
