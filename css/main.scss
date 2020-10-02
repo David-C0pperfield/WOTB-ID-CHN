@@ -75,7 +75,7 @@ body {
             #search_btn {
                 height: 36px;
                 line-height: 36px;
-                background-color: #000000c0;
+                background-color: #000000a0;
                 color: #fff;
                 box-sizing: border-box;
                 cursor: pointer;
@@ -84,6 +84,10 @@ body {
                 right: 0;
                 padding: 0 10px;
                 @include disable-user-select;
+                transition: 0.15s ease-in-out;
+                &:hover {
+                    background: #000000;
+                }
             }
         }
     }
@@ -225,6 +229,9 @@ body {
                 #search_btn {
                     background-color: #ffffff80;
                     color: #000;
+                    &:hover {
+                        background: #fff;
+                    }
                 }
             }
         }
