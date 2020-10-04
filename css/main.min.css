@@ -76,13 +76,13 @@ body { font-family: sans-serif; }
 
 #content .highlight { background: #cd5c5c; border-radius: 3px; padding: 1px; }
 
-@media (prefers-color-scheme: dark) { #content :root { background: #333; }
-  #content #head #searchbar { background: #00000060; }
-  #content #head #searchbar #inner_s_bar input#searchstr { color: #fff; background-color: #ffffff20; transition: 0.2s ease-in; }
-  #content #head #searchbar #inner_s_bar input#searchstr:hover { background-color: #ffffff40; }
-  #content #head #searchbar #inner_s_bar input#searchstr:focus { background-color: #00000040; }
-  #content #head #searchbar #inner_s_bar #search_btn { background-color: #ffffff80; color: #000; }
-  #content #head #searchbar #inner_s_bar #search_btn:hover { background: #fff; }
-  #content #head #notification_zone { background: #000000a0; color: #fff; }
-  #content #head #notification_zone #part2 #links a { color: gold; } }
+@media (prefers-color-scheme: dark) { :root { background: #333; }
+  #head #searchbar { background: #00000060; }
+  #head #searchbar #inner_s_bar input#searchstr { color: #fff; background-color: #ffffff20; transition: 0.2s ease-in; }
+  #head #searchbar #inner_s_bar input#searchstr:hover { background-color: #ffffff40; }
+  #head #searchbar #inner_s_bar input#searchstr:focus { background-color: #00000040; }
+  #head #searchbar #inner_s_bar #search_btn { background-color: #ffffff80; color: #000; }
+  #head #searchbar #inner_s_bar #search_btn:hover { background: #fff; }
+  #head #notification_zone { background: #000000a0; color: #fff; }
+  #head #notification_zone #part2 #links a { color: gold; } }
 /*# sourceMappingURL=main.min.css.map */
