@@ -29,11 +29,14 @@ def xlsxToCsv():#首先导出csv
 
 def clanHTML():
     HTML_content='<table>\n\
-<tr>\
+<thead>\n\
+<tr>\n\
 <th>ID</th>\
 <th>军团名</th>\
 <th>简介</th>\
-</tr>\n'
+</tr>\n\
+</thead>\n\
+<tbody>\n'
     forID=''
 
     with open(csv_name,"r",newline='') as f:
@@ -51,7 +54,7 @@ def clanHTML():
     f.close()
 
 
-    HTML_content+='</table>'
+    HTML_content+='</tbody>\n</table>'
     processedF=open("clanhtml.txt","w+")
     processedF.write(HTML_content)
     print("HTML表格建立完成！")
