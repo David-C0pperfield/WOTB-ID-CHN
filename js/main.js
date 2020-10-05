@@ -15,7 +15,7 @@ $(function() {
 
     function chartHeight() {
         var totalHeight = $(window).height()
-        var minusHeight = 98
+        var minusHeight = 90
         var eleHeight = totalHeight - minusHeight
         $('#content').css('height', eleHeight)
     }
