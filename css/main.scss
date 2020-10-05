@@ -237,44 +237,43 @@ body {
         border-radius: 3px;
         padding: 1px;
     }
-}
-
-@media(prefers-color-scheme:dark) {
-     :root {
-        background: #333;
-    }
-    #head {
-        #searchbar {
-            background: #00000060;
-            #inner_s_bar {
-                input#searchstr {
-                    color: #fff;
-                    background-color: #ffffff20;
-                    transition: 0.2s ease-in;
-                    &:hover {
-                        background-color: #ffffff40;
+    @media(prefers-color-scheme:dark) {
+         :root {
+            background: #333;
+        }
+        #head {
+            #searchbar {
+                background: #00000060;
+                #inner_s_bar {
+                    input#searchstr {
+                        color: #fff;
+                        background-color: #ffffff20;
+                        transition: 0.2s ease-in;
+                        &:hover {
+                            background-color: #ffffff40;
+                        }
+                        &:focus {
+                            background-color: #00000040;
+                        }
                     }
-                    &:focus {
-                        background-color: #00000040;
-                    }
-                }
-                #search_btn {
-                    background-color: #ffffff80;
-                    color: #000;
-                    &:hover {
-                        background: #fff;
+                    #search_btn {
+                        background-color: #ffffff80;
+                        color: #000;
+                        &:hover {
+                            background: #fff;
+                        }
                     }
                 }
             }
-        }
-        #notification_zone {
-            background: #000000a0;
-            color: #fff;
-            #part2 {
-                // #acknowledgement {}
-                #links {
-                    a {
-                        color: gold;
+            #notification_zone {
+                background: #000000a0;
+                color: #fff;
+                #part2 {
+                    // #acknowledgement {}
+                    #links {
+                        a {
+                            color: gold;
+                        }
                     }
                 }
             }
