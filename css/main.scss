@@ -17,13 +17,12 @@
     text-shadow: 0 0 10px #000000a0;
 }
 
-$trHeight:48px;
 * {
     margin: 0;
     padding: 0;
 }
 
- :root {
+:root {
     background: #e8e8e8;
 }
 
@@ -95,17 +94,6 @@ body {
     hr {
         margin: 10px auto;
     }
-    #register-banner {
-        height: 42px;
-        width: 100%;
-        line-height: 42px;
-        text-align: center;
-        background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%);
-        position: fixed;
-        top: 56px;
-        color: #fff;
-        // @include blur-bg()
-    }
     #notification_zone {
         display: none;
         height: 320px;
@@ -153,66 +141,63 @@ body {
 }
 
 #content {
-    position: relative;
-    margin-top: calc(56px + 42px);
+    padding-top: calc(56px + 42px);
     color: #fff;
     // background: #333333;
     @include shadowed-text();
     -webkit-overflow-scrolling: touch;
     overflow: hidden;
-    overflow: scroll;
+    overflow-x: scroll;
     z-index: 50;
-    #chart {
-        position: relative;
-        margin: 0 auto;
-        width: 720px;
-        height: fill-available;
-        table {
-            width: 100%;
-            margin: auto;
-            table-layout: fixed;
-            border-collapse: collapse;
-            background: #364955e0;
-            display: block;
-            thead {
-                width: 720px;
-                position: fixed;
-                table-layout: fixed;
-                display: block;
-                background-color: #5d7385;
+    #register-banner {
+        height: 42px;
+        width: 100%;
+        line-height: 42px;
+        text-align: center;
+        background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%);
+        position: fixed;
+        top: 56px;
+        // @include blur-bg()
+    }
+    table {
+        margin: auto;
+        table-layout: fixed;
+        border-collapse: collapse;
+        background: #364955e0;
+        tr {
+            color: #A5B7CA;
+            height: 48px;
+            border-bottom: 1px solid #ffffff18;
+            &>* {
+                padding: 0 12.5px;
+            }
+            &:last-child {
+                border-bottom: none
+            }
+            th {
+                color: #fff;
+                background-color: #4B5D6C;
+                border-right: 1px solid #34424C;
                 @include disable-user-select;
-                text-align: left;
-                th {
-                    border-right: 1px solid #34424C;
-                    color: #fff;
-                    &:last-child {
-                        border-right: none
-                    }
-                }
-            }
-            tr {
-                width: 100%;
-                table-layout: fixed;
-                color: #A5B7CA;
-                height: $trHeight;
-                border-bottom: 1px solid #ffffff18;
-                &>* {
-                    padding: 0 12.5px;
-                }
                 &:last-child {
-                    border-bottom: none
+                    border-right: none
+                }
+                &:nth-child(1),
+                &:nth-child(3),
+                &:nth-child(4) {
+                    text-align: left;
                 }
             }
-            th,
             td {
+                color: #E9A844;
                 &:first-child {
-                    width: 48px;
+                    width: 50px;
                 }
                 &:nth-child(2) {
-                    width: 15em;
+                    width: 200px;
                 }
                 &:nth-child(3) {
-                    width: 22.5em;
+                    width: 20em;
                 }
                 &:first-child,
                 &:last-child {
@@ -220,60 +205,52 @@ body {
                     text-align: left;
                 }
             }
-            tbody {
-                padding-top: $trHeight;
-                table-layout: fixed;
-                display: block;
-                td {
-                    &:nth-child(2) {
-                        color: #E9A844;
+        }
+    }
+}
+
+.highlight {
+    background: #cd5c5c;
+    border-radius: 3px;
+    padding: 1px;
+}
+
+@media(prefers-color-scheme:dark) {
+     :root {
+        background: #333;
+    }
+    #head {
+        #searchbar {
+            background: #00000060;
+            #inner_s_bar {
+                input#searchstr {
+                    color: #fff;
+                    background-color: #ffffff20;
+                    transition: 0.2s ease-in;
+                    &:hover {
+                        background-color: #ffffff40;
+                    }
+                    &:focus {
+                        background-color: #00000040;
+                    }
+                }
+                #search_btn {
+                    background-color: #ffffff80;
+                    color: #000;
+                    &:hover {
+                        background: #fff;
                     }
                 }
             }
         }
-    }
-    .highlight {
-        background: #cd5c5c;
-        border-radius: 3px;
-        padding: 1px;
-    }
-    @media(prefers-color-scheme:dark) {
-         :root {
-            background: #333;
-        }
-        #head {
-            #searchbar {
-                background: #00000060;
-                #inner_s_bar {
-                    input#searchstr {
-                        color: #fff;
-                        background-color: #ffffff20;
-                        transition: 0.2s ease-in;
-                        &:hover {
-                            background-color: #ffffff40;
-                        }
-                        &:focus {
-                            background-color: #00000040;
-                        }
-                    }
-                    #search_btn {
-                        background-color: #ffffff80;
-                        color: #000;
-                        &:hover {
-                            background: #fff;
-                        }
-                    }
-                }
-            }
-            #notification_zone {
-                background: #000000a0;
-                color: #fff;
-                #part2 {
-                    // #acknowledgement {}
-                    #links {
-                        a {
-                            color: gold;
-                        }
+        #notification_zone {
+            background: #000000a0;
+            color: #fff;
+            #part2 {
+                // #acknowledgement {}
+                #links {
+                    a {
+                        color: gold;
                     }
                 }
             }

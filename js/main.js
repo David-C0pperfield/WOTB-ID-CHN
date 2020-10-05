@@ -6,20 +6,10 @@ $(function() {
             $('#searchstr').focus();
         }
     })
-
-    chartHeight()
-    window.onresize = function() { chartHeight() }
     $('#search_btn').on('click', function() {
         startSearching()
+
     })
-
-    function chartHeight() {
-        var totalHeight = $(window).height()
-        var minusHeight = 90
-        var eleHeight = totalHeight - minusHeight
-        $('#content').css('height', eleHeight)
-    }
-
 
     $('#searchstr').on('click', function() {
         if ($('#searchstr').is(':focus')) {
@@ -36,6 +26,7 @@ $(function() {
             slideUpNotification()
         }
     })
+
 
     function startSearching() {
         highlight()
@@ -142,9 +133,9 @@ $(function() {
             });
         });
     }
-    // setTimeout(function() {
-    //     $('#notification_zone').slideDown(250);
-    // }, 450)
+    setTimeout(function() {
+        $('#notification_zone').slideDown(250);
+    }, 450)
     replaceBrackets('#register-banner', 'total_entries', ($('#content table tr').length - 1))
 
     function replaceBrackets(target, name, content) {
@@ -154,5 +145,6 @@ $(function() {
             var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
         } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
         $(target).text(processedText)
+
     }
 })
