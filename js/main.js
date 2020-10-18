@@ -65,7 +65,9 @@ $(function() {
         //高亮显示
         $('tr').each(function() {
             var html = $(this).html();
-            var newHtml = html.replace(regExp, '<strong><span class="highlight">' + sCurText + '</span></strong>');
+            var newHtml = html.replace(regExp, function(txt) {
+                return '<strong><span class="highlight">' + txt + '</span></strong>'
+            });
             $(this).html(newHtml);
             flag = 1;
         });
