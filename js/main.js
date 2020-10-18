@@ -66,7 +66,7 @@ $(function() {
         $('tr').each(function() {
             var html = $(this).html();
             var newHtml = html.replace(regExp, function(txt) {
-                return '<strong><span class="highlight">' + txt + '</span></strong>'
+                return '<span class="highlight">' + txt + '</span>'
             });
             $(this).html(newHtml);
             flag = 1;
@@ -78,7 +78,10 @@ $(function() {
                 var _top = $(".highlight").eq(i).offset().top +
                     $(".highlight").eq(i).height();
                 var _tip = $(".highlight").eq(i).parent().find("strong").text();
-                $(".highlight").eq(i).css('background', '#FF0000')
+                $(".highlight").eq(i).css({
+                    'background': '#FF0000',
+                    'font-weight': 'bold',
+                })
                 if (_tip == "") {
                     _tip = $(".highlight").eq(i).parent().parent().find("strong").text();
                 }
