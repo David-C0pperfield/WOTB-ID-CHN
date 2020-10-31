@@ -17,13 +17,25 @@
     text-shadow: 0 0 10px #000000a0;
 }
 
+@mixin lightbg {
+    background: #e8e8e8;
+}
+
+@mixin darkbg {
+    background: #333;
+}
+
 * {
     margin: 0;
     padding: 0;
 }
 
+html {
+    @include lightbg()
+}
+
 :root {
-    background: #e8e8e8;
+    @include lightbg()
 }
 
 a {
@@ -216,8 +228,11 @@ body {
 }
 
 @media(prefers-color-scheme:dark) {
+    html {
+        @include darkbg()
+    }
      :root {
-        background: #333;
+        @include darkbg()
     }
     #head {
         #searchbar {
