@@ -50,7 +50,7 @@ $(function() {
 
 
         var regExp = new RegExp(searchText, 'gi');
-        var content = $("#content").text(); //获取#content中的文本
+        var content = $("#content table tbody").text(); //获取#content中的文本
         if (searchText == (null || '')) {
             alert('关键词不能为空！')
             return
