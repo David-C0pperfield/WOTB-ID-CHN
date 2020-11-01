@@ -60,7 +60,7 @@ $(function() {
         } else if (sCurText != searchText) {
             i = 0;
             sCurText = searchText;
-            $('#notice').prepend('<p>查找到 <b>' + sCurText + '</b></p>')
+            // $('#notice').prepend('<p>查找到 <b>' + sCurText + '</b></p>')
         }
         //高亮显示
         $('tr').each(function() {
@@ -74,7 +74,7 @@ $(function() {
         //定位并提示信息
         if (flag == 1) {
             if ($(".highlight").length > 1) {
-
+                $('#register-banner').html('共查找到' + $(".highlight").length + '条结果')
                 var _top = $(".highlight").eq(i).offset().top +
                     $(".highlight").eq(i).height();
                 var _tip = $(".highlight").eq(i).parent().find("strong").text();
