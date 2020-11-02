@@ -48,8 +48,17 @@ def clanHTML():
             cFullname=row[2]
             cDesc=row[3]
             if row[3]=='':
+<<<<<<< Updated upstream
                 cDesc='无'
             cInfo='<tr id="id_{ID}"><td>{ID}</td><td>[{Tag}] {Fullname}</td><td>{Desc}</td></tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
+=======
+                cDesc='--'
+            cInfo='<tr id="{ID}">\
+<td>{ID}</td>\
+<td>[{Tag}] {Fullname}</td>\
+<td>{Desc}</td>\
+</tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
+>>>>>>> Stashed changes
             HTML_content += cInfo
     f.close()
 

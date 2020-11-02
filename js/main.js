@@ -155,4 +155,19 @@ $(function() {
         } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
         $(target).text(processedText)
     }
+    //锚点相关
+    $('#content table tbody tr').on('click', function() {
+        removeHighlightClan()
+        highlightClanLine($(this))
+    })
+
+    function highlightClanLine(e) {
+        var clanID = '#' + e.attr('id')
+        e.addClass("highlight2");
+        // location.href = clanID
+        // console.log(location.href)
+    }
+
+    function removeHighlightClan() { $('.highlight2').removeClass('highlight2') }
+    // window.location.hash
 })
