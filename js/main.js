@@ -6,20 +6,10 @@ $(function() {
             $('#searchstr').focus();
         }
     })
-
-    chartHeight()
-    window.onresize = function() { chartHeight() }
     $('#search_btn').on('click', function() {
         startSearching()
+
     })
-
-    function chartHeight() {
-        var totalHeight = $(window).height()
-        var minusHeight = 98
-        var eleHeight = totalHeight - minusHeight
-        $('#content').css('height', eleHeight)
-    }
-
 
     $('#searchstr').on('click', function() {
         if ($('#searchstr').is(':focus')) {
@@ -36,6 +26,7 @@ $(function() {
             slideUpNotification()
         }
     })
+
 
     function startSearching() {
         highlight()
@@ -59,7 +50,7 @@ $(function() {
 
 
         var regExp = new RegExp(searchText, 'gi');
-        var content = $("#content").text(); //获取#content中的文本
+        var content = $('#content tbody tr td').text(); //搜索范围
         if (searchText == (null || '')) {
             alert('关键词不能为空！')
             return
@@ -69,23 +60,28 @@ $(function() {
         } else if (sCurText != searchText) {
             i = 0;
             sCurText = searchText;
-            $('#notice').prepend('<p>查找到 <b>' + sCurText + '</b></p>')
+            // $('#notice').prepend('<p>查找到 <b>' + sCurText + '</b></p>')
         }
         //高亮显示
         $('tr').each(function() {
             var html = $(this).html();
-            var newHtml = html.replace(regExp, '<strong><span class="highlight">' + sCurText + '</span></strong>');
+            var newHtml = html.replace(regExp, function(txt) {
+                return '<span class="highlight">' + txt + '</span>'
+            });
             $(this).html(newHtml);
             flag = 1;
         });
         //定位并提示信息
         if (flag == 1) {
             if ($(".highlight").length > 1) {
-
+                $('#register-banner').html('共查找到' + $(".highlight").length + '条结果')
                 var _top = $(".highlight").eq(i).offset().top +
                     $(".highlight").eq(i).height();
                 var _tip = $(".highlight").eq(i).parent().find("strong").text();
-                $(".highlight").eq(i).css('background', '#FF0000')
+                $(".highlight").eq(i).css({
+                    'background': '#FF0000',
+                    'font-weight': 'bold',
+                })
                 if (_tip == "") {
                     _tip = $(".highlight").eq(i).parent().parent().find("strong").text();
                 }
@@ -142,9 +138,9 @@ $(function() {
             });
         });
     }
-    // setTimeout(function() {
-    //     $('#notification_zone').slideDown(250);
-    // }, 450)
+    setTimeout(function() {
+        $('#notification_zone').slideDown(250);
+    }, 450)
     replaceBrackets('#register-banner', 'total_entries', ($('#content table tr').length - 1))
 
     function replaceBrackets(target, name, content) {
@@ -154,6 +150,7 @@ $(function() {
             var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
         } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
         $(target).text(processedText)
+
     }
     //锚点相关
     $('#content table tbody tr').on('click', function() {

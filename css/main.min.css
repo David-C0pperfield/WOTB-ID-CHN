@@ -1,5 +1,7 @@
 * { margin: 0; padding: 0; }
 
+html { background: #e8e8e8; }
+
 :root { background: #e8e8e8; }
 
 a { color: inherit; text-decoration: none; }
@@ -24,8 +26,6 @@ body { font-family: sans-serif; }
 
 #head hr { margin: 10px auto; }
 
-#head #register-banner { height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; top: 56px; color: #fff; }
-
 #head #notification_zone { display: none; height: 320px; background: #ffffffa0; color: #000; box-sizing: border-box; padding: 15px 25px; line-height: 1.5em; overflow: scroll; box-shadow: 0 0 20px 5px #00000060; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 
 #head #notification_zone section { margin-bottom: 10px; }
@@ -44,46 +44,38 @@ body { font-family: sans-serif; }
 
 #head #notification_zone #part2 #links a { color: darkviolet; }
 
-#content { position: relative; margin-top: calc(56px + 42px); color: #fff; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow: scroll; z-index: 50; }
+#content { padding-top: calc(56px + 42px); color: #fff; text-shadow: 0 0 10px #000000a0; -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
-#content #chart { position: relative; margin: 0 auto; width: 720px; height: fill-available; }
+#content #register-banner { height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; top: 56px; }
 
-#content #chart table { width: 100%; margin: auto; table-layout: fixed; border-collapse: collapse; background: #364955e0; display: block; }
+#content table { margin: auto; table-layout: fixed; border-collapse: collapse; background: #364955e0; }
 
-#content #chart table thead { width: 720px; position: fixed; table-layout: fixed; display: block; background-color: #5d7385; -o-user-select: none; user-select: none; text-align: left; }
+#content table tr { color: #A5B7CA; height: 48px; border-bottom: 1px solid #ffffff18; }
 
-#content #chart table thead th { border-right: 1px solid #34424C; color: #fff; }
+#content table tr > * { padding: 0 12.5px; }
 
-#content #chart table thead th:last-child { border-right: none; }
+#content table tr:last-child { border-bottom: none; }
 
-#content #chart table tr { width: 100%; table-layout: fixed; color: #A5B7CA; height: 48px; border-bottom: 1px solid #ffffff18; }
+#content table tr th { color: #fff; background-color: #4B5D6C; border-right: 1px solid #34424C; -o-user-select: none; user-select: none; }
 
-#content #chart table tr > * { padding: 0 12.5px; }
+#content table tr th:last-child { border-right: none; }
 
-#content #chart table tr:last-child { border-bottom: none; }
+#content table tr th:nth-child(1), #content table tr th:nth-child(3), #content table tr th:nth-child(4) { text-align: left; }
 
-#content #chart table th:first-child, #content #chart table td:first-child { width: 48px; }
+#content table tr td { color: #E9A844; }
 
-#content #chart table th:nth-child(2), #content #chart table td:nth-child(2) { width: 15em; }
+#content table tr td:first-child { width: 50px; }
 
-#content #chart table th:nth-child(3), #content #chart table td:nth-child(3) { width: 22.5em; }
+#content table tr td:nth-child(2) { width: 200px; }
 
-#content #chart table th:first-child, #content #chart table th:last-child, #content #chart table td:first-child, #content #chart table td:last-child { color: #fff; text-align: left; }
+#content table tr td:nth-child(3) { width: 20em; }
 
-#content #chart table tbody { padding-top: 48px; table-layout: fixed; display: block; }
+#content table tr td:first-child, #content table tr td:last-child { color: #fff; text-align: left; }
 
-#content #chart table tbody td:nth-child(2) { color: #E9A844; }
-
-#content .highlight { background: #cd5c5c; border-radius: 3px; padding: 1px; }
-
-<<<<<<< Updated upstream
-@media (prefers-color-scheme: dark) { :root { background: #333; }
-=======
-.highlight2 { background-color: #ffffff20; }
+.highlight { background: #cd5c5c; color: #fff458; border-radius: 3px; padding: 1px; }
 
 @media (prefers-color-scheme: dark) { html { background: #333; }
   :root { background: #333; }
->>>>>>> Stashed changes
   #head #searchbar { background: #00000060; }
   #head #searchbar #inner_s_bar input#searchstr { color: #fff; background-color: #ffffff20; transition: 0.2s ease-in; }
   #head #searchbar #inner_s_bar input#searchstr:hover { background-color: #ffffff40; }

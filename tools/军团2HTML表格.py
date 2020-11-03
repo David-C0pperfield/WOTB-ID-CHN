@@ -8,8 +8,8 @@ csv_name=r'闪击战军团ID.csv'
 excel_name=r'闪击战ID情报.xlsx'
 def xlsxToCsv():#首先导出csv
     while os.path.exists(excel_name) == False:
-        data = input('找不到“{}”，请寻找相关文件后键入路径。\n寻找文件：'.format\
-                     (excel_name))
+        data = input('找不到“{}”，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\
+                     寻找文件：'.format(excel_name))
 
     data=xlrd.open_workbook(excel_name)
     table=data.sheet_by_name(r'军团列表')
@@ -29,14 +29,14 @@ def xlsxToCsv():#首先导出csv
 
 def clanHTML():
     HTML_content='<table>\n\
-<thead>\n\
-<tr>\n\
+<thead>\
+<tr>\
 <th>ID</th>\
 <th>军团名</th>\
 <th>简介</th>\
 </tr>\n\
 </thead>\n\
-<tbody>\n'
+<tbody>'
     forID=''
 
     with open(csv_name,"r",newline='') as f:
@@ -48,26 +48,30 @@ def clanHTML():
             cFullname=row[2]
             cDesc=row[3]
             if row[3]=='':
-<<<<<<< Updated upstream
                 cDesc='无'
-            cInfo='<tr id="id_{ID}"><td>{ID}</td><td>[{Tag}] {Fullname}</td><td>{Desc}</td></tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
-=======
-                cDesc='--'
-            cInfo='<tr id="{ID}">\
+            cInfo='<tr>\
 <td>{ID}</td>\
 <td>[{Tag}] {Fullname}</td>\
 <td>{Desc}</td>\
 </tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
->>>>>>> Stashed changes
             HTML_content += cInfo
     f.close()
 
 
-    HTML_content+='</tbody>\n</table>'
-    processedF=open("clanhtml.txt","w+")
-    processedF.write(HTML_content)
+    HTML_content+='</tbody>\n</table>'#关闭table标签
+    #processedF=open("clanhtml.txt","w+")
+    #processedF.write(HTML_content)
     print("HTML表格建立完成！")
-    processedF.close()
+    #processedF.close()
+    binData=bytes(HTML_content,'utf-8')
+    setClipboardData(binData)
+
+def setClipboardData(data):
+        p=subprocess.Popen(['pbcopy'],stdin=subprocess.PIPE)
+        p.stdin.write(data)
+        p.stdin.close()
+        p.communicate()
+        print(r'已复制到剪贴板。')
 
 if __name__=='__main__':
     xlsxToCsv()
