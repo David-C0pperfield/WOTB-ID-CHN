@@ -43,7 +43,7 @@ $(function() {
 
     function highlight() {
         clearSelection();
-        var receiveText = replace($('#searchstr').val())
+        //var receiveText = replace($('#searchstr').val())
         var searchText = String($('#searchstr').val())
         var flag = 0
 
