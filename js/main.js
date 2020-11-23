@@ -43,11 +43,9 @@ $(function() {
 
     function highlight() {
         clearSelection();
-
+        var receiveText = replace($('#searchstr').val())
         var searchText = String($('#searchstr').val())
         var flag = 0
-
-
 
         var regExp = new RegExp(searchText, 'gi');
         var content = $('#content tbody tr td').text(); //搜索范围
