@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#BTN1").click(function() {
+                $.ajax({
+                    url: "1.json",
+                    dataType: "json",
+                    success: function(data) {
+                        if (data === undefined) {
+                            return false;
+                        }
+                        alert(data.current);
+                        alert(data.endPage);
+                    }
+                })
+
+            });
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <h1>调用静态json例子</h1>
+    <input type="button" value="BTN1" id="BTN1">
+</body>
+
+</html>

@@ -1,9 +1,11 @@
-﻿#!/usr/bin/env python3
+﻿#!usr/bin/env python3
+
 import xlrd
 import csv
 import re
 import os
 import subprocess
+
 csv_name = r'闪击战军团ID.csv'
 excel_name = r'闪击战ID情报.xlsx'
 def xlsxToCsv():#首先导出csv
@@ -13,10 +15,10 @@ def xlsxToCsv():#首先导出csv
 
     data = xlrd.open_workbook(excel_name)
     table = data.sheet_by_name(r'军团列表')
-    with open(csv_name,'w+',encoding='utf-8') as f:
+    with open(csv_name,'w+',encoding = 'utf-8') as f:
         write = csv.writer(f)
         print('共{}条数据\n==========\n'.format(table.nrows - 1))
-        for i in range(1,table.nrows):
+        for i in range(1, table.nrows):
             row_content = []
             for j in range(table.ncols):
                 ctype = table.cell(i,j).ctype
@@ -24,6 +26,8 @@ def xlsxToCsv():#首先导出csv
                 if ctype == 2 and cell % 1 == 0:
                     cell = int(cell)
                 if j == 3:
+                    if cell == '':
+                        cell = r'无'
                     cell = cell.replace('\n','<br>')
                 row_content.append(cell)
             write.writerow(row_content)
@@ -39,23 +43,21 @@ def clanHTML():
 </tr>\n\
 </thead>\n\
 <tbody>'
-    forID=''
+    forID = ''
 
     with open(csv_name,"r",newline = '') as f:
         reader = csv.reader(f)
-        for i,row in enumerate(reader):
-            #if i>0:
+        for i, row in enumerate(reader):
+            #if i > 0:
             cID = row[0]
             cTag = row[1]
             cFullname = row[2]
             cDesc = row[3]
-            if row[3] == '':
-                cDesc = '无'
             cInfo = '<tr>\
 <td>{ID}</td>\
 <td>[{Tag}] {Fullname}</td>\
 <td>{Desc}</td>\
-</tr>\n'.format(ID=cID,Tag=cTag,Fullname=cFullname,Desc=cDesc)
+</tr>\n'.format(ID = cID,Tag = cTag,Fullname = cFullname,Desc = cDesc)
             HTML_content += cInfo
     f.close()
 
@@ -65,7 +67,7 @@ def clanHTML():
     #processedF.write(HTML_content)
     print("HTML表格建立完成！")
     #processedF.close()
-    binData=bytes(HTML_content,'utf-8')
+    binData = bytes(HTML_content,'utf-8')
     setClipboardData(binData)
 
 def setClipboardData(data):
