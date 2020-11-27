@@ -5,7 +5,7 @@ $(function() {
         success: function(data) {
             if (data === undefined) return false;
             var total_entries = jsonLength(data);
-            replaceBrackets('#register-banner', total_entries, 'total_entries');
+            replaceBrackets('#register-banner .info', total_entries, 'total_entries');
 
             var dataIndex = 0
             for (var i in data) {
@@ -42,7 +42,7 @@ $(function() {
     });
     $(document).on('click', function(e) {
         var target = $(e.target)
-        if (!target.is('#searchstr') && !target.is('#notification_zone') && !target.is('#notification_zone *')) {
+        if (!target.is('#searchstr') && !target.is('#notification_zone') || target.is('#notification_zone .toCollapse' && !target.is('#notification_zone *'))) {
             slideUpNotification()
         }
     })

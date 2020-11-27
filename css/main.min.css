@@ -26,7 +26,7 @@ body { font-family: sans-serif; }
 
 #head hr { margin: 10px auto; }
 
-#head #notification_zone { display: none; height: 320px; background: rgba(255, 255, 255, 0.627); color: #000; box-sizing: border-box; padding: 15px 25px; line-height: 1.5em; overflow: scroll; box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.376); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+#head #notification_zone { display: none; height: 320px; background: rgba(255, 255, 255, 0.627); color: #000; box-sizing: border-box; padding: 15px 25px; line-height: 1.5em; overflow: scroll; box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.376); position: relative; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
 
 #head #notification_zone section { margin-bottom: 10px; }
 
@@ -44,9 +44,17 @@ body { font-family: sans-serif; }
 
 #head #notification_zone #part2 #links a { color: darkviolet; }
 
+#head #notification_zone .toCollapse { text-align: center; width: 100%; margin: 0 auto; position: absolute; bottom: 0; }
+
 #content { padding-top: calc(56px + 42px); color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.627); -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
-#content #register-banner { height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; top: 56px; }
+#content #register-banner { position: relative; height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; top: 56px; }
+
+#content #register-banner * { vertical-align: middle; }
+
+#content #register-banner .prev { position: absolute; left: 35px; }
+
+#content #register-banner .next { position: absolute; right: 35px; }
 
 #content table { margin: auto; table-layout: fixed; border-collapse: collapse; background: rgba(54, 73, 85, 0.878); width: 675; }
 

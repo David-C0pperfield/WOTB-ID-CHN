@@ -116,6 +116,7 @@ body {
         line-height: 1.5em;
         overflow: scroll;
         box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.376);
+        position: relative;
         @include blur-bg();
         // @include shadowed-text();
         section {
@@ -149,6 +150,13 @@ body {
                 }
             }
         }
+        .toCollapse {
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+            position: absolute;
+            bottom: 0;
+        }
     }
 }
 
@@ -162,6 +170,10 @@ body {
     overflow-x: scroll;
     z-index: 50;
     #register-banner {
+        & * {
+            vertical-align: middle;
+        }
+        position: relative;
         height: 42px;
         width: 100%;
         line-height: 42px;
@@ -169,7 +181,14 @@ body {
         background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%);
         position: fixed;
         top: 56px;
-        // @include blur-bg()
+        .prev {
+            position: absolute;
+            left: 35px
+        }
+        .next {
+            position: absolute;
+            right: 35px;
+        }
     }
     table {
         margin: auto;
