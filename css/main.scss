@@ -1,11 +1,11 @@
 @charset "utf-8";
 @mixin disable-user-select {
-    -webkit-user-select: none;
-    -moz-user-select: none;
     -o-user-select: none;
-    -khtml-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    unselectable: on;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 @mixin blur-bg {
@@ -45,6 +45,11 @@ a {
 
 body {
     font-family: sans-serif;
+}
+
+.btn {
+    cursor: pointer;
+    @include disable-user-select()
 }
 
 #head {
@@ -181,13 +186,15 @@ body {
         background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%);
         position: fixed;
         top: 56px;
-        .prev {
+        @include disable-user-select();
+        .flipBtn {
             position: absolute;
-            left: 35px
-        }
-        .next {
-            position: absolute;
-            right: 35px;
+            &.prev {
+                left: 35px
+            }
+            &.next {
+                right: 35px;
+            }
         }
     }
     table {
