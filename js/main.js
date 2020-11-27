@@ -42,7 +42,7 @@ $(function() {
     });
     $(document).on('click', function(e) {
         var target = $(e.target)
-        if (!target.is('#searchstr') && !target.is('#notification_zone') && !target.is('#notification_zone *')) {
+        if (!target.is('#searchstr') && !target.is('#notification_zone') || target.is('#notification_zone .toCollapse' && !target.is('#notification_zone *'))) {
             slideUpNotification()
         }
     })

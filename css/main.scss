@@ -116,6 +116,7 @@ body {
         line-height: 1.5em;
         overflow: scroll;
         box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.376);
+        position: relative;
         @include blur-bg();
         // @include shadowed-text();
         section {
@@ -148,6 +149,13 @@ body {
                     color: darkviolet;
                 }
             }
+        }
+        .toCollapse {
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+            position: absolute;
+            bottom: 0;
         }
     }
 }
