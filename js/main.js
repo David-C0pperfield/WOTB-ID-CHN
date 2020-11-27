@@ -4,7 +4,6 @@ $(function() {
         dataType: "json",
         success: function(data) {
             if (data === undefined) return false;
-
             var total_entries = jsonLength(data);
             replaceBrackets('#register-banner', total_entries, 'total_entries');
 
