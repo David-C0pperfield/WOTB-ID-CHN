@@ -1,4 +1,30 @@
 $(function() {
+    $.ajax({
+        url: "./tools/clan.json",
+        dataType: "json",
+        success: function(data) {
+            if (data === undefined) return false;
+
+            var total_entries = jsonLength(data);
+            replaceBrackets('#register-banner', total_entries, 'total_entries');
+
+            var dataIndex = 0
+            for (var i in data) {
+                var ID = String(data[dataIndex].ID)
+                var Tag = data[dataIndex].Tag
+                var Full = data[dataIndex].Full
+                var Desc = data[dataIndex].Desc
+                if (dataIndex < 20) {
+                    var insertHTML = '<tr><td>' + ID +
+                        '</td><td>' + '[' + Tag + '] ' + Full +
+                        '</td><td>' + Desc + '</td></tr>'
+                    $('#content tbody').append(insertHTML)
+                    dataIndex++
+                }
+            }
+        }
+    })
+
     $(document).on('keydown', function(e) {
         var keyFind = e.which
         if ((e.ctrlKey && keyFind == 70) || (e.metaKey && keyFind == 70)) {
@@ -6,15 +32,10 @@ $(function() {
             $('#searchstr').focus();
         }
     })
-    $('#search_btn').on('click', function() {
-        startSearching()
-
-    })
+    $('#search_btn').on('click', function() { startSearching() })
 
     $('#searchstr').on('click', function() {
-        if ($('#searchstr').is(':focus')) {
-            $('#notification_zone').slideDown(250);
-        }
+        if ($('#searchstr').is(':focus')) $('#notification_zone').slideDown(250);
     })
     $('#searchstr').on('keydown', function(e) {
         var key = e.which;
@@ -27,16 +48,13 @@ $(function() {
         }
     })
 
-
     function startSearching() {
         highlight()
         slideUpNotification()
     }
 
     function slideUpNotification() {
-        if ($('#notification_zone').css('display') != 'none') {
-            $('#notification_zone').slideUp(250);
-        }
+        if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250);
     }
     var i = 0;
     var sCurText;
@@ -139,16 +157,14 @@ $(function() {
     setTimeout(function() {
         $('#notification_zone').slideDown(250);
     }, 450)
-    replaceBrackets('#register-banner', 'total_entries', ($('#content table tr').length - 1))
 
-    function replaceBrackets(target, name, content) {
+    function replaceBrackets(target, content, name) {
         //替换某个含有{{xxxx}}的文本
         var origin = $(target).text()
         if (name == '') {
             var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
         } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
         $(target).text(processedText)
-
     }
     //锚点相关
     $('#content table tbody tr').on('click', function() {
@@ -165,4 +181,14 @@ $(function() {
 
     function removeHighlightClan() { $('.highlight2').removeClass('highlight2') }
     // window.location.hash
+
+    // 计算json长度
+    function jsonLength(jsonData) {
+        var dataLen = 0;
+        for (var i in jsonData) {
+            dataLen++
+        }
+
+        return dataLen
+    }
 })

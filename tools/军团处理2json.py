@@ -36,7 +36,7 @@ def xlsxRead():
    
     processed_json=json.dumps(data_list,sort_keys=False,indent=4,separators=(',',':'),ensure_ascii=False)
 
-    f = open('clan,json','w+')
+    f = open('clan.json','w+')
     f.write(processed_json)
     f.close()
     print('json建立完成')
