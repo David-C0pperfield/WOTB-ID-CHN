@@ -15,8 +15,18 @@
                         if (data === undefined) {
                             return false;
                         }
-                        alert(data.current);
-                        alert(data.endPage);
+
+                        function jsonLength(Jdata) {
+                            var dataLen = 0;
+                            for (var i in Jdata) {
+                                dataLen++
+                            }
+                            console.log(dataLen)
+                            return dataLen
+                        }
+                        jsonLength(data)
+                        $('body').append('<div>数据1：' + data.current + '<br>' +
+                            '数据2：' + data.endpage + '<div>');
                     }
                 })
 
