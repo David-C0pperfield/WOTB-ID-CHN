@@ -1,24 +1,24 @@
 $(function() {
     fetchData() //接受json
 
-    var beginIndex = 3650,
-        stepLength = 1,
+    var beginIndex = 0,
+        stepLength = 20,
         endingIndex = beginIndex + stepLength - 1,
-        dataIndex = beginIndex;
+        dataIndex = beginIndex,
+        overflowIndex = 0,
+        overflowStep = 0;
 
     $('.flipBtn.next').on('click', function() {
         beginIndex += stepLength
         endingIndex += stepLength
         dataIndex = beginIndex
         fetchData()
-        console.log('next' + String(beginIndex) + '~' + String(endingIndex))
     })
     $('.flipBtn.prev').on('click', function() {
         beginIndex += -stepLength
         endingIndex += -stepLength
         dataIndex = beginIndex
         fetchData()
-        console.log('prev' + String(beginIndex) + '~' + String(endingIndex))
     })
 
     function fetchData() {
@@ -43,16 +43,19 @@ $(function() {
                     $('#content tbody').empty()
                     if (beginIndex < 0) {
                         beginIndex = 0
-                        endingIndex = stepLength
-                        console.log(beginIndex, endingIndex)
-                    }
+                        endingIndex = beginIndex + stepLength - 1
+                        console.log('less than 0' + beginIndex, endingIndex)
+                    } //index为负数时的处理
                     if (endingIndex > total_entries - 1) {
-                        let overflowIndex = endingIndex
+                        overflowIndex = endingIndex
                         endingIndex = total_entries - 1
-                        beginIndex = overflowIndex - endingIndex
-                            // console.log(overflowIndex, beginIndex, endingIndex)
-                    }
-
+                        overflowStep = overflowIndex - endingIndex
+                        console.log(overflowStep, beginIndex, endingIndex)
+                    } //超出的处理
+                    if (overflowStep != 0) {
+                        endingIndex += overflowStep
+                        overflowStep = 0
+                    } //补回溢出的读取长度
                     for (var detail in data) {
                         let ID = data[dataIndex].ID;
                         let Tag = data[dataIndex].Tag;
@@ -71,6 +74,7 @@ $(function() {
                             }
                         }
                     }
+
                 })();
             }
         })
