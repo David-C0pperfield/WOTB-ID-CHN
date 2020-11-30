@@ -28,7 +28,7 @@ $(function() {
             error: function() { console.log('数据获取失败') },
             success: function(data) {
                 if (data === undefined) return false;
-                var total_entries = jsonLength(data);
+                var total_entries = data.length;
                 replaceBrackets('#register-banner .info', total_entries, 'total_entries');
 
                 (function judgePage() {
@@ -121,8 +121,24 @@ $(function() {
         if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250);
     }
 
-    function getClanData(keyword) {
+    function getClanData() {
         var keyword = $('#searchstr').val();
+        var filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
+
+        if (keyword == '' || undefined) {
+            alert('请输入关键词。')
+            return
+        }
+
+        for (let i in keyword) {
+            for (let j in filter) {
+                filtSpecial = new RegExp(filter[j], 'g')
+                keyword = keyword.replace(filtSpecial, filter[j])
+            }
+        }
+        console.log(keyword)
+
+        // keyword = keyword.replace(/[\[\]\{\}\(\)\+\-\*\/]/g, '')
         // var comparison = toCompare(keyword, data)
         // renderResult(comparison)
         $.ajax({
@@ -130,31 +146,32 @@ $(function() {
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
-                let i = 0
-                while (i >= 0 && i < 4) {
-                    console.log(data[i].ID)
-                    i++
-                }
+                toCompare(keyword, data)
             }
         })
     }
 
-    function toCompare(keyword, list) {
-        if (!(list instanceof Array)) return
-        var len = list.length
-        var arr = []
-        var reg = new RegExp(keyword)
-        for (var i = 0; i < len; i++) {
-            if (list[i].match(reg)) {
-                arr.push(list[i])
+    function toCompare(keyword, data) {
+        if (!(data instanceof Array)) return
+        let len = data.length,
+            arr = [],
+            reg = new RegExp(keyword, 'i'),
+            strictReg = new RegExp(keyword);
+        for (let i = 0; i < len; i++) {
+            if (String(data[i].Tag).match(reg) || String(data[i].Fullname).match(reg) || String(data[i].ID).match(reg)) {
+                arr.push(data[i])
             }
         }
+        for (let i in arr) {
+            console.log(arr[i])
+        }
+
     }
 
     function renderResult() {
         if (!(list instanceof Array)) return
-        var len = list.length
-        var item = mull
+        var len = list.length,
+            tem = null;
         for (var i = 0; i < len; i++) {
 
         }
@@ -283,12 +300,4 @@ $(function() {
     // function removeHighlightClan() { $('.highlight2').removeClass('highlight2') }
     // window.location.hash
 
-    // 计算json长度
-    function jsonLength(jsonData) {
-        let dataLen = 0;
-        for (let i in jsonData) {
-            dataLen++
-        }
-        return dataLen
-    }
 })
