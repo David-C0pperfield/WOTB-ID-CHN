@@ -54,7 +54,7 @@ body { font-family: sans-serif; }
 
 #content #register-banner * { vertical-align: middle; }
 
-#content #register-banner .flipBtn { position: absolute; }
+#content #register-banner .flipBtn { position: absolute; display: none; }
 
 #content #register-banner .flipBtn.prev { left: 35px; }
 

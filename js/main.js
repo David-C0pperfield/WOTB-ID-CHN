@@ -56,24 +56,25 @@ $(function() {
                         endingIndex += overflowStep
                         overflowStep = 0
                     } //补回溢出的读取长度
-                    for (var detail in data) {
+
+
+                    while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
                         let ID = data[dataIndex].ID;
                         let Tag = data[dataIndex].Tag;
                         let Full = data[dataIndex].Full;
                         let Desc = data[dataIndex].Desc;
 
-                        if (dataIndex >= beginIndex && dataIndex <= endingIndex) {
-                            let insertHTML = '<tr><td>' + ID +
-                                '</td><td>' + '[' + Tag + '] ' + Full +
-                                '</td><td>' + Desc + '</td></tr>'
-                            $('#content tbody').append(insertHTML)
-                            if (dataIndex < total_entries - 1) {
-                                dataIndex++
-                            } else {
-                                return
-                            }
+                        let insertHTML = '<tr><td>' + ID +
+                            '</td><td>' + '[' + Tag + '] ' + Full +
+                            '</td><td>' + Desc + '</td></tr>'
+                        $('#content tbody').append(insertHTML)
+                        if (dataIndex < total_entries - 1) {
+                            dataIndex++
+                        } else {
+                            return
                         }
                     }
+
 
                 })();
             }
@@ -96,14 +97,14 @@ $(function() {
             $('#notification_zone').slideDown(250);
         }, 450)
     }
-    $('#searchstr').on('click', function() {
+    $('#searchstr').on('click', function() { //聚焦时显示横幅
         if ($('#searchstr').is(':focus')) $('#notification_zone').slideDown(250);
     })
-    $('#searchstr').on('keydown', function(e) {
+    $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
         if (key == 13) startSearching();
     });
-    $(document).on('click', function(e) {
+    $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
         if (!target.is('#searchstr') && !target.is('#notification_zone') || target.is('#notification_zone .toCollapse' && !target.is('#notification_zone *'))) {
             slideUpNotification()
@@ -122,9 +123,20 @@ $(function() {
 
     function getClanData(keyword) {
         var keyword = $('#searchstr').val();
-        console.log(keyword)
-        var comparison = toCompare(keyword, data)
-        renderResult(comparison)
+        // var comparison = toCompare(keyword, data)
+        // renderResult(comparison)
+        $.ajax({
+            url: './js/clan.json',
+            dataType: 'json',
+            error: function() { console.log('数据获取失败') },
+            success: function(data) {
+                let i = 0
+                while (i >= 0 && i < 4) {
+                    console.log(data[i].ID)
+                    i++
+                }
+            }
+        })
     }
 
     function toCompare(keyword, list) {

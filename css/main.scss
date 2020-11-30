@@ -189,6 +189,7 @@ body {
         @include disable-user-select();
         .flipBtn {
             position: absolute;
+            display: none;
             &.prev {
                 left: 35px;
             }
