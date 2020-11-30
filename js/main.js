@@ -7,6 +7,9 @@ $(function() {
         overflowIndex = 0,
         overflowStep = 0;
     $(document).on('click', '.flipBtn.back', function() {
+        beginIndex = beginIndex
+        endingIndex = endingIndex
+        dataIndex = beginIndex
         fetchData()
         $('.flipBtn').show()
         $('.flipBtn.back').hide()
@@ -43,6 +46,7 @@ $(function() {
                 })();
                 (function loadList() {
                     $('#content tbody').empty()
+
                     if (beginIndex < 0) {
                         beginIndex = 0
                         endingIndex = beginIndex + stepLength - 1
@@ -68,8 +72,6 @@ $(function() {
                             return
                         }
                     }
-
-
                 })();
             }
         })
