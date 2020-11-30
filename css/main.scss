@@ -175,7 +175,7 @@ body {
     overflow-x: scroll;
     z-index: 50;
     #register-banner {
-        & * {
+        &>* {
             vertical-align: middle;
         }
         position: relative;
@@ -188,9 +188,13 @@ body {
         top: 56px;
         @include disable-user-select();
         .flipBtn {
+            svg {
+                vertical-align: middle;
+            }
             position: absolute;
             display: none;
-            &.prev {
+            &.prev,
+            &.back {
                 left: 35px;
             }
             &.next {

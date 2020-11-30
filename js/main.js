@@ -1,13 +1,16 @@
 $(function() {
     fetchData() //接受json
-
     var beginIndex = 0,
         stepLength = 20,
         endingIndex = beginIndex + stepLength - 1,
         dataIndex = beginIndex,
         overflowIndex = 0,
         overflowStep = 0;
-
+    $(document).on('click', '.flipBtn.back', function() {
+        fetchData()
+        $('.flipBtn').show()
+        $('.flipBtn.back').hide()
+    })
     $('.flipBtn.next').on('click', function() {
         beginIndex += stepLength
         endingIndex += stepLength
@@ -28,9 +31,8 @@ $(function() {
             error: function() { console.log('数据获取失败') },
             success: function(data) {
                 if (data === undefined) return false;
-                var total_entries = jsonLength(data);
-                replaceBrackets('#register-banner .info', total_entries, 'total_entries');
-
+                var total_entries = data.length;
+                info('收录', total_entries);
                 (function judgePage() {
                     if (beginIndex <= 0) {
                         $('.flipBtn.prev').hide()
@@ -44,13 +46,13 @@ $(function() {
                     if (beginIndex < 0) {
                         beginIndex = 0
                         endingIndex = beginIndex + stepLength - 1
-                        console.log('less than 0' + beginIndex, endingIndex)
+
                     } //index为负数时的处理
                     if (endingIndex > total_entries - 1) {
                         overflowIndex = endingIndex
                         endingIndex = total_entries - 1
                         overflowStep = overflowIndex - endingIndex
-                        console.log(overflowStep, beginIndex, endingIndex)
+
                     } //超出的处理
                     if (overflowStep != 0) {
                         endingIndex += overflowStep
@@ -59,15 +61,7 @@ $(function() {
 
 
                     while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
-                        let ID = data[dataIndex].ID;
-                        let Tag = data[dataIndex].Tag;
-                        let Full = data[dataIndex].Full;
-                        let Desc = data[dataIndex].Desc;
-
-                        let insertHTML = '<tr><td>' + ID +
-                            '</td><td>' + '[' + Tag + '] ' + Full +
-                            '</td><td>' + Desc + '</td></tr>'
-                        $('#content tbody').append(insertHTML)
+                        insertData(data, dataIndex)
                         if (dataIndex < total_entries - 1) {
                             dataIndex++
                         } else {
@@ -98,7 +92,9 @@ $(function() {
         }, 450)
     }
     $('#searchstr').on('click', function() { //聚焦时显示横幅
-        if ($('#searchstr').is(':focus')) $('#notification_zone').slideDown(250);
+        if ($('#searchstr').is(':focus')) {
+            $('#notification_zone').slideDown(250)
+        };
     })
     $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
@@ -115,14 +111,36 @@ $(function() {
         // highlight()
         getClanData()
         slideUpNotification()
+        $('.flipBtn').hide()
+        $('#register-banner').prepend('<span class="btn flipBtn back">\
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
+            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>\
+        </svg>返回\
+    </span>');
+        $('.flipBtn.back').show()
     }
 
     function slideUpNotification() {
         if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250);
     }
 
-    function getClanData(keyword) {
+    function getClanData() {
         var keyword = $('#searchstr').val();
+        var filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
+
+        if (keyword == '' || undefined) {
+            alert('请输入关键词。')
+            return
+        }
+
+        for (let i in keyword) {
+            for (let j in filter) {
+                filtSpecial = new RegExp(filter[j], 'g')
+                keyword = keyword.replace(filtSpecial, filter[j])
+            }
+        }
+
+        // keyword = keyword.replace(/[\[\]\{\}\(\)\+\-\*\/]/g, '')
         // var comparison = toCompare(keyword, data)
         // renderResult(comparison)
         $.ajax({
@@ -130,165 +148,54 @@ $(function() {
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
-                let i = 0
-                while (i >= 0 && i < 4) {
-                    console.log(data[i].ID)
-                    i++
-                }
+                $('#content tbody').empty()
+                toCompare(keyword, data)
             }
         })
     }
 
-    function toCompare(keyword, list) {
-        if (!(list instanceof Array)) return
-        var len = list.length
-        var arr = []
-        var reg = new RegExp(keyword)
-        for (var i = 0; i < len; i++) {
-            if (list[i].match(reg)) {
-                arr.push(list[i])
+    function toCompare(keyword, data) {
+        if (!(data instanceof Array)) return
+        let len = data.length,
+            arr = [],
+            reg = new RegExp(keyword, 'i'),
+            strictReg = new RegExp(keyword);
+        for (let i = 0; i < len; i++) {
+            if (String(data[i].Tag).match(reg) || String(data[i].Fullname).match(reg) || String(data[i].ID).match(reg)) {
+                arr.push(data[i])
             }
         }
-    }
-
-    function renderResult() {
-        if (!(list instanceof Array)) return
-        var len = list.length
-        var item = mull
-        for (var i = 0; i < len; i++) {
-
+        for (let i in arr) {
+            // console.log(arr[i])
+            insertData(arr, i)
         }
+        info('搜索到', arr.length);
     }
-    var i = 0;
-    var sCurText;
 
-    // function highlight() {
-    //     clearSelection();
-    //     //var receiveText = replace($('#searchstr').val())
-    //     var searchText = String($('#searchstr').val())
-    //     var flag = 0
 
-    //     var regExp = new RegExp(searchText, 'gi');
-    //     var content = $('#content tbody tr td').text(); //搜索范围
-    //     if (searchText == (null || '')) {
-    //         alert('关键词不能为空！')
-    //         return
-    //     } else if (!regExp.test(content)) {
-    //         alert("没有找到相关内容");
-    //         return;
-    //     } else if (sCurText != searchText) {
-    //         i = 0;
-    //         sCurText = searchText;
-    //         // $('#notice').prepend('<p>查找到 <b>' + sCurText + '</b></p>')
-    //     }
-    //     //高亮显示
-    //     $('tr').each(function() {
-    //         var html = $(this).html();
-    //         var newHtml = html.replace(regExp, function(txt) {
-    //             return '<span class="highlight">' + txt + '</span>'
-    //         });
-    //         $(this).html(newHtml);
-    //         flag = 1;
-    //     });
-    //     //定位并提示信息
-    //     if (flag == 1) {
-    //         if ($(".highlight").length > 1) {
-    //             $('#register-banner').html('共查找到' + $(".highlight").length + '条结果')
-    //             var _top = $(".highlight").eq(i).offset().top +
-    //                 $(".highlight").eq(i).height();
-    //             var _tip = $(".highlight").eq(i).parent().find("strong").text();
-    //             $(".highlight").eq(i).css({
-    //                 'background': '#FF0000',
-    //                 'font-weight': 'bold',
-    //             })
-    //             if (_tip == "") {
-    //                 _tip = $(".highlight").eq(i).parent().parent().find("strong").text();
-    //             }
-
-    //             var _left = $(".highlight").eq(i).offset().left;
-    //             var _tipWidth = $("#tip").width();
-
-    //             if (_left > $(document).width() - _tipWidth) {
-    //                 _left = _left - _tipWidth;
-    //             }
-    //             $("#tip").html(_tip).show();
-    //             $("#tip").offset({
-    //                 top: _top,
-    //                 left: _left
-    //             });
-    //             $("#search_btn").html("下一个");
-    //         } else {
-    //             var _top = $(".highlight").offset().top + $(".highlight").height();
-    //             var _tip = $(".highlight").parent().find("strong").text();
-    //             var _left = $(".highlight").offset().left;
-    //             $('#tip').show();
-    //             $("#tip").html(_tip).offset({
-    //                 top: _top,
-    //                 left: _left
-    //             });
-    //         }
-    //         $("html, body").animate({
-    //             scrollTop: _top - 185
-    //         });
-    //         i++;
-    //         if (i > $(".highlight").length - 1) {
-    //             i = 0;
-    //         }
-    //     }
+    // function replaceBrackets(target, content, name) {
+    //     //替换某个含有{{xxxx}}的文本
+    //     var origin = $(target).text()
+    //     if (name == '') {
+    //         var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
+    //     } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
+    //     $(target).text(processedText)
     // }
 
-    // function tipPopup(c) {
-    //     var head_position = $('#head').offset().top
-    //     var head_height = $('#head').height();
-    //     if ($('#popup_tip').length == 0) {
-    //         $('body').append('<div id="popup_tip">' + c + '</div>');
-    //     } else { $('#popup_tip').html(c) }
-    //     $('#popuo_tip').css({
-    //         'position': 'absolute',
-    //         'top': '0',
-    //     });
-    // }
-
-    // function clearSelection() {
-    //     $('tr').each(function() {
-    //         //找到所有highlight属性的元素；
-    //         $(this).find('.highlight').each(function() {
-    //             $(this).replaceWith($(this).html()); //将他们的属性去掉；
-    //         });
-    //     });
-    // }
-
-
-    function replaceBrackets(target, content, name) {
-        //替换某个含有{{xxxx}}的文本
-        var origin = $(target).text()
-        if (name == '') {
-            var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
-        } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
-        $(target).text(processedText)
+    function info(action, number) {
+        $('.info .action').html(action);
+        $('.info .total_entries').html(number);
     }
-    //锚点相关
-    // $('#content table tbody tr').on('click', function() {
-    //     removeHighlightClan()
-    //     highlightClanLine($(this))
-    // })
 
-    // function highlightClanLine(e) {
-    //     var clanID = '#' + e.attr('id')
-    //     e.addClass("highlight2");
-    //     // location.href = clanID
-    //     // console.log(location.href)
-    // }
+    function insertData(d, i) {
+        let ID = d[i].ID;
+        let Tag = d[i].Tag;
+        let Full = d[i].Full;
+        let Desc = d[i].Desc;
 
-    // function removeHighlightClan() { $('.highlight2').removeClass('highlight2') }
-    // window.location.hash
-
-    // 计算json长度
-    function jsonLength(jsonData) {
-        let dataLen = 0;
-        for (let i in jsonData) {
-            dataLen++
-        }
-        return dataLen
+        let insertHTML = '<tr><td>' + ID +
+            '</td><td>' + '[' + Tag + '] ' + Full +
+            '</td><td>' + Desc + '</td></tr>'
+        $('#content tbody').append(insertHTML)
     }
 })

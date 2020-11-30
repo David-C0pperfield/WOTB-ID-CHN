@@ -52,11 +52,13 @@ body { font-family: sans-serif; }
 
 #content #register-banner { position: relative; height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; top: 56px; -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; }
 
-#content #register-banner * { vertical-align: middle; }
+#content #register-banner > * { vertical-align: middle; }
 
 #content #register-banner .flipBtn { position: absolute; display: none; }
 
-#content #register-banner .flipBtn.prev { left: 35px; }
+#content #register-banner .flipBtn svg { vertical-align: middle; }
+
+#content #register-banner .flipBtn.prev, #content #register-banner .flipBtn.back { left: 35px; }
 
 #content #register-banner .flipBtn.next { right: 35px; }
 
