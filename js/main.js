@@ -104,7 +104,7 @@ $(function() {
     });
     $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
-        if (!target.is('#searchstr') && !target.is('#notification_zone') || target.is('#notification_zone .toCollapse' && !target.is('#notification_zone *'))) {
+        if (!target.is('#searchstr') && !target.is('#notification_zone .wrap') && !target.is('#notification_zone .wrap *') || (target.is('#notification_zone .toCollapse') || target.is('#notification_zone .toCollapse *'))) {
             slideUpNotification()
         }
     })
