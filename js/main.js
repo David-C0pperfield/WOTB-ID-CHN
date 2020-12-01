@@ -163,7 +163,7 @@ $(function() {
             reg = new RegExp(keyword, 'i'),
             strictReg = new RegExp(keyword);
         for (let i = 0; i < len; i++) {
-            if (String(data[i].Tag).match(reg) || String(data[i].Fullname).match(reg) || String(data[i].ID).match(reg)) {
+            if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(reg)) {
                 arr.push(data[i])
             }
         }
