@@ -33,7 +33,7 @@ def xlsxRead():
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]
         data_list.append(row_data)
-   
+    print('共{}条数据'.format(i))
     processed_json=json.dumps(data_list,sort_keys=False,indent=4,separators=(',',':'),ensure_ascii=False)
 
     f = open('../js/clan.json','w+')
