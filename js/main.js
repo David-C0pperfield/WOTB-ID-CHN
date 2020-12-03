@@ -87,6 +87,10 @@ $(function() {
     $('#search_btn').on('click', function() { startSearching() })
         //通知栏进入后自动下拉
         // slideDownNotification()
+    $('.btn.resetBtn>*').on('click', function() {
+        removeInput('#searchstr');
+        $('#searchstr').focus();
+    })
 
     function slideDownNotification() {
         setTimeout(function() {
@@ -113,6 +117,7 @@ $(function() {
         // highlight()
         getClanData()
         slideUpNotification()
+        if ($('#searchstr').val() == '') return
         $('.flipBtn').hide()
         $('#register-banner').prepend('<span class="btn flipBtn back">\
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
@@ -128,18 +133,11 @@ $(function() {
 
     function getClanData() {
         var keyword = $('#searchstr').val();
-        var filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
+
 
         if (keyword == '' || undefined) {
             alert('请输入关键词。')
             return
-        }
-
-        for (let i in keyword) {
-            for (let j in filter) {
-                filtSpecial = new RegExp(filter[j], 'g')
-                keyword = keyword.replace(filtSpecial, filter[j])
-            }
         }
 
         // keyword = keyword.replace(/[\[\]\{\}\(\)\+\-\*\/]/g, '')
@@ -157,13 +155,25 @@ $(function() {
     }
 
     function toCompare(keyword, data) {
+        let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
+        if (isNaN(Number(keyword))) {
+            for (let i in keyword) {
+                for (let j in filter) {
+                    filtSpecial = new RegExp(filter[j], 'g')
+                    keyword = keyword.replace(filtSpecial, filter[j])
+                }
+            }
+        } else {
+            var strictReg = new RegExp('^' + keyword + '$');
+        }
+
         if (!(data instanceof Array)) return
-        let len = data.length,
+        var len = data.length,
             arr = [],
-            reg = new RegExp(keyword, 'i'),
-            strictReg = new RegExp(keyword);
+            reg = new RegExp(keyword, 'i');
+
         for (let i = 0; i < len; i++) {
-            if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(reg)) {
+            if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(strictReg || reg)) {
                 arr.push(data[i])
             }
         }
@@ -199,5 +209,9 @@ $(function() {
             '</td><td>' + '[' + Tag + '] ' + Full +
             '</td><td>' + Desc + '</td></tr>'
         $('#content tbody').append(insertHTML)
+    }
+
+    function removeInput(t) {
+        $(t).val('')
     }
 })
