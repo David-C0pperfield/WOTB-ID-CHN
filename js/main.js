@@ -87,6 +87,9 @@ $(function() {
     $('#search_btn').on('click', function() { startSearching() })
         //通知栏进入后自动下拉
         // slideDownNotification()
+    $('.btn.resetBtn>*').on('click', function() {
+        removeInput('#searchstr')
+    })
 
     function slideDownNotification() {
         setTimeout(function() {
@@ -113,6 +116,7 @@ $(function() {
         // highlight()
         getClanData()
         slideUpNotification()
+        if ($('#searchstr').val() == '') return
         $('.flipBtn').hide()
         $('#register-banner').prepend('<span class="btn flipBtn back">\
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
@@ -199,5 +203,9 @@ $(function() {
             '</td><td>' + '[' + Tag + '] ' + Full +
             '</td><td>' + Desc + '</td></tr>'
         $('#content tbody').append(insertHTML)
+    }
+
+    function removeInput(t) {
+        $(t).val('')
     }
 })

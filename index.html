@@ -25,7 +25,20 @@
         <div id="searchbar">
             <div id="inner_s_bar">
                 <input class="textbox" id="searchstr" type="text" size="10" placeholder="请输入要查找的军团ID、标签、名称" name="searchstr">
-                <div class='btn' id="search_btn">查找</div>
+                <div class="searchIcon" id="search_btn">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                    </svg>
+                </div>
+
+                <div class="btn resetBtn">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                        </svg>
+                </div>
+                <!-- <div class='btn' id="search_btn">查找</div> -->
+
             </div>
         </div>
         <div id="notification_zone">
@@ -36,7 +49,7 @@
                     <p>如有意见或建议，请加Q群：
                         <a href="https://jq.qq.com/?_wv=1027&k=Jtq2a5Nv"><i><u>715200589（点击进群）</u></i></a>
                     </p>
-                    <p><span id="version">版本1.0.1 20201201</span></p>
+                    <p><span id="version">版本1.0.2 20201202</span></p>
                 </article>
                 <hr>
                 <article id="part2">
@@ -65,13 +78,11 @@
             <span class="btn flipBtn prev">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                </svg>前20
+                </svg><span>前20</span>
             </span>
-
             <span class="info">共<span class="action">收录</span><span class="total_entries"></span>个军团</span>
-
-            <span class="btn flipBtn next">后20
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <span class="btn flipBtn next"><span>后20</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
                 </svg>
             </span>
