@@ -88,7 +88,8 @@ $(function() {
         //通知栏进入后自动下拉
         // slideDownNotification()
     $('.btn.resetBtn>*').on('click', function() {
-        removeInput('#searchstr')
+        removeInput('#searchstr');
+        $('#searchstr').focus();
     })
 
     function slideDownNotification() {
