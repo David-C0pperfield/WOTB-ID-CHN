@@ -1,8 +1,8 @@
 * { margin: 0; padding: 0; }
 
-html { background: #bec8ce; }
+html { background: #c4cacf; }
 
-:root { background: #bec8ce; }
+:root { background: #c4cacf; }
 
 a { color: inherit; text-decoration: none; }
 
@@ -56,7 +56,7 @@ body { font-family: sans-serif; }
 
 #head #notification_zone .toCollapse { text-align: center; width: calc(100% - 2 * 25px); height: 50px; margin: 0 auto; position: absolute; bottom: 0; }
 
-#content { padding-top: calc(56px + 42px); color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.627); -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
+#content { padding-top: calc(56px + 42px); color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow: hidden; overflow-x: scroll; z-index: 50; }
 
 #content #register-banner { position: relative; height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; top: 56px; -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; }
 

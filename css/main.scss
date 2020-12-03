@@ -15,11 +15,11 @@ $searchStrHeight:36px;
 }
 
 @mixin shadowed-text {
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.627);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
 }
 
 @mixin lightbg {
-    background: rgb(190, 200, 206);
+    background: rgb(196, 202, 207);
 }
 
 @mixin darkbg {
