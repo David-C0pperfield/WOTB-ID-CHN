@@ -1,5 +1,18 @@
+// document.onreadystatechange = subSomething; //当页面加载状态改变的时候执行这个方法. 
+// function subSomething() {
+//     if (document.readyState != 'complete') {
+//         console.log(window.performance.getEntries())
+//     }
+// }
 $(function() {
+    calcTableHeight();
+    $(window).resize(function() {
+        calcTableHeight();
+    })
+
     fetchData() //接受json
+
+    // fetchData() //接受json
     var beginIndex = 0,
         stepLength = 20,
         endingIndex = beginIndex + stepLength - 1,
@@ -33,6 +46,7 @@ $(function() {
             dataType: "json",
             error: function() { console.log('数据获取失败') },
             success: function(data) {
+                $('table tbody').animate({ scrollTop: 0 }, 500)
                 if (data === undefined) return false;
                 var total_entries = data.length;
                 info('收录', total_entries);
@@ -181,7 +195,8 @@ $(function() {
             // console.log(arr[i])
             insertData(arr, i)
         }
-        info('搜索到', arr.length);
+        info('搜索到', arr.length)
+        if (arr.length == 0) insertData();
     }
 
 
@@ -200,6 +215,7 @@ $(function() {
     }
 
     function insertData(d, i) {
+        if (!d && !i) { $('#content tbody').append('<tr><td>没有搜索到相关内容，相关军团可能未被收录</td></tr>') }
         let ID = d[i].ID;
         let Tag = d[i].Tag;
         let Full = d[i].Full;
@@ -214,4 +230,10 @@ $(function() {
     function removeInput(t) {
         $(t).val('')
     }
+
+    function calcTableHeight() {
+        tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #register-banner').outerHeight() - $('#head').outerHeight()
+        $('table tbody').css({ 'height': tablePosition + 'px' })
+        return tablePosition;
+    };
 })
