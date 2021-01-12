@@ -203,7 +203,7 @@ body {
     // background: #333333;
     @include shadowed-text();
     -webkit-overflow-scrolling: touch;
-    overflow: hidden;
+    overflow-x: scroll;
     height: 100%;
     z-index: 50;
     position: relative;
@@ -238,7 +238,6 @@ body {
     table {
         margin: 42px auto 0;
         border-collapse: collapse;
-        overflow: hidden;
         // width: 720px;
         thead {
             background-color: #4B5D6C;
@@ -252,7 +251,7 @@ body {
         }
         tbody {
             display: block;
-            overflow-y: scroll;
+            overflow: scroll;
             background-color: rgba(54, 73, 85, 0.878);
             tr {
                 border-bottom: 1px solid rgba(255, 255, 255, 0.094);

@@ -57,7 +57,7 @@ body { font-family: sans-serif; }
 
 #head #notification_zone .toCollapse { text-align: center; width: calc(100% - 2 * 25px); height: 50px; margin: 0 auto; position: absolute; bottom: 0; }
 
-#content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow: hidden; height: 100%; z-index: 50; position: relative; box-sizing: border-box; }
+#content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow-x: scroll; height: 100%; z-index: 50; position: relative; box-sizing: border-box; }
 
 #content #register-banner { position: relative; height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%); position: fixed; -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; }
 
@@ -71,7 +71,7 @@ body { font-family: sans-serif; }
 
 #content #register-banner .flipBtn.next { right: 35px; }
 
-#content table { margin: 42px auto 0; border-collapse: collapse; overflow: hidden; }
+#content table { margin: 42px auto 0; border-collapse: collapse; }
 
 #content table thead { background-color: #4B5D6C; width: 100%; }
 
@@ -79,7 +79,7 @@ body { font-family: sans-serif; }
 
 #content table thead th:last-child { border-right: none; }
 
-#content table tbody { display: block; overflow-y: scroll; background-color: rgba(54, 73, 85, 0.878); }
+#content table tbody { display: block; overflow: scroll; background-color: rgba(54, 73, 85, 0.878); }
 
 #content table tbody tr { border-bottom: 1px solid rgba(255, 255, 255, 0.094); }
 
