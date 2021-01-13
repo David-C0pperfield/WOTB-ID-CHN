@@ -217,7 +217,7 @@ body {
         width: 100%;
         line-height: 42px;
         text-align: center;
-        background: linear-gradient(to right, transparent 3%, #475E6C 35%, #475E6C 65%, transparent 97%);
+        background: linear-gradient(to right, transparent 3%, #465F6E 35%, #465F6E 65%, transparent 97%);
         position: fixed;
         @include disable-user-select();
         .flipBtn {
@@ -240,7 +240,7 @@ body {
         border-collapse: collapse;
         // width: 720px;
         thead {
-            background-color: #4B5D6C;
+            background-color: #465F6E;
             width: 100%;
             th {
                 border-right: 1px solid #34424C;
@@ -252,7 +252,7 @@ body {
         tbody {
             display: block;
             overflow: scroll;
-            background-color: rgba(54, 73, 85, 0.878);
+            background-color: rgba(70, 94, 109, 0.8);
             tr {
                 border-bottom: 1px solid rgba(255, 255, 255, 0.094);
                 &:last-child {
@@ -270,16 +270,16 @@ body {
                 width: 100%;
                 table-layout: fixed;
                 text-align: left;
-                height: 45px;
+                height: 48px;
                 th,
                 td {
                     padding: 0 0.75em;
                     &:first-child {
-                        width: 1em;
+                        width: 2em;
                         text-align: center;
                     }
                     &:nth-child(2) {
-                        width: 175px;
+                        width: 25em;
                     }
                     &:nth-child(3) {
                         width: 20em;
@@ -291,64 +291,6 @@ body {
                 }
             }
         }
-        // border-collapse: collapse;
-        // background: rgba(54, 73, 85, 0.878);
-        // margin: 0 auto;
-        // tbody {
-        //     display: block;
-        //     height: 500px;
-        //     overflow-y: scroll;
-        //     td {
-        //         color: #E9A844;
-        //         &:first-child {
-        //             width: 2.75em;
-        //         }
-        //         &:nth-child(2) {
-        //             width: 200px;
-        //         }
-        //         &:nth-child(3) {
-        //             width: 20em;
-        //         }
-        //         &:first-child,
-        //         &:last-child {
-        //             color: #fff;
-        //             text-align: left;
-        //         }
-        //     }
-        // }
-        // tr {
-        //     color: #A5B7CA;
-        //     height: 48px;
-        //     border-bottom: 1px solid rgba(255, 255, 255, 0.094);
-        //     &>* {
-        //         padding: 0 12.5px;
-        //     }
-        //     &:last-child {
-        //         border-bottom: none
-        //     }
-        //     th {
-        //         color: #fff;
-        //         background-color: #4B5D6C;
-        //         border-right: 1px solid #34424C;
-        //         @include disable-user-select;
-        //         &:last-child {
-        //             border-right: none
-        //         }
-        //         
-        //     }
-        // }
-        // thead {
-        //     // width: calc( 100% - 1em);
-        //     /*表头与表格垂直对齐*/
-        // }
-        // table thead,
-        // table tbody tr {
-        //     display: block;
-        //     width: 100%;
-        //     table-layout: fixed;
-        // }
-        // thead th,
-        // tbody td {}
     }
 }
 

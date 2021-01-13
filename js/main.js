@@ -216,10 +216,11 @@ $(function() {
 
     function insertData(d, i) {
         if (!d && !i) { $('#content tbody').append('<tr><td>没有搜索到相关内容，相关军团可能未被收录</td></tr>') }
-        let ID = d[i].ID;
-        let Tag = d[i].Tag;
-        let Full = d[i].Full;
-        let Desc = d[i].Desc;
+        let ID = d[i].ID,
+            Tag = d[i].Tag,
+            Full = d[i].Full,
+
+            Desc = d[i].Desc;
 
         let insertHTML = '<tr><td>' + ID +
             '</td><td>' + '[' + Tag + '] ' + Full +

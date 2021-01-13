@@ -16,9 +16,10 @@ def xlsxRead():
     table = data.sheet_by_name(r'军团列表')
     data_list = []
     for i in range(1,table.nrows):
-        title_data =['ID','Tag','Full','Desc']
+        title_data =['ID','Tag','Full','Desc','Estbl','MID' ]
         row_content = []
         row_data = {}
+        
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
@@ -26,20 +27,27 @@ def xlsxRead():
                 cell = int(cell)
             if j == 3:
                 if cell == '':
-                    cell = r'无'
+                    cell = r'-'
                 else:
                     cell = cell.replace('\n','<br>')
+            if j == 4 and cell =='':
+                    cell = '-'
+                
+                
             row_content.append(cell)
+            
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]
         data_list.append(row_data)
+        
     print('共{}条数据'.format(i))
-    processed_json=json.dumps(data_list,sort_keys=False,indent=4,separators=(',',':'),ensure_ascii=False)
+    
+    processed_json=json.dumps(data_list,sort_keys=False,separators=(',',':'),ensure_ascii=False)
 
     f = open('../js/clan.json','w+')
     f.write(processed_json)
     f.close()
-    print('json建立完成')
+    print('json建立成功！')
 
 if __name__ == '__main__':
     xlsxRead()
