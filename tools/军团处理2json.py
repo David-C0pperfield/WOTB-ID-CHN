@@ -16,7 +16,7 @@ def xlsxRead():
     table = data.sheet_by_name(r'军团列表')
     data_list = []
     for i in range(1,table.nrows):
-        title_data =['ID','Tag','Full','Desc','Estbl','MID' ]
+        title_data =['ID','Tag','Full','Desc','Estbl','MID']
         row_content = []
         row_data = {}
         
@@ -26,14 +26,7 @@ def xlsxRead():
             if ctype == 2 and cell % 1 == 0:
                 cell = int(cell)
             if j == 3:
-                if cell == '':
-                    cell = r'-'
-                else:
-                    cell = cell.replace('\n','<br>')
-            if j == 4 and cell =='':
-                    cell = '-'
-                
-                
+                cell = cell.replace('\n','<br>')
             row_content.append(cell)
             
         for k in range(len(title_data)):
