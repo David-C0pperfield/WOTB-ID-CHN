@@ -19,27 +19,24 @@ def xlsxRead():
         title_data =['ID','Tag','Full','Desc','Estbl','MID']
         row_content = []
         row_data = {}
-        
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
             if ctype == 2 and cell % 1 == 0:
                 cell = int(cell)
-            if j == 3:
-                cell = cell.replace('\n','<br>')
+            #if j == 3:
+                #cell = cell.replace('\n','<br>')
             row_content.append(cell)
-            
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]
         data_list.append(row_data)
-        
     print('共{}条数据'.format(i))
     processed_json=json.dumps(data_list,sort_keys=False,separators=(',',':'),ensure_ascii=False)
 
     f = open('../js/clan.json','w+')
     f.write(processed_json)
     f.close()
-    print('json建立成功！')
+    print('json建立完成')
 
 if __name__ == '__main__':
     xlsxRead()

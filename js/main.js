@@ -1,15 +1,9 @@
-// document.onreadystatechange = subSomething; //当页面加载状态改变的时候执行这个方法. 
-// function subSomething() {
-//     if (document.readyState != 'complete') {
-//         console.log(window.performance.getEntries())
-//     }
-// }
 $(function() {
     calcTableHeight();
     $(window).resize(function() {
         calcTableHeight();
     })
-
+    getQueryStr('cid')
     fetchData() //接受json
 
     // fetchData() //接受json
@@ -77,7 +71,6 @@ $(function() {
                         overflowStep = 0
                     } //补回溢出的读取长度
 
-
                     while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
                         insertData(data, dataIndex)
                         if (dataIndex < total_entries - 1) {
@@ -119,12 +112,17 @@ $(function() {
     $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
         if (key == 13) startSearching();
-    });
+    })
     $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
         if (!target.is('#searchstr') && !target.is('#notification_zone .wrap') && !target.is('#notification_zone .wrap *') || (target.is('#notification_zone .toCollapse') || target.is('#notification_zone .toCollapse *'))) {
             slideUpNotification()
         }
+    })
+    $(document).on('click', '#content tbody tr', function() {
+        let cid = $(this).attr('id');
+        window.history.pushState({ Page: 1 }, '', '?cid=' + cid)
+        getQueryStr('cid')
     })
 
     function startSearching() {
@@ -148,22 +146,20 @@ $(function() {
     function getClanData() {
         var keyword = $('#searchstr').val();
 
-
         if (keyword == '' || undefined) {
             alert('请输入关键词。')
             return
         }
 
-        // keyword = keyword.replace(/[\[\]\{\}\(\)\+\-\*\/]/g, '')
-        // var comparison = toCompare(keyword, data)
-        // renderResult(comparison)
         $.ajax({
             url: './js/clan.json',
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
                 $('#content tbody').empty()
-                toCompare(keyword, data)
+                let resultCount = toCompare(keyword, data)
+                if (resultCount == 0) { insertData() }
+                info('搜索', resultCount);
             }
         })
     }
@@ -195,19 +191,8 @@ $(function() {
             // console.log(arr[i])
             insertData(arr, i)
         }
-        info('搜索到', arr.length)
-        if (arr.length == 0) insertData();
+        return arr.length
     }
-
-
-    // function replaceBrackets(target, content, name) {
-    //     //替换某个含有{{xxxx}}的文本
-    //     var origin = $(target).text()
-    //     if (name == '') {
-    //         var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
-    //     } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
-    //     $(target).text(processedText)
-    // }
 
     function info(action, number) {
         $('.info .action').html(action);
@@ -221,8 +206,9 @@ $(function() {
             Full = d[i].Full,
 
             Desc = d[i].Desc;
+        if (Desc == '') { Desc = '--' } else if (Desc.length > 20) { Desc = Desc.substr(0, 19) + '…' }
 
-        let insertHTML = '<tr><td>' + ID +
+        let insertHTML = '<tr id=' + ID + '><td>' + ID +
             '</td><td>' + '[' + Tag + '] ' + Full +
             '</td><td>' + Desc + '</td></tr>'
         $('#content tbody').append(insertHTML)
@@ -236,5 +222,28 @@ $(function() {
         tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #register-banner').outerHeight() - $('#head').outerHeight()
         $('table tbody').css({ 'height': tablePosition + 'px' })
         return tablePosition;
-    };
+    }
+    // 军团单独显示
+    function getQueryStr(n) {
+        let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
+            result = window.location.search.substr(1).match(reg),
+            decodeR = unescape(result[2]);
+        getClanByID(decodeR)
+        if (result != null) return decodeR;
+        return null
+    }
+
+    function getClanByID(i) {
+        let id = Number(i);
+        if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
+        $.ajax({
+            url: './js/clan.json',
+            dataType: 'json',
+            error: function() { console.log('数据获取失败') },
+            success: function(data) {
+                // let strictReg = new RegExp('^' + id + '$')
+                toCompare(i, data)
+            }
+        })
+    }
 })
