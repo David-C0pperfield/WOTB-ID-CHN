@@ -25,6 +25,7 @@ def xlsxRead():
             cell = table.cell_value(i,j)
             if ctype == 2 and cell % 1 == 0:
                 cell = int(cell)
+<<<<<<< Updated upstream
             if j == 3:
                 if cell == '':
                     cell = r'-'
@@ -33,6 +34,10 @@ def xlsxRead():
             if j == 4 and cell =='':
                     cell = '-'
                 
+=======
+            #if j == 3:
+                #cell = cell.replace('\n','<br>')
+>>>>>>> Stashed changes
                 
             row_content.append(cell)
             
