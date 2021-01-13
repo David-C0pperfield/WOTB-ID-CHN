@@ -34,7 +34,6 @@ def xlsxRead():
         data_list.append(row_data)
         
     print('共{}条数据'.format(i))
-    
     processed_json=json.dumps(data_list,sort_keys=False,separators=(',',':'),ensure_ascii=False)
 
     f = open('../js/clan.json','w+')
