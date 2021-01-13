@@ -200,10 +200,14 @@ $(function() {
     }
 
 
-    $(document).on('click', 'table tbody tr', function() {
-        let clanID = $(this).attr('id');
-        window.location.href = '?cid=' + clanID
-    })
+    // function replaceBrackets(target, content, name) {
+    //     //替换某个含有{{xxxx}}的文本
+    //     var origin = $(target).text()
+    //     if (name == '') {
+    //         var processedText = origin.replace(new RegExp('\\{\\{.*\\}\\}', 'g'), content)
+    //     } else { var processedText = origin.replace(new RegExp('\\{\\{' + name + '\\}\\}', 'g'), content) }
+    //     $(target).text(processedText)
+    // }
 
     function info(action, number) {
         $('.info .action').html(action);
@@ -215,16 +219,10 @@ $(function() {
         let ID = d[i].ID,
             Tag = d[i].Tag,
             Full = d[i].Full,
-<<<<<<< Updated upstream
 
             Desc = d[i].Desc;
 
         let insertHTML = '<tr><td>' + ID +
-=======
-            Desc = d[i].Desc;
-        if (Desc == '') { Desc = '--' } else { Desc = Desc.substr(0, 20) + '…' }
-        let insertHTML = '<tr id="' + ID + '"><td>' + ID +
->>>>>>> Stashed changes
             '</td><td>' + '[' + Tag + '] ' + Full +
             '</td><td>' + Desc + '</td></tr>'
         $('#content tbody').append(insertHTML)
@@ -238,20 +236,5 @@ $(function() {
         tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #register-banner').outerHeight() - $('#head').outerHeight()
         $('table tbody').css({ 'height': tablePosition + 'px' })
         return tablePosition;
-    }
-
-    function getQueryString(n) {
-        let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
-            result = window.location.search.substr(1).match(reg);
-        if (result != null) return unescape(result[2])
-        return null
-    }
-
-    function getQuery(n) {
-        let reg = new RegExp('(^|&)' + n + '='),
-            result = window.location.search.substr(1).match(reg);
-        if (result != null) return true
-        return null
-    }
-
+    };
 })
