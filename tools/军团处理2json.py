@@ -25,16 +25,13 @@ def xlsxRead():
             if ctype == 2 and cell % 1 == 0:
                 cell = int(cell)
             if j == 3:
-                if cell == '':
-                    cell = r'无'
-                else:
-                    cell = cell.replace('\n','<br>')
+                cell = cell.replace('\n','<br>')
             row_content.append(cell)
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]
         data_list.append(row_data)
     print('共{}条数据'.format(i))
-    processed_json=json.dumps(data_list,sort_keys=False,indent=4,separators=(',',':'),ensure_ascii=False)
+    processed_json=json.dumps(data_list,sort_keys=False,separators=(',',':'),ensure_ascii=False)
 
     f = open('../js/clan.json','w+')
     f.write(processed_json)
