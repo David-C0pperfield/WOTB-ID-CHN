@@ -150,21 +150,24 @@ $(function() {
             alert('请输入关键词。')
             return
         }
-
         $.ajax({
             url: './js/clan.json',
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
                 $('#content tbody').empty()
-                let resultCount = toCompare(keyword, data)
+                let result = toCompare(keyword, data),
+                    resultCount = result.length
                 if (resultCount == 0) { insertData() }
                 info('搜索', resultCount);
+                for (let i in result) {
+                    insertData(result, i)
+                }
             }
         })
     }
 
-    function toCompare(keyword, data) {
+    function toCompare(keyword, data, idSearch) {
         let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
         if (isNaN(Number(keyword))) {
             for (let i in keyword) {
@@ -181,17 +184,20 @@ $(function() {
         var len = data.length,
             arr = [],
             reg = new RegExp(keyword, 'i');
-
-        for (let i = 0; i < len; i++) {
-            if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(strictReg || reg)) {
-                arr.push(data[i])
+        if (idSearch) {
+            for (let i = 0; i < len; i++) {
+                if (String(data[i].ID).match(strictReg || reg)) {
+                    arr.push(data[i])
+                }
+            }
+        } else {
+            for (let i = 0; i < len; i++) {
+                if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(strictReg || reg)) {
+                    arr.push(data[i])
+                }
             }
         }
-        for (let i in arr) {
-            // console.log(arr[i])
-            insertData(arr, i)
-        }
-        return arr.length
+        return arr
     }
 
     function info(action, number) {
@@ -228,22 +234,21 @@ $(function() {
         let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
             result = window.location.search.substr(1).match(reg),
             decodeR = unescape(result[2]);
-        getClanByID(decodeR)
-        if (result != null) return decodeR;
+        if (result != null) getClanByID(decodeR);
         return null
     }
 
-    function getClanByID(i) {
-        let id = Number(i);
-        if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
+    function getClanByID(id) {
+        var id = Number(id);
         $.ajax({
             url: './js/clan.json',
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
-                // let strictReg = new RegExp('^' + id + '$')
-                toCompare(i, data)
+                if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
+                toCompare(id, data, 1)
             }
         })
     }
+
 })
