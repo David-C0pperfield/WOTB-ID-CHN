@@ -121,7 +121,7 @@ $(function() {
     })
     $(document).on('click', '#content tbody tr', function() {
         let cid = $(this).attr('id');
-        window.history.pushState({ Page: 1 }, '', '?cid=' + cid)
+        window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
         getQueryStr('cid')
     })
     $(document).on('mousedown', '#content tbody tr', function(e) {
@@ -222,7 +222,7 @@ $(function() {
             Tag = d[i].Tag,
             Full = d[i].Full,
             Desc = d[i].Desc;
-        if (Desc == '') { Desc = '--' }
+        if (Desc == '') { Desc = '无' }
         if (method == 'table') {
             if (Desc.length > 20) { Desc = Desc.substr(0, 19) + '…' }
             let insertHTML = '<tr id=' + ID + '><td>' + ID +
@@ -231,8 +231,11 @@ $(function() {
             $('#content tbody').append(insertHTML)
         }
         if (method == 'detail') {
-            let insertHTML = ID + Tag + Full + Desc
-                // console.log(insertHTML)
+            let insertHTML = '<p>[' + Tag + ']</p>' +
+                '<p>' + Full + '</p>' +
+                '</p>ID：' + ID + '</p>' +
+                '<p>简介：' + Desc + '</p>'
+            $('#detail .content').append(insertHTML)
         }
         return
     }
@@ -275,4 +278,18 @@ $(function() {
         $('table tbody').animate({ scrollTop: 0 }, 500)
     }
 
+    //关闭浮层
+    $('#detail').on('click', function(e) {
+        let target = $(e.target)
+        if (!target.is('#detail .content *')) {
+            window.history.replaceState({ Page: 1 }, '', './')
+            $('#detail .wrap').animate({ 'height': '0' }, 500)
+            $('#detail').fadeOut(600);
+            console.log('!!!')
+        }
+    })
+
+    function closeDetail() {
+
+    }
 })
