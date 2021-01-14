@@ -115,6 +115,8 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .content h3::before, #detail .wrap .inner .window .content h3::after { content: ''; display: inline-block; border-bottom: #ffffff solid 1px; width: 30%; vertical-align: middle; margin: 0 0.5em; }
 
+#detail .wrap .inner .window .content h3 ~ p { text-align: center; }
+
 #detail .wrap .inner .window .content .tag { color: #E9A844; }
 
 @media (prefers-color-scheme: dark) { html { background: #333333; }
@@ -134,4 +136,6 @@ body { font-family: sans-serif; }
 
 @media screen and (max-width: 960px) { table { width: 640px; }
   #detail .wrap .inner .window { width: 100%; margin: 0; } }
+
+@media screen and (max-width: 640px) { #detail .wrap .inner .window .content h3 ~ p { text-align: left; } }
 /*# sourceMappingURL=main.min.css.map */
