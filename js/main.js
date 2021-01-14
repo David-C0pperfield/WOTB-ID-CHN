@@ -125,6 +125,7 @@ $(function() {
         let cid = $(this).attr('id');
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
         getQueryStr('cid')
+        showDetail()
     })
     $(document).on('mousedown', '#content tbody tr', function(e) {
         if (e.which != 1) return
@@ -273,7 +274,6 @@ $(function() {
         if (!decodeR) return
         if (result != null) {
             getClanByID(decodeR);
-
         }
         return null
     }
