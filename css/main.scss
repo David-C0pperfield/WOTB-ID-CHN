@@ -37,7 +37,7 @@ $searchStrHeight:36px;
 html {
     @include lightbg();
     height: 100%;
-    // overflow: scroll;
+    min-width: 375px;
 }
 
 :root {
@@ -317,12 +317,16 @@ body {
                 color: #fff;
                 font-size: 20px;
                 box-sizing: border-box;
-                padding: 25px;
+                padding: 15px;
                 .dismissBtn {
                     font-size: 1.25em;
                     display: inline-block;
+                    position: fixed;
                 }
                 .content {
+                    margin-top: 2em;
+                    padding: 0 2em;
+                    box-sizing: border-box;
                     height: 100%;
                     .tag {
                         color: #E9A844;
