@@ -346,7 +346,9 @@ $(function() {
                 if (len == 0) return
                 insertData(detail, 0, 'detail')
                 document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科';
-                $('meta[name="description"]').attr('content', detail[0].Desc)
+                if (detail[0].Desc != '') {
+                    $('meta[name="description"]').attr('content', detail[0].Desc)
+                }
                 showDetail()
             }
         })
