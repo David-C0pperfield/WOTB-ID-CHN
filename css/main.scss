@@ -286,7 +286,7 @@ body {
 }
 
 #detail {
-    // display: none;
+    display: none;
     background-color: rgba(0, 0, 0, 0.25);
     @include blur-bg(10px, 180%);
     width: 100%;
@@ -300,19 +300,25 @@ body {
         bottom: 0;
         width: 100%;
         height: calc(100% - 35px);
-        .content {
-            position: relative;
-            margin: 0 auto;
-            width: calc(100% - 2 * 55px);
-            min-width: 360px;
-            height: 100%;
-            background-color: #1B1F21;
-            border-radius: 15px 15px 0 0;
-            overflow-y: scroll;
-            color: #fff;
-            font-size: 36px;
-            box-sizing: border-box;
-            padding: 25px;
+        .inner {
+            height: 0;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            .content {
+                position: relative;
+                margin: 0 auto;
+                width: calc(100% - 2 * 55px);
+                min-width: 360px;
+                height: 100%;
+                background-color: #1B1F21;
+                border-radius: 15px 15px 0 0;
+                overflow-y: scroll;
+                color: #fff;
+                font-size: 36px;
+                box-sizing: border-box;
+                padding: 25px;
+            }
         }
     }
 }

@@ -119,7 +119,9 @@ $(function() {
             slideUpNotification()
         }
     })
-    $(document).on('click', '#content tbody tr', function() {
+
+    //详情浮层
+    $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
         let cid = $(this).attr('id');
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
         getQueryStr('cid')
@@ -130,6 +132,18 @@ $(function() {
     })
     $(document).on('mouseup', '#content tbody tr', function() {
         $(this).removeAttr('style')
+    })
+
+
+    $('#detail').on('click', function(e) { //关闭浮层
+        let target = $(e.target)
+        if (!target.is('#detail .content *')) {
+            window.history.replaceState({ Page: 1 }, '', './')
+            $('#detail .inner').animate({ 'height': '0' }, 500)
+            $('#detail').fadeOut(600, function() {
+                $('#detail .content').empty()
+            });
+        }
     })
 
     function startSearching() {
@@ -214,7 +228,7 @@ $(function() {
 
     function insertData(d, i, method) {
         if (!d) {
-            $('#content tbody').append('<tr><td>没有搜索到相关内容，相关军团可能未被收录</td></tr>')
+            $('#content tbody').append('<tr><td>未搜索到相关内容，相关军团可能未被收录</td></tr>')
             return
         }
         i = i || 0
@@ -231,6 +245,7 @@ $(function() {
             $('#content tbody').append(insertHTML)
         }
         if (method == 'detail') {
+            Desc = Desc.replace(/\n/g, '</br>')
             let insertHTML = '<p>[' + Tag + ']</p>' +
                 '<p>' + Full + '</p>' +
                 '</p>ID：' + ID + '</p>' +
@@ -256,7 +271,10 @@ $(function() {
         if (!result) return
         let decodeR = unescape(result[2]);
         if (!decodeR) return
-        if (result != null) getClanByID(decodeR);
+        if (result != null) {
+            getClanByID(decodeR);
+
+        }
         return null
     }
 
@@ -268,8 +286,11 @@ $(function() {
             error: function() { console.log('数据获取失败') },
             success: function(data) {
                 if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
-                let detail = toCompare(id, data, true)
+                let detail = toCompare(id, data, true),
+                    len = detail.length;
+                if (len == 0) return
                 insertData(detail, 0, 'detail')
+                showDetail()
             }
         })
     }
@@ -278,18 +299,9 @@ $(function() {
         $('table tbody').animate({ scrollTop: 0 }, 500)
     }
 
-    //关闭浮层
-    $('#detail').on('click', function(e) {
-        let target = $(e.target)
-        if (!target.is('#detail .content *')) {
-            window.history.replaceState({ Page: 1 }, '', './')
-            $('#detail .wrap').animate({ 'height': '0' }, 500)
-            $('#detail').fadeOut(600);
-            console.log('!!!')
-        }
-    })
-
-    function closeDetail() {
-
+    function showDetail() {
+        $('#detail .inner').animate({ 'height': '100%' }, 500);
+        $('#detail').fadeIn(500)
     }
+
 })
