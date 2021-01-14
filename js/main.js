@@ -142,8 +142,6 @@ $(function() {
             $('#detail .content>*').remove();
             getQueryStr('cid')
         }, 200)
-
-
         showDetail()
         $('#detail .content').fadeIn(350)
     })
