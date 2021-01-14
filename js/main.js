@@ -293,15 +293,16 @@ $(function() {
 
         if (method == 'detail') {
             Desc = Desc.replace(/\n/g, '</br>')
-            if (MID) {
-                getClanFamily(MID)
-            }
+
             let insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
                 '<p>ID：' + ID + '</p>' +
                 '<p>创建日期：' + Estbl + '</p>' +
                 '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
 
             $('#detail .content').append(insertHTML)
+        }
+        if (MID) {
+            getClanFamily(MID)
         }
         // 注入军团族群表
         if (method == 'mid') {
