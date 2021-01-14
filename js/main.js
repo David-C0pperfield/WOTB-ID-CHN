@@ -138,7 +138,7 @@ $(function() {
 
     $('#detail').on('click', function(e) { //关闭浮层
         let target = $(e.target)
-        if (!target.is('#detail .content *')) {
+        if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) {
             window.history.replaceState({ Page: 1 }, '', './')
             $('#detail .inner').animate({ 'height': '0' }, 500)
             $('#detail').fadeOut(600, function() {
@@ -187,9 +187,30 @@ $(function() {
                 }
             }
         })
+
     }
 
-    function toCompare(keyword, data, idSearch) {
+    function getClanFamily(i) {
+        var parentClan = i;
+        $.ajax({
+            url: './js/clan.json',
+            dataType: 'json',
+            error: function() { console.log('数据获取失败') },
+            success: function(data) {
+                let result = toCompare(parentClan, data, 'mid');
+                resultCount = result.length
+                if (resultCount > 0) {
+                    '该军团有' + (resultCount - 1) + '个分团'
+                }
+                for (let i in result) {
+                    insertData(result, i, 'mid')
+                }
+            }
+        })
+
+    }
+
+    function toCompare(keyword, data, mode) {
         let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
         if (isNaN(Number(keyword))) {
             for (let i in keyword) {
@@ -206,9 +227,15 @@ $(function() {
         var len = data.length,
             arr = [],
             reg = new RegExp(keyword, 'i');
-        if (idSearch) {
+        if (mode == 'id') {
             for (let i = 0; i < len; i++) {
-                if (String(data[i].ID).match(strictReg || reg)) {
+                if (String(data[i].ID).match(strictReg)) {
+                    arr.push(data[i])
+                }
+            }
+        } else if (mode == 'mid') {
+            for (let i = 0; i < len; i++) {
+                if (String(data[i].MID).match(strictReg)) {
                     arr.push(data[i])
                 }
             }
@@ -236,8 +263,10 @@ $(function() {
         let ID = d[i].ID,
             Tag = d[i].Tag,
             Full = d[i].Full,
+            Desc = d[i].Desc,
             Estbl = d[i].Estbl,
-            Desc = d[i].Desc;
+            MID = d[i].MID;
+
         if (Desc == '') { Desc = '无' }
         if (method == 'table') {
             if (Desc.length > 20) { Desc = Desc.substr(0, 19) + '…' }
@@ -248,11 +277,18 @@ $(function() {
         }
         if (method == 'detail') {
             Desc = Desc.replace(/\n/g, '</br>')
-            let insertHTML = '<p>[' + Tag + ']</p>' +
-                '<p>' + Full + '</p>' +
-                '</p>ID：' + ID + '</p>' +
-                '</p>创建日期：' + Estbl + '</p>' +
+            if (MID) {
+                getClanFamily(MID)
+            }
+            let insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
+                '<p>ID：' + ID + '</p>' +
+                '<p>创建日期：' + Estbl + '</p>' +
                 '<p>简介：' + Desc + '</p>'
+
+            $('#detail .content').append(insertHTML)
+        }
+        if (method == 'mid') {
+            let insertHTML = '<p><span class="tag">[' + Tag + '] ' + Full + '</span>  ID：' + ID + '</p>'
             $('#detail .content').append(insertHTML)
         }
         return
@@ -288,7 +324,7 @@ $(function() {
             error: function() { console.log('数据获取失败') },
             success: function(data) {
                 if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
-                let detail = toCompare(id, data, true),
+                let detail = toCompare(id, data, 'id'),
                     len = detail.length;
                 if (len == 0) return
                 insertData(detail, 0, 'detail')
@@ -302,8 +338,8 @@ $(function() {
     }
 
     function showDetail() {
-        $('#detail .inner').animate({ 'height': '100%' }, 500);
-        $('#detail').fadeIn(500)
+        $('#detail .inner').animate({ 'height': '100%' }, 450);
+        $('#detail').fadeIn(400)
     }
 
 })
