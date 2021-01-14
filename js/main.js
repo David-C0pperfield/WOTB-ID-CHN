@@ -119,10 +119,13 @@ $(function() {
             slideUpNotification()
         }
     })
-    $(document).on('click', '#content tbody tr', function() {
+
+    //详情浮层
+    $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
         let cid = $(this).attr('id');
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
         getQueryStr('cid')
+        showDetail()
     })
     $(document).on('mousedown', '#content tbody tr', function(e) {
         if (e.which != 1) return
@@ -130,6 +133,18 @@ $(function() {
     })
     $(document).on('mouseup', '#content tbody tr', function() {
         $(this).removeAttr('style')
+    })
+
+
+    $('#detail').on('click', function(e) { //关闭浮层
+        let target = $(e.target)
+        if (!target.is('#detail .content *')) {
+            window.history.replaceState({ Page: 1 }, '', './')
+            $('#detail .inner').animate({ 'height': '0' }, 500)
+            $('#detail').fadeOut(600, function() {
+                $('#detail .content').empty()
+            });
+        }
     })
 
     function startSearching() {
@@ -231,6 +246,7 @@ $(function() {
             $('#content tbody').append(insertHTML)
         }
         if (method == 'detail') {
+            Desc = Desc.replace(/\n/g, '</br>')
             let insertHTML = '<p>[' + Tag + ']</p>' +
                 '<p>' + Full + '</p>' +
                 '</p>ID：' + ID + '</p>' +
@@ -256,7 +272,10 @@ $(function() {
         if (!result) return
         let decodeR = unescape(result[2]);
         if (!decodeR) return
-        if (result != null) getClanByID(decodeR);
+        if (result != null) {
+            getClanByID(decodeR);
+            showDetail()
+        }
         return null
     }
 
@@ -278,18 +297,9 @@ $(function() {
         $('table tbody').animate({ scrollTop: 0 }, 500)
     }
 
-    //关闭浮层
-    $('#detail').on('click', function(e) {
-        let target = $(e.target)
-        if (!target.is('#detail .content *')) {
-            window.history.replaceState({ Page: 1 }, '', './')
-            $('#detail .wrap').animate({ 'height': '0' }, 500)
-            $('#detail').fadeOut(600);
-            console.log('!!!')
-        }
-    })
-
-    function closeDetail() {
-
+    function showDetail() {
+        $('#detail .inner').animate({ 'height': '100%' }, 500);
+        $('#detail').fadeIn(500)
     }
+
 })
