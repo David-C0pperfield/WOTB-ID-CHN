@@ -232,8 +232,9 @@ $(function() {
         }
         if (method == 'detail') {
             let insertHTML = ID + Tag + Full + Desc
-            console.log(insertHTML)
+                // console.log(insertHTML)
         }
+        return
     }
 
     function removeInput(t) {
