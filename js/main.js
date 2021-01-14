@@ -154,6 +154,8 @@ $(function() {
             $('#detail').fadeOut(600, function() {
                 $('#detail .content').empty()
             });
+            document.title = '闪击战ID大百科'
+            $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
         }
     })
 
@@ -343,6 +345,8 @@ $(function() {
                     len = detail.length;
                 if (len == 0) return
                 insertData(detail, 0, 'detail')
+                document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科';
+                $('meta[name="description"]').attr('content', detail[0].Desc)
                 showDetail()
             }
         })
