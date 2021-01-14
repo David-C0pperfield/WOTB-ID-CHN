@@ -111,6 +111,10 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .content { padding: 2em 2em 0; box-sizing: border-box; height: 100%; }
 
+#detail .wrap .inner .window .content h3 { display: inline-block; text-align: center; margin: 1.125em auto 0.5em; width: 100%; }
+
+#detail .wrap .inner .window .content h3::before, #detail .wrap .inner .window .content h3::after { content: ''; display: inline-block; border-bottom: #ffffff solid 1px; width: 30%; vertical-align: middle; margin: 0 0.5em; }
+
 #detail .wrap .inner .window .content .tag { color: #E9A844; }
 
 @media (prefers-color-scheme: dark) { html { background: #333333; }
@@ -128,5 +132,6 @@ body { font-family: sans-serif; }
 
 @media screen and (min-width: 1000px) { table { width: 960px; } }
 
-@media screen and (max-width: 960px) { table { width: 640px; } }
+@media screen and (max-width: 960px) { table { width: 640px; }
+  #detail .wrap .inner .window { width: 100%; margin: 0; } }
 /*# sourceMappingURL=main.min.css.map */

@@ -327,6 +327,21 @@ body {
                     padding: 2em 2em 0;
                     box-sizing: border-box;
                     height: 100%;
+                    h3 {
+                        display: inline-block;
+                        text-align: center;
+                        margin: 1.125em auto 0.5em;
+                        width: 100%;
+                        &::before,
+                        &::after {
+                            content: '';
+                            display: inline-block;
+                            border-bottom: #ffffff solid 1px;
+                            width: 30%;
+                            vertical-align: middle;
+                            margin: 0 0.5em;
+                        }
+                    }
                     .tag {
                         color: #E9A844;
                     }
@@ -398,5 +413,15 @@ body {
 @media screen and (max-width:960px) {
     table {
         width: 640px;
+    }
+    #detail {
+        .wrap {
+            .inner {
+                .window {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+        }
     }
 }

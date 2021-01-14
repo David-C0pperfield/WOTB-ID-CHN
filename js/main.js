@@ -283,7 +283,7 @@ $(function() {
             let insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
                 '<p>ID：' + ID + '</p>' +
                 '<p>创建日期：' + Estbl + '</p>' +
-                '<p>简介：' + Desc + '</p>'
+                '<h3>简介</h3><p>' + Desc + '</p>'
 
             $('#detail .content').append(insertHTML)
         }
