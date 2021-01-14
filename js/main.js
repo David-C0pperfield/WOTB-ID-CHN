@@ -149,7 +149,7 @@ $(function() {
     $('#detail').on('click', function(e) { //关闭浮层
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) {
-            window.history.replaceState({ Page: 1 }, '', './index.html')
+            window.history.replaceState({ Page: 1 }, '', './')
             $('#detail .inner').animate({ 'height': '0' }, 500)
             $('#detail').fadeOut(600, function() {
                 $('#detail .content').empty()
