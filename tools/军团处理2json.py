@@ -1,10 +1,13 @@
 ﻿#!usr/bin/env python3
 
 import xlrd
+from xlrd import xldate_as_tuple
 import json
 import re
 import os
 import subprocess
+import time
+from datetime import datetime
 
 excel_name = r'闪击战ID情报.xlsx'
 def xlsxRead():
@@ -19,13 +22,16 @@ def xlsxRead():
         title_data =['ID','Tag','Full','Desc','Estbl','MID']
         row_content = []
         row_data = {}
+        date = 0
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
             if ctype == 2 and cell % 1 == 0:
                 cell = int(cell)
-            #if j == 3:
-                #cell = cell.replace('\n','<br>')
+            if ctype == 3:
+                #cell = int(cell)
+                date = datetime(*xldate_as_tuple(cell,0))
+                cell = date.strftime('%Y-%m-%d')
             row_content.append(cell)
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]

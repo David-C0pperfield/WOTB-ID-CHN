@@ -236,6 +236,7 @@ $(function() {
         let ID = d[i].ID,
             Tag = d[i].Tag,
             Full = d[i].Full,
+            Estbl = d[i].Estbl,
             Desc = d[i].Desc;
         if (Desc == '') { Desc = '无' }
         if (method == 'table') {
@@ -250,6 +251,7 @@ $(function() {
             let insertHTML = '<p>[' + Tag + ']</p>' +
                 '<p>' + Full + '</p>' +
                 '</p>ID：' + ID + '</p>' +
+                '</p>创建日期：' + Estbl + '</p>' +
                 '<p>简介：' + Desc + '</p>'
             $('#detail .content').append(insertHTML)
         }
