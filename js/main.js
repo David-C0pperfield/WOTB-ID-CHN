@@ -124,6 +124,13 @@ $(function() {
         window.history.pushState({ Page: 1 }, '', '?cid=' + cid)
         getQueryStr('cid')
     })
+    $(document).on('mousedown', '#content tbody tr', function(e) {
+        if (e.which != 1) return
+        $(this).css({ 'background-color': 'rgba(70, 94, 109, 0.5)' })
+    })
+    $(document).on('mouseup', '#content tbody tr', function() {
+        $(this).removeAttr('style')
+    })
 
     function startSearching() {
         restorePosition()

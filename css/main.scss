@@ -252,8 +252,8 @@ body {
         tbody {
             display: block;
             overflow: scroll;
-            background-color: rgba(70, 94, 109, 0.8);
             tr {
+                background-color: rgba(70, 94, 109, 0.8);
                 border-bottom: 1px solid rgba(255, 255, 255, 0.094);
                 &:last-child {
                     border-bottom: 0;

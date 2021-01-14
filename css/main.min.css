@@ -79,9 +79,9 @@ body { font-family: sans-serif; }
 
 #content table thead th:last-child { border-right: none; }
 
-#content table tbody { display: block; overflow: scroll; background-color: rgba(70, 94, 109, 0.8); }
+#content table tbody { display: block; overflow: scroll; }
 
-#content table tbody tr { border-bottom: 1px solid rgba(255, 255, 255, 0.094); }
+#content table tbody tr { background-color: rgba(70, 94, 109, 0.8); border-bottom: 1px solid rgba(255, 255, 255, 0.094); }
 
 #content table tbody tr:last-child { border-bottom: 0; }
 
