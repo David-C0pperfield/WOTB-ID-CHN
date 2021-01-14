@@ -134,7 +134,13 @@ $(function() {
     $(document).on('mouseup', '#content tbody tr', function() {
         $(this).removeAttr('style')
     })
-
+    $(document).on('click', '#detail .clanFamily p', function() { //点击相关军团，切换显示
+        let cid = $(this).attr('id');
+        window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
+        getQueryStr('cid')
+        $('#detail .content').empty()
+        showDetail()
+    })
 
     $('#detail').on('click', function(e) { //关闭浮层
         let target = $(e.target)
@@ -142,7 +148,7 @@ $(function() {
             window.history.replaceState({ Page: 1 }, '', './')
             $('#detail .inner').animate({ 'height': '0' }, 500)
             $('#detail').fadeOut(600, function() {
-                $('#detail .content').empty()
+                $('#detail .content>*').remove()
             });
         }
     })
@@ -202,8 +208,11 @@ $(function() {
                 if (resultCount > 0) {
                     '该军团有' + (resultCount - 1) + '个分团'
                 }
+                $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
                 for (let i in result) {
+
                     insertData(result, i, 'mid')
+                    if (i == 0) { $('#detail .content') }
                 }
             }
         })
@@ -275,6 +284,7 @@ $(function() {
                 '</td><td>' + Desc + '</td></tr>'
             $('#content tbody').append(insertHTML)
         }
+
         if (method == 'detail') {
             Desc = Desc.replace(/\n/g, '</br>')
             if (MID) {
@@ -283,13 +293,14 @@ $(function() {
             let insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
                 '<p>ID：' + ID + '</p>' +
                 '<p>创建日期：' + Estbl + '</p>' +
-                '<h3>简介</h3><p>' + Desc + '</p>'
+                '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
 
             $('#detail .content').append(insertHTML)
         }
+        // 注入军团族群表
         if (method == 'mid') {
-            let insertHTML = '<p><span class="tag">[' + Tag + '] ' + Full + '</span>  ID：' + ID + '</p>'
-            $('#detail .content').append(insertHTML)
+            let insertHTML = '<p id="' + ID + '"><span class="tag">[' + Tag + '] ' + Full + '</span>  ID：' + ID + '</p>'
+            $('#detail .clanFamily').append(insertHTML)
         }
         return
     }
