@@ -137,9 +137,15 @@ $(function() {
     $(document).on('click', '#detail .clanFamily p', function() { //点击相关军团，切换显示
         let cid = $(this).attr('id');
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
-        getQueryStr('cid')
-        $('#detail .content').empty()
+        $('#detail .content').fadeOut(250)
+        setTimeout(function() {
+            $('#detail .content>*').remove();
+            getQueryStr('cid')
+        }, 200)
+
+
         showDetail()
+        $('#detail .content').fadeIn(350)
     })
 
     $('#detail').on('click', function(e) { //关闭浮层
@@ -148,7 +154,7 @@ $(function() {
             window.history.replaceState({ Page: 1 }, '', './')
             $('#detail .inner').animate({ 'height': '0' }, 500)
             $('#detail').fadeOut(600, function() {
-                $('#detail .content>*').remove()
+                $('#detail .content').empty()
             });
         }
     })
