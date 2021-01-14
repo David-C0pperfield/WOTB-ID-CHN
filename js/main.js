@@ -40,7 +40,7 @@ $(function() {
             dataType: "json",
             error: function() { console.log('数据获取失败') },
             success: function(data) {
-                $('table tbody').animate({ scrollTop: 0 }, 500)
+                restorePosition()
                 if (data === undefined) return false;
                 var total_entries = data.length;
                 info('收录', total_entries);
@@ -72,7 +72,7 @@ $(function() {
                     } //补回溢出的读取长度
 
                     while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
-                        insertData(data, dataIndex)
+                        insertData(data, dataIndex, 'table')
                         if (dataIndex < total_entries - 1) {
                             dataIndex++
                         } else {
@@ -126,7 +126,7 @@ $(function() {
     })
 
     function startSearching() {
-        // highlight()
+        restorePosition()
         getClanData()
         slideUpNotification()
         if ($('#searchstr').val() == '') return
@@ -150,21 +150,24 @@ $(function() {
             alert('请输入关键词。')
             return
         }
-
         $.ajax({
             url: './js/clan.json',
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
                 $('#content tbody').empty()
-                let resultCount = toCompare(keyword, data)
+                let result = toCompare(keyword, data),
+                    resultCount = result.length
                 if (resultCount == 0) { insertData() }
                 info('搜索', resultCount);
+                for (let i in result) {
+                    insertData(result, i, 'table')
+                }
             }
         })
     }
 
-    function toCompare(keyword, data) {
+    function toCompare(keyword, data, idSearch) {
         let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
         if (isNaN(Number(keyword))) {
             for (let i in keyword) {
@@ -181,17 +184,20 @@ $(function() {
         var len = data.length,
             arr = [],
             reg = new RegExp(keyword, 'i');
-
-        for (let i = 0; i < len; i++) {
-            if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(strictReg || reg)) {
-                arr.push(data[i])
+        if (idSearch) {
+            for (let i = 0; i < len; i++) {
+                if (String(data[i].ID).match(strictReg || reg)) {
+                    arr.push(data[i])
+                }
+            }
+        } else {
+            for (let i = 0; i < len; i++) {
+                if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(strictReg || reg)) {
+                    arr.push(data[i])
+                }
             }
         }
-        for (let i in arr) {
-            // console.log(arr[i])
-            insertData(arr, i)
-        }
-        return arr.length
+        return arr
     }
 
     function info(action, number) {
@@ -199,19 +205,28 @@ $(function() {
         $('.info .total_entries').html(number);
     }
 
-    function insertData(d, i) {
-        if (!d && !i) { $('#content tbody').append('<tr><td>没有搜索到相关内容，相关军团可能未被收录</td></tr>') }
+    function insertData(d, i, method) {
+        if (!d) {
+            $('#content tbody').append('<tr><td>没有搜索到相关内容，相关军团可能未被收录</td></tr>')
+            return
+        }
+        i = i || 0
         let ID = d[i].ID,
             Tag = d[i].Tag,
             Full = d[i].Full,
-
             Desc = d[i].Desc;
-        if (Desc == '') { Desc = '--' } else if (Desc.length > 20) { Desc = Desc.substr(0, 19) + '…' }
-
-        let insertHTML = '<tr id=' + ID + '><td>' + ID +
-            '</td><td>' + '[' + Tag + '] ' + Full +
-            '</td><td>' + Desc + '</td></tr>'
-        $('#content tbody').append(insertHTML)
+        if (Desc == '') { Desc = '--' }
+        if (method == 'table') {
+            if (Desc.length > 20) { Desc = Desc.substr(0, 19) + '…' }
+            let insertHTML = '<tr id=' + ID + '><td>' + ID +
+                '</td><td>' + '[' + Tag + '] ' + Full +
+                '</td><td>' + Desc + '</td></tr>'
+            $('#content tbody').append(insertHTML)
+        }
+        if (method == 'detail') {
+            let insertHTML = ID + Tag + Full + Desc
+            console.log(insertHTML)
+        }
     }
 
     function removeInput(t) {
@@ -226,24 +241,30 @@ $(function() {
     // 军团单独显示
     function getQueryStr(n) {
         let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
-            result = window.location.search.substr(1).match(reg),
-            decodeR = unescape(result[2]);
-        getClanByID(decodeR)
-        if (result != null) return decodeR;
+            result = window.location.search.substr(1).match(reg);
+        if (!result) return
+        let decodeR = unescape(result[2]);
+        if (!decodeR) return
+        if (result != null) getClanByID(decodeR);
         return null
     }
 
-    function getClanByID(i) {
-        let id = Number(i);
-        if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
+    function getClanByID(id) {
+        var id = Number(id);
         $.ajax({
             url: './js/clan.json',
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
-                // let strictReg = new RegExp('^' + id + '$')
-                toCompare(i, data)
+                if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
+                let detail = toCompare(id, data, true)
+                insertData(detail, 0, 'detail')
             }
         })
     }
+
+    function restorePosition() {
+        $('table tbody').animate({ scrollTop: 0 }, 500)
+    }
+
 })
