@@ -305,19 +305,29 @@ body {
             width: 100%;
             position: absolute;
             bottom: 0;
-            .content {
+            .window {
                 position: relative;
                 margin: 0 auto;
                 width: calc(100% - 2 * 55px);
-                min-width: 360px;
+                min-width: 375px;
                 height: 100%;
                 background-color: #1B1F21;
                 border-radius: 15px 15px 0 0;
                 overflow-y: scroll;
                 color: #fff;
-                font-size: 36px;
+                font-size: 20px;
                 box-sizing: border-box;
                 padding: 25px;
+                .dismissBtn {
+                    font-size: 1.25em;
+                    display: inline-block;
+                }
+                .content {
+                    height: 100%;
+                    .tag {
+                        color: #E9A844;
+                    }
+                }
             }
         }
     }

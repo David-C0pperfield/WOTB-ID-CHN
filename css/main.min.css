@@ -105,7 +105,13 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner { height: 0; width: 100%; position: absolute; bottom: 0; }
 
-#detail .wrap .inner .content { position: relative; margin: 0 auto; width: calc(100% - 2 * 55px); min-width: 360px; height: 100%; background-color: #1B1F21; border-radius: 15px 15px 0 0; overflow-y: scroll; color: #fff; font-size: 36px; box-sizing: border-box; padding: 25px; }
+#detail .wrap .inner .window { position: relative; margin: 0 auto; width: calc(100% - 2 * 55px); min-width: 375px; height: 100%; background-color: #1B1F21; border-radius: 15px 15px 0 0; overflow-y: scroll; color: #fff; font-size: 20px; box-sizing: border-box; padding: 25px; }
+
+#detail .wrap .inner .window .dismissBtn { font-size: 1.25em; display: inline-block; }
+
+#detail .wrap .inner .window .content { height: 100%; }
+
+#detail .wrap .inner .window .content .tag { color: #E9A844; }
 
 @media (prefers-color-scheme: dark) { html { background: #333333; }
   :root { background: #333333; }
