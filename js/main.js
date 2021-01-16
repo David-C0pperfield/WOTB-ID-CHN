@@ -1,8 +1,6 @@
 $(function() {
     calcTableHeight();
-    $(window).resize(function() {
-        calcTableHeight();
-    })
+    $(window).resize(function() { calcTableHeight(); })
     getQueryStr('cid')
     fetchData() //接受json
 
