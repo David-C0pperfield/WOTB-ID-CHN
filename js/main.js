@@ -120,7 +120,8 @@ $(function() {
 
     //详情浮层
     $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
-        let cid = $(this).attr('id');
+        let cid = $(this).attr('data-clan-id');
+        // cid = encodeURIComponent(cid)
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
         getQueryStr('cid')
         showDetail()
@@ -133,7 +134,7 @@ $(function() {
         $(this).removeAttr('style')
     })
     $(document).on('click', '#detail .clanFamily p', function() { //点击相关军团，切换显示
-        let cid = $(this).attr('id');
+        let cid = $(this).attr('data-clan-id');
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
         $('#detail .content').fadeOut(250)
         setTimeout(function() {
@@ -214,17 +215,15 @@ $(function() {
                 }
                 $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
                 for (let i in result) {
-
                     insertData(result, i, 'mid')
                     if (i == 0) { $('#detail .content') }
                 }
             }
         })
-
     }
 
     function toCompare(keyword, data, mode) {
-        let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\-", "\\*", "\\/"]
+        let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\*", "\\/"]
         if (isNaN(Number(keyword))) {
             for (let i in keyword) {
                 for (let j in filter) {
@@ -232,9 +231,9 @@ $(function() {
                     keyword = keyword.replace(filtSpecial, filter[j])
                 }
             }
-        } else {
-            var strictReg = new RegExp('^' + keyword + '$');
         }
+        var strictReg = new RegExp('^' + keyword + '$');
+
 
         if (!(data instanceof Array)) return
         var len = data.length,
@@ -249,6 +248,12 @@ $(function() {
         } else if (mode == 'mid') {
             for (let i = 0; i < len; i++) {
                 if (String(data[i].MID).match(strictReg)) {
+                    arr.push(data[i])
+                }
+            }
+        } else if (mode == 'private') {
+            for (let i = 0; i < len; i++) {
+                if (String(data[i].Tag).match(strictReg)) {
                     arr.push(data[i])
                 }
             }
@@ -278,12 +283,14 @@ $(function() {
             Full = d[i].Full,
             Desc = d[i].Desc,
             Estbl = d[i].Estbl,
-            MID = d[i].MID;
+            MID = d[i].MID,
+            tableID;
 
         if (Desc == '') { Desc = '无' }
         if (method == 'table') {
             if (Desc.length > 20) { Desc = Desc.substr(0, 19) + '…' }
-            let insertHTML = '<tr id=' + ID + '><td>' + ID +
+            if (isNaN(ID) == true) { tableID = Tag } else { tableID = ID }
+            let insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
                 '</td><td>' + '[' + Tag + '] ' + Full +
                 '</td><td>' + Desc + '</td></tr>'
             $('#content tbody').append(insertHTML)
@@ -297,13 +304,11 @@ $(function() {
                 '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
 
             $('#detail .content').append(insertHTML)
-            if (MID) {
-                getClanFamily(MID)
-            }
+            if (MID) { getClanFamily(MID) }
         }
         // 注入军团族群表
         if (method == 'mid') {
-            let insertHTML = '<p id="' + ID + '"><span class="tag">[' + Tag + '] ' + Full + '</span>  ID：' + ID + '</p>'
+            let insertHTML = '<p data-clan-id="' + ID + '"><span class="tag">[' + Tag + '] ' + Full + '</span>  ID：' + ID + '</p>'
             $('#detail .clanFamily').append(insertHTML)
         }
         return
@@ -323,7 +328,7 @@ $(function() {
         let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
             result = window.location.search.substr(1).match(reg);
         if (!result) return
-        let decodeR = unescape(result[2]);
+        let decodeR = decodeURIComponent(result[2]);
         if (!decodeR) return
         if (result != null) {
             getClanByID(decodeR);
@@ -332,6 +337,25 @@ $(function() {
     }
 
     function getClanByID(id) {
+        if (isNaN(Number(id)) == true) {
+            $.ajax({
+                url: './js/clan.json',
+                dataType: 'json',
+                error: function() { console.log('数据获取失败') },
+                success: function(data) {
+                    let detail = toCompare(id, data, 'private'),
+                        len = detail.length;
+                    if (len == 0) return
+                    insertData(detail, 0, 'detail')
+                    document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科';
+                    if (detail[0].Desc != '') {
+                        $('meta[name="description"]').attr('content', detail[0].Desc)
+                    }
+                    showDetail()
+                }
+            })
+            return
+        }
         var id = Number(id);
         $.ajax({
             url: './js/clan.json',
