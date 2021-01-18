@@ -3,8 +3,6 @@ $(function() {
     $(window).resize(function() { calcTableHeight(); })
     getQueryStr('cid')
     fetchData() //接受json
-
-    // fetchData() //接受json
     var beginIndex = 0,
         stepLength = 20,
         endingIndex = beginIndex + stepLength - 1,
@@ -43,12 +41,8 @@ $(function() {
                 var total_entries = data.length;
                 info('收录', total_entries);
                 (function judgePage() {
-                    if (beginIndex <= 0) {
-                        $('.flipBtn.prev').hide()
-                    } else $('.flipBtn.prev').show()
-                    if (endingIndex >= total_entries - 1) {
-                        $('.flipBtn.next').hide()
-                    } else $('.flipBtn.next').show()
+                    if (beginIndex <= 0) { $('.flipBtn.prev').hide() } else $('.flipBtn.prev').show()
+                    if (endingIndex >= total_entries - 1) { $('.flipBtn.next').hide() } else $('.flipBtn.next').show()
                 })();
                 (function loadList() {
                     $('#content tbody').empty()
@@ -71,11 +65,7 @@ $(function() {
 
                     while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
                         insertData(data, dataIndex, 'table')
-                        if (dataIndex < total_entries - 1) {
-                            dataIndex++
-                        } else {
-                            return
-                        }
+                        if (dataIndex < total_entries - 1) { dataIndex++ } else return
                     }
                 })();
             }
@@ -90,22 +80,14 @@ $(function() {
         }
     })
     $('#search_btn').on('click', function() { startSearching() })
-        //通知栏进入后自动下拉
-        // slideDownNotification()
     $('.btn.resetBtn>*').on('click', function() {
         removeInput('#searchstr');
         $('#searchstr').focus();
     })
 
-    function slideDownNotification() {
-        setTimeout(function() {
-            $('#notification_zone').slideDown(250);
-        }, 450)
-    }
+    function slideDownNotification() { setTimeout(function() { $('#notification_zone').slideDown(250); }, 450) }
     $('#searchstr').on('click', function() { //聚焦时显示横幅
-        if ($('#searchstr').is(':focus')) {
-            $('#notification_zone').slideDown(250)
-        };
+        if ($('#searchstr').is(':focus')) $('#notification_zone').slideDown(250)
     })
     $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
@@ -121,7 +103,6 @@ $(function() {
     //详情浮层
     $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
         let cid = $(this).attr('data-clan-id');
-        // cid = encodeURIComponent(cid)
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
         getQueryStr('cid')
         showDetail()
@@ -150,9 +131,7 @@ $(function() {
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) {
             window.history.replaceState({ Page: 1 }, '', './')
             $('#detail .inner').animate({ 'height': '0' }, 500)
-            $('#detail').fadeOut(600, function() {
-                $('#detail .content').empty()
-            });
+            $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
             document.title = '闪击战ID大百科'
             $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
         }
@@ -172,33 +151,54 @@ $(function() {
         $('.flipBtn.back').show()
     }
 
-    function slideUpNotification() {
-        if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250);
-    }
+    function slideUpNotification() { if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250); }
 
-    function getClanData() {
-        var keyword = $('#searchstr').val();
-
-        if (keyword == '' || undefined) {
-            alert('请输入关键词。')
-            return
-        }
-        $.ajax({
-            url: './js/clan.json',
-            dataType: 'json',
-            error: function() { console.log('数据获取失败') },
-            success: function(data) {
-                $('#content tbody').empty()
-                let result = toCompare(keyword, data),
-                    resultCount = result.length
-                if (resultCount == 0) { insertData() }
-                info('搜索', resultCount);
-                for (let i in result) {
-                    insertData(result, i, 'table')
-                }
+    function getClanData(mode, id) {
+        if (!mode) {
+            var keyword = $('#searchstr').val();
+            if (keyword == '' || undefined) {
+                alert('请输入关键词。')
+                return
             }
-        })
-
+            $.ajax({
+                url: './js/clan.json',
+                dataType: 'json',
+                error: function() { console.log('数据获取失败') },
+                success: function(data) {
+                    $('#content tbody').empty()
+                    let result = toCompare(keyword, data),
+                        resultCount = result.length
+                    if (resultCount == 0) insertData()
+                    info('搜索', resultCount);
+                    for (let i in result) {
+                        insertData(result, i, 'table')
+                    }
+                }
+            })
+        } else if (mode == 'byId') {
+            var id = id;
+            $.ajax({
+                url: './js/clan.json',
+                dataType: 'json',
+                error: function() { console.log('数据获取失败') },
+                success: function(data) {
+                    console.log(id)
+                    if (isNaN(Number(id)) == true) {
+                        var detail = toCompare(id, data, 'private')
+                    } else {
+                        id = Number(id)
+                        if (id == 0 || id % 1 != 0) return
+                        var detail = toCompare(id, data, 'id')
+                    }
+                    let len = detail.length;
+                    if (len == 0) return
+                    insertData(detail, 0, 'detail')
+                    document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科'
+                    if (detail[0].Desc != '') $('meta[name="description"]').attr('content', detail[0].Desc)
+                    showDetail()
+                }
+            })
+        }
     }
 
     function getClanFamily(i) {
@@ -210,13 +210,11 @@ $(function() {
             success: function(data) {
                 let result = toCompare(parentClan, data, 'mid');
                 resultCount = result.length
-                if (resultCount > 0) {
-                    '该军团有' + (resultCount - 1) + '个分团'
-                }
+                if (resultCount > 0) '该军团有' + (resultCount - 1) + '个分团'
                 $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
                 for (let i in result) {
                     insertData(result, i, 'mid')
-                    if (i == 0) { $('#detail .content') }
+                    if (i == 0) $('#detail .content')
                 }
             }
         })
@@ -234,34 +232,25 @@ $(function() {
         }
         var strictReg = new RegExp('^' + keyword + '$');
 
-
         if (!(data instanceof Array)) return
         var len = data.length,
             arr = [],
             reg = new RegExp(keyword, 'i');
         if (mode == 'id') {
             for (let i = 0; i < len; i++) {
-                if (String(data[i].ID).match(strictReg)) {
-                    arr.push(data[i])
-                }
+                if (String(data[i].ID).match(strictReg)) arr.push(data[i])
             }
         } else if (mode == 'mid') {
             for (let i = 0; i < len; i++) {
-                if (String(data[i].MID).match(strictReg)) {
-                    arr.push(data[i])
-                }
+                if (String(data[i].MID).match(strictReg)) arr.push(data[i])
             }
         } else if (mode == 'private') {
             for (let i = 0; i < len; i++) {
-                if (String(data[i].Tag).match(strictReg)) {
-                    arr.push(data[i])
-                }
+                if (String(data[i].Tag).match(strictReg)) arr.push(data[i])
             }
         } else {
             for (let i = 0; i < len; i++) {
-                if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(strictReg || reg)) {
-                    arr.push(data[i])
-                }
+                if (String(data[i].Tag).match(reg) || String(data[i].Full).match(reg) || String(data[i].ID).match(strictReg || reg)) arr.push(data[i])
             }
         }
         return arr
@@ -286,10 +275,10 @@ $(function() {
             MID = d[i].MID,
             tableID;
 
-        if (Desc == '') { Desc = '无' }
+        if (Desc == '') Desc = '无'
         if (method == 'table') {
-            if (Desc.length > 20) { Desc = Desc.substr(0, 19) + '…' }
-            if (isNaN(ID) == true) { tableID = Tag } else { tableID = ID }
+            if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
+            if (isNaN(ID) == true) { tableID = Tag } else tableID = ID
             let insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
                 '</td><td>' + '[' + Tag + '] ' + Full +
                 '</td><td>' + Desc + '</td></tr>'
@@ -304,7 +293,7 @@ $(function() {
                 '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
 
             $('#detail .content').append(insertHTML)
-            if (MID) { getClanFamily(MID) }
+            if (MID) getClanFamily(MID)
         }
         // 注入军团族群表
         if (method == 'mid') {
@@ -314,66 +303,22 @@ $(function() {
         return
     }
 
-    function removeInput(t) {
-        $(t).val('')
-    }
+    function removeInput(t) { $(t).val('') }
 
     function calcTableHeight() {
         tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #register-banner').outerHeight() - $('#head').outerHeight()
         $('table tbody').css({ 'height': tablePosition + 'px' })
         return tablePosition;
     }
-    // 军团单独显示
+    // 军团单独页面
     function getQueryStr(n) {
         let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
             result = window.location.search.substr(1).match(reg);
         if (!result) return
         let decodeR = decodeURIComponent(result[2]);
         if (!decodeR) return
-        if (result != null) {
-            getClanByID(decodeR);
-        }
+        if (result != null) getClanData('byId', decodeR);
         return null
-    }
-
-    function getClanByID(id) {
-        if (isNaN(Number(id)) == true) {
-            $.ajax({
-                url: './js/clan.json',
-                dataType: 'json',
-                error: function() { console.log('数据获取失败') },
-                success: function(data) {
-                    let detail = toCompare(id, data, 'private'),
-                        len = detail.length;
-                    if (len == 0) return
-                    insertData(detail, 0, 'detail')
-                    document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科';
-                    if (detail[0].Desc != '') {
-                        $('meta[name="description"]').attr('content', detail[0].Desc)
-                    }
-                    showDetail()
-                }
-            })
-            return
-        }
-        var id = Number(id);
-        $.ajax({
-            url: './js/clan.json',
-            dataType: 'json',
-            error: function() { console.log('数据获取失败') },
-            success: function(data) {
-                if (typeof(id) != 'number' || id == 0 || id % 1 != 0) return;
-                let detail = toCompare(id, data, 'id'),
-                    len = detail.length;
-                if (len == 0) return
-                insertData(detail, 0, 'detail')
-                document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科';
-                if (detail[0].Desc != '') {
-                    $('meta[name="description"]').attr('content', detail[0].Desc)
-                }
-                showDetail()
-            }
-        })
     }
 
     function restorePosition() {
@@ -384,5 +329,4 @@ $(function() {
         $('#detail .inner').animate({ 'height': '100%' }, 450);
         $('#detail').fadeIn(400)
     }
-
 })
