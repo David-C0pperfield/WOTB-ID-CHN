@@ -1,8 +1,10 @@
 $(function() {
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
-    getQueryStr('cid')
-    fetchData() //接受json
+    getClanData('byId', getQueryStr('cid'));
+    if (getQueryStr('keyword')) { getClanData() } else { fetchData() }
+
+
     var beginIndex = 0,
         stepLength = 20,
         endingIndex = beginIndex + stepLength - 1,
@@ -79,7 +81,10 @@ $(function() {
             $('#searchstr').focus();
         }
     })
-    $('#search_btn').on('click', function() { startSearching() })
+    $('#search_btn').on('click', function() {
+        if ($('#searchstr').val() == '') return
+        startSearching()
+    })
     $('.btn.resetBtn>*').on('click', function() {
         removeInput('#searchstr');
         $('#searchstr').focus();
@@ -104,7 +109,7 @@ $(function() {
     $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
         let cid = $(this).attr('data-clan-id');
         window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
-        getQueryStr('cid')
+        getClanData('byId', getQueryStr('cid'));
         showDetail()
     })
     $(document).on('mousedown', '#content tbody tr', function(e) {
@@ -120,7 +125,7 @@ $(function() {
         $('#detail .content').fadeOut(250)
         setTimeout(function() {
             $('#detail .content>*').remove();
-            getQueryStr('cid')
+            getClanData('byId', getQueryStr('cid'));
         }, 200)
         showDetail()
         $('#detail .content').fadeIn(350)
@@ -138,10 +143,10 @@ $(function() {
     })
 
     function startSearching() {
+        window.history.pushState({ Page: 2 }, '', '?keyword=' + $('#searchstr').val())
         restorePosition()
         getClanData()
         slideUpNotification()
-        if ($('#searchstr').val() == '') return
         $('.flipBtn').hide()
         $('#register-banner').prepend('<span class="btn flipBtn back">\
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
@@ -155,9 +160,9 @@ $(function() {
 
     function getClanData(mode, id) {
         if (!mode) {
-            var keyword = $('#searchstr').val();
+            var keyword = getQueryStr('keyword');
             if (keyword == '' || undefined) {
-                alert('请输入关键词。')
+                // alert('请输入关键词。')
                 return
             }
             $.ajax({
@@ -182,7 +187,6 @@ $(function() {
                 dataType: 'json',
                 error: function() { console.log('数据获取失败') },
                 success: function(data) {
-                    console.log(id)
                     if (isNaN(Number(id)) == true) {
                         var detail = toCompare(id, data, 'private')
                     } else {
@@ -214,7 +218,6 @@ $(function() {
                 $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
                 for (let i in result) {
                     insertData(result, i, 'mid')
-                    if (i == 0) $('#detail .content')
                 }
             }
         })
@@ -267,16 +270,30 @@ $(function() {
             return
         }
         i = i || 0
-        let ID = d[i].ID,
+        var ID = d[i].ID,
             Tag = d[i].Tag,
             Full = d[i].Full,
             Desc = d[i].Desc,
             Estbl = d[i].Estbl,
             MID = d[i].MID,
-            tableID;
+            tableID, repeated_desc;
 
         if (Desc == '') Desc = '无'
         if (method == 'table') {
+            if (Desc == '/repeat') {
+                $.ajax({
+                    url: './js/clan.json',
+                    dataType: 'json',
+                    error: function() { console.log('数据获取失败') },
+                    success: function(data) {
+                        repeated_desc = toCompare(MID, data, 'id')
+                        Desc = repeated_desc[0].Desc
+                        console.log(repeated_desc[0].Desc)
+
+                    }
+                })
+            }
+
             if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
             if (isNaN(ID) == true) { tableID = Tag } else tableID = ID
             let insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
@@ -317,7 +334,7 @@ $(function() {
         if (!result) return
         let decodeR = decodeURIComponent(result[2]);
         if (!decodeR) return
-        if (result != null) getClanData('byId', decodeR);
+        if (result != null) return decodeR
         return null
     }
 
