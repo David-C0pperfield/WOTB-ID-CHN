@@ -2,15 +2,14 @@ $(function() {
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
     getClanData('byId', getQueryStr('cid'));
-    if (getQueryStr('keyword')) { getClanData() } else { fetchData() }
-
-
+    fetchData()
     var beginIndex = 0,
         stepLength = 20,
         endingIndex = beginIndex + stepLength - 1,
         dataIndex = beginIndex,
         overflowIndex = 0,
         overflowStep = 0;
+
     $(document).on('click', '.flipBtn.back', function() {
         beginIndex = beginIndex
         endingIndex = endingIndex
@@ -263,6 +262,7 @@ $(function() {
         $('.info .action').html(action);
         $('.info .total_entries').html(number);
     }
+    var repeated_desc;
 
     function insertData(d, i, method) {
         if (!d) {
@@ -276,24 +276,12 @@ $(function() {
             Desc = d[i].Desc,
             Estbl = d[i].Estbl,
             MID = d[i].MID,
-            tableID, repeated_desc;
+            tableID;
 
         if (Desc == '') Desc = '无'
         if (method == 'table') {
-            if (Desc == '/repeat') {
-                $.ajax({
-                    url: './js/clan.json',
-                    dataType: 'json',
-                    error: function() { console.log('数据获取失败') },
-                    success: function(data) {
-                        repeated_desc = toCompare(MID, data, 'id')
-                        Desc = repeated_desc[0].Desc
-                        console.log(repeated_desc[0].Desc)
-
-                    }
-                })
-            }
-
+            repeatedDesc(MID, Desc)
+            if (repeated_desc) Desc = repeated_desc
             if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
             if (isNaN(ID) == true) { tableID = Tag } else tableID = ID
             let insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
@@ -303,6 +291,8 @@ $(function() {
         }
 
         if (method == 'detail') {
+            repeatedDesc(MID, Desc)
+            if (repeated_desc) Desc = repeated_desc
             Desc = Desc.replace(/\n/g, '</br>')
             let insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
                 '<p>ID：' + ID + '</p>' +
@@ -345,5 +335,20 @@ $(function() {
     function showDetail() {
         $('#detail .inner').animate({ 'height': '100%' }, 450);
         $('#detail').fadeIn(400)
+    }
+
+    function repeatedDesc(MID, Desc) {
+        if (Desc == '/repeat') {
+            $.ajaxSetup({ async: false })
+            $.ajax({
+                url: './js/clan.json',
+                dataType: 'json',
+                error: function() { console.log('数据获取失败') },
+                success: function(data) {
+                    repeated_desc = toCompare(MID, data, 'id')
+                }
+            })
+            return repeated_desc = repeated_desc[0].Desc
+        } else return null
     }
 })
