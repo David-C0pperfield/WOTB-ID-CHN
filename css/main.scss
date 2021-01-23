@@ -139,14 +139,15 @@ body {
         background: rgba(255, 255, 255, 0.627);
         color: #000;
         box-sizing: border-box;
-        padding: 15px 25px;
         line-height: 1.5em;
         box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.376);
         position: relative;
         overflow: hidden;
         @include blur-bg(20px, 180%);
+        padding-bottom: 40px;
         // @include shadowed-text();
         .wrap {
+            padding: 15px 25px;
             height: calc(100% - 20px);
             overflow-y: scroll;
             section {
@@ -183,7 +184,7 @@ body {
         }
         .toCollapse {
             text-align: center;
-            width: calc(100% - 2 * 25px);
+            width: 100%;
             position: absolute;
             bottom: 0;
         }
