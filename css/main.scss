@@ -430,6 +430,12 @@ body {
 }
 
 @media screen and (max-width:640px) {
+    #content table {
+        thead tr th:last-child,
+        tbody tr td:last-child {
+            display: none;
+        }
+    }
     #detail {
         .wrap {
             .inner {

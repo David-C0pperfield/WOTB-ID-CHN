@@ -137,5 +137,6 @@ body { font-family: sans-serif; }
 @media screen and (max-width: 960px) { table { width: 640px; }
   #detail .wrap .inner .window { width: 100%; margin: 0; } }
 
-@media screen and (max-width: 640px) { #detail .wrap .inner .window .content h3 ~ p { text-align: left; } }
+@media screen and (max-width: 640px) { #content table thead tr th:last-child, #content table tbody tr td:last-child { display: none; }
+  #detail .wrap .inner .window .content h3 ~ p { text-align: left; } }
 /*# sourceMappingURL=main.min.css.map */
