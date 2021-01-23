@@ -1,4 +1,5 @@
 $(function() {
+    slideDownNotification()
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
     getClanData('byId', getQueryStr('cid'));
