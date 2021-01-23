@@ -141,49 +141,55 @@ body {
         box-sizing: border-box;
         padding: 15px 25px;
         line-height: 1.5em;
-        overflow-y: scroll;
         box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.376);
         position: relative;
+        overflow: hidden;
         @include blur-bg(20px, 180%);
         // @include shadowed-text();
-        section {
-            margin-bottom: 10px;
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-        #part1 {
-            p {
-                margin-bottom: 5px;
+        .wrap {
+            height: calc(100% - 20px);
+            overflow-y: scroll;
+            section {
+                margin-bottom: 10px;
                 &:last-child {
                     margin-bottom: 0;
                 }
             }
-        }
-        #part2 {
-            text-align: center;
-            justify-content: space-evenly;
-            #acknowledgement {
-                padding: 0 10px;
-                display: inline-block;
-                text-align: center;
+            #part1 {
+                p {
+                    margin-bottom: 5px;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
             }
-            #links {
-                padding: 0 10px;
+            #part2 {
                 text-align: center;
-                display: inline-block;
-                a {
-                    color: darkviolet;
+                justify-content: space-evenly;
+                #acknowledgement {
+                    padding: 0 10px;
+                    display: inline-block;
+                    text-align: center;
+                }
+                #links {
+                    padding: 0 10px;
+                    text-align: center;
+                    display: inline-block;
+                    a {
+                        color: darkviolet;
+                    }
                 }
             }
         }
         .toCollapse {
             text-align: center;
             width: calc(100% - 2 * 25px);
-            height: 50px;
-            margin: 0 auto;
             position: absolute;
             bottom: 0;
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
         }
     }
 }
@@ -395,11 +401,13 @@ body {
         #notification_zone {
             background: rgba(0, 0, 0, 0.627);
             color: #fff;
-            #part2 {
-                // #acknowledgement {}
-                #links {
-                    a {
-                        color: gold;
+            .wrap {
+                #part2 {
+                    // #acknowledgement {}
+                    #links {
+                        a {
+                            color: gold;
+                        }
                     }
                 }
             }
