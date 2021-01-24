@@ -37,9 +37,9 @@ body { font-family: sans-serif; }
 
 #head hr { margin: 10px auto; }
 
-#head #notification_zone { display: none; height: 300px; background: rgba(255, 255, 255, 0.627); color: #000; box-sizing: border-box; padding: 15px 25px; line-height: 1.5em; box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.376); position: relative; overflow: hidden; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+#head #notification_zone { display: none; height: 320px; background: rgba(255, 255, 255, 0.627); color: #000; box-sizing: border-box; line-height: 1.5em; box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.376); position: relative; overflow: hidden; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); padding-bottom: 40px; }
 
-#head #notification_zone .wrap { height: calc(100% - 20px); overflow-y: scroll; }
+#head #notification_zone .wrap { padding: 15px 25px; height: calc(100% - 20px); overflow-y: scroll; }
 
 #head #notification_zone .wrap section { margin-bottom: 10px; }
 
@@ -57,7 +57,7 @@ body { font-family: sans-serif; }
 
 #head #notification_zone .wrap #part2 #links a { color: darkviolet; }
 
-#head #notification_zone .toCollapse { text-align: center; width: calc(100% - 2 * 25px); position: absolute; bottom: 0; }
+#head #notification_zone .toCollapse { text-align: center; width: 100%; position: absolute; bottom: 0; }
 
 #head #notification_zone svg { display: block; margin: 0 auto; }
 
@@ -122,6 +122,8 @@ body { font-family: sans-serif; }
 #detail .wrap .inner .window .content h3 ~ p { text-align: center; }
 
 #detail .wrap .inner .window .content .tag { color: #E9A844; }
+
+#detail .wrap .inner .window .content .current { color: #ffffff; margin: 0 1rem; }
 
 @media (prefers-color-scheme: dark) { html { background: #333333; }
   :root { background: #333333; }

@@ -1,5 +1,4 @@
 $(function() {
-    slideDownNotification()
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
     getClanData('byId', getQueryStr('cid'));
@@ -285,7 +284,7 @@ $(function() {
             if (repeated_desc) Desc = repeated_desc
             if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
             if (isNaN(ID) == true) { tableID = Tag } else tableID = ID
-            let insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
+            var insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
                 '</td><td>' + '[' + Tag + '] ' + Full +
                 '</td><td>' + Desc + '</td></tr>'
             $('#content tbody').append(insertHTML)
@@ -295,7 +294,7 @@ $(function() {
             repeatedDesc(MID, Desc)
             if (repeated_desc) Desc = repeated_desc
             Desc = Desc.replace(/\n/g, '</br>')
-            let insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
+            var insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
                 '<p>ID：' + ID + '</p>' +
                 '<p>创建日期：' + Estbl + '</p>' +
                 '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
@@ -305,7 +304,15 @@ $(function() {
         }
         // 注入军团族群表
         if (method == 'mid') {
-            let insertHTML = '<p data-clan-id="' + ID + '"><span class="tag">[' + Tag + '] ' + Full + '</span>  ID：' + ID + '</p>'
+            var pBegin = '<p data-clan-id="' + ID + '">',
+                insertHTML = '<span class="tag">[' + Tag + '] ' + Full + '</span> ID：' + ID,
+                pEnd = '</p>'
+            if (ID == getQueryStr('cid')) {
+                var left_arrow = '<span class="current">&gt;&gt;</span>',
+                    right_arrow = '<span class="current">&lt;&lt;</span>'
+                insertHTML = [left_arrow, insertHTML, right_arrow].join('')
+            }
+            insertHTML = [pBegin, insertHTML, pEnd].join('')
             $('#detail .clanFamily').append(insertHTML)
         }
         return
@@ -323,6 +330,7 @@ $(function() {
         let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
             result = window.location.search.substr(1).match(reg);
         if (!result) return
+
         let decodeR = decodeURIComponent(result[2]);
         if (!decodeR) return
         if (result != null) return decodeR
