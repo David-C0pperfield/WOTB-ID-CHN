@@ -284,31 +284,32 @@ $(function() {
             if (repeated_desc) Desc = repeated_desc
             if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
             if (isNaN(ID) == true) { tableID = Tag } else tableID = ID
-            var insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
+            let insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
                 '</td><td>' + '[' + Tag + '] ' + Full +
                 '</td><td>' + Desc + '</td></tr>'
             $('#content tbody').append(insertHTML)
+            repeated_desc = ''
         }
 
         if (method == 'detail') {
             repeatedDesc(MID, Desc)
             if (repeated_desc) Desc = repeated_desc
             Desc = Desc.replace(/\n/g, '</br>')
-            var insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
+            let insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
                 '<p>ID：' + ID + '</p>' +
                 '<p>创建日期：' + Estbl + '</p>' +
                 '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
-
             $('#detail .content').append(insertHTML)
             if (MID) getClanFamily(MID)
+            repeated_desc = ''
         }
         // 注入军团族群表
         if (method == 'mid') {
-            var pBegin = '<p data-clan-id="' + ID + '">',
+            let pBegin = '<p data-clan-id="' + ID + '">',
                 insertHTML = '<span class="tag">[' + Tag + '] ' + Full + '</span> ID：' + ID,
                 pEnd = '</p>'
             if (ID == getQueryStr('cid')) {
-                var left_arrow = '<span class="current">&gt;&gt;</span>',
+                let left_arrow = '<span class="current">&gt;&gt;</span>',
                     right_arrow = '<span class="current">&lt;&lt;</span>'
                 insertHTML = [left_arrow, insertHTML, right_arrow].join('')
             }
