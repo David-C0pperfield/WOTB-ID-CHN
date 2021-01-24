@@ -123,6 +123,8 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .content .tag { color: #E9A844; }
 
+#detail .wrap .inner .window .content .current { color: #ffffff; margin: 0 1rem; }
+
 @media (prefers-color-scheme: dark) { html { background: #333333; }
   :root { background: #333333; }
   #head #searchbar { background: rgba(0, 0, 0, 0.376); }
