@@ -37,7 +37,7 @@ $searchStrHeight:36px;
 html {
     @include lightbg();
     height: 100%;
-    min-width: 375px;
+    min-width: 300px;
 }
 
 :root {
@@ -316,7 +316,7 @@ body {
                 position: relative;
                 margin: 0 auto;
                 width: calc(100% - 2 * 55px);
-                min-width: 375px;
+                min-width: 300px;
                 height: 100%;
                 background-color: rgba(27, 31, 33, 0.9);
                 border-radius: 15px 15px 0 0;
@@ -421,14 +421,18 @@ body {
 }
 
 @media screen and (min-width:1000px) {
-    table {
-        width: 960px;
+    #content {
+        table {
+            width: 960px;
+        }
     }
 }
 
 @media screen and (max-width:960px) {
-    table {
-        width: 640px;
+    #content {
+        table {
+            width: 640px;
+        }
     }
     #detail {
         .wrap {
@@ -443,10 +447,13 @@ body {
 }
 
 @media screen and (max-width:640px) {
-    #content table {
-        thead tr th:last-child,
-        tbody tr td:last-child {
-            display: none;
+    #content {
+        table {
+            width: 100%;
+            thead tr th:last-child,
+            tbody tr td:last-child {
+                display: none;
+            }
         }
     }
     #detail {
@@ -456,6 +463,30 @@ body {
                     .content {
                         h3~p {
                             text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:380px) {
+    #content {
+        table {
+            width: 100%;
+            thead,
+            tbody {
+                tr {
+                    th,
+                    td {
+                        padding: 0 0.75em;
+                        &:first-child {
+                            width: 2em;
+                            text-align: center;
+                        }
+                        &:nth-child(2) {
+                            width: 15em;
                         }
                     }
                 }
