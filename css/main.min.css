@@ -144,11 +144,9 @@ body { font-family: sans-serif; }
   #detail .wrap .inner .window { width: 100%; margin: 0; } }
 
 @media screen and (max-width: 640px) { #content table { width: 100%; }
-  #content table thead tr th:last-child, #content table tbody tr td:last-child { display: none; }
-  #detail .wrap .inner .window .content h3 ~ p { text-align: left; } }
-
-@media screen and (max-width: 380px) { #content table { width: 100%; }
   #content table thead tr th, #content table thead tr td, #content table tbody tr th, #content table tbody tr td { padding: 0 0.75em; }
   #content table thead tr th:first-child, #content table thead tr td:first-child, #content table tbody tr th:first-child, #content table tbody tr td:first-child { width: 2em; text-align: center; }
-  #content table thead tr th:nth-child(2), #content table thead tr td:nth-child(2), #content table tbody tr th:nth-child(2), #content table tbody tr td:nth-child(2) { width: 15em; } }
+  #content table thead tr th:nth-child(2), #content table thead tr td:nth-child(2), #content table tbody tr th:nth-child(2), #content table tbody tr td:nth-child(2) { width: 15em; }
+  #content table thead tr th:last-child, #content table tbody tr td:last-child { display: none; }
+  #detail .wrap .inner .window .content h3 ~ p { text-align: left; } }
 /*# sourceMappingURL=main.min.css.map */

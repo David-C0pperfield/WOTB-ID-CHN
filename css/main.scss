@@ -450,6 +450,22 @@ body {
     #content {
         table {
             width: 100%;
+            thead,
+            tbody {
+                tr {
+                    th,
+                    td {
+                        padding: 0 0.75em;
+                        &:first-child {
+                            width: 2em;
+                            text-align: center;
+                        }
+                        &:nth-child(2) {
+                            width: 15em;
+                        }
+                    }
+                }
+            }
             thead tr th:last-child,
             tbody tr td:last-child {
                 display: none;
@@ -463,30 +479,6 @@ body {
                     .content {
                         h3~p {
                             text-align: left;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width:380px) {
-    #content {
-        table {
-            width: 100%;
-            thead,
-            tbody {
-                tr {
-                    th,
-                    td {
-                        padding: 0 0.75em;
-                        &:first-child {
-                            width: 2em;
-                            text-align: center;
-                        }
-                        &:nth-child(2) {
-                            width: 15em;
                         }
                     }
                 }
