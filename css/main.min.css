@@ -123,7 +123,7 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .content h3 ~ p { text-align: center; }
 
-#detail .wrap .inner .window .content .clanFamily div { width: 300px; border-radius: 5px; padding: 7.5px 30px; margin: 0 auto; }
+#detail .wrap .inner .window .content .clanFamily div { box-sizing: border-box; border-radius: 5px; padding: 7.5px 30px; margin: 0 auto; }
 
 #detail .wrap .inner .window .content .clanFamily div span { display: block; text-align: center; }
 

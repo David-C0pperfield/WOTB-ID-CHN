@@ -356,7 +356,7 @@ body {
                     }
                     .clanFamily {
                         div {
-                            width: 300px;
+                            box-sizing: border-box;
                             border-radius: 5px;
                             padding: 7.5px 30px;
                             margin: 0 auto;
