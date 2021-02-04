@@ -331,9 +331,11 @@ body {
                     position: fixed;
                 }
                 .content {
-                    padding: 2em 2em 0;
+                    padding: 2em;
                     box-sizing: border-box;
-                    height: 100%;
+                    .tag {
+                        color: #E9A844;
+                    }
                     h3 {
                         display: inline-block;
                         text-align: center;
@@ -352,12 +354,24 @@ body {
                             text-align: center;
                         }
                     }
-                    .tag {
-                        color: #E9A844;
-                    }
-                    .current {
-                        color: #ffffff;
-                        margin: 0 1rem;
+                    .clanFamily {
+                        div {
+                            width: 300px;
+                            border-radius: 5px;
+                            padding: 7.5px 30px;
+                            margin: 0 auto;
+                            span {
+                                display: block;
+                                text-align: center;
+                            }
+                        }
+                        .idNumber {
+                            font-size: 1rem;
+                        }
+                        .current {
+                            color: #ffffff;
+                            background-color: rgba(255, 255, 255, 0.125);
+                        }
                     }
                 }
             }

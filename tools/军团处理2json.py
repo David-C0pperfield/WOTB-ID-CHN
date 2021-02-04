@@ -19,7 +19,7 @@ def xlsxRead():
     table = data.sheet_by_name(r'军团列表')
     data_list = []
     for i in range(1,table.nrows):
-        title_data =['ID','Tag','Full','Desc','Estbl','MID']
+        title_data =['ID','Tag','Full','Desc','Date','MID']
         row_content = []
         row_data = {}
         date = 0

@@ -113,7 +113,9 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .dismissBtn { font-size: 1.25em; display: inline-block; position: fixed; }
 
-#detail .wrap .inner .window .content { padding: 2em 2em 0; box-sizing: border-box; height: 100%; }
+#detail .wrap .inner .window .content { padding: 2em; box-sizing: border-box; }
+
+#detail .wrap .inner .window .content .tag { color: #E9A844; }
 
 #detail .wrap .inner .window .content h3 { display: inline-block; text-align: center; margin: 1.125em auto 0.5em; width: 100%; }
 
@@ -121,9 +123,13 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .content h3 ~ p { text-align: center; }
 
-#detail .wrap .inner .window .content .tag { color: #E9A844; }
+#detail .wrap .inner .window .content .clanFamily div { width: 300px; border-radius: 5px; padding: 7.5px 30px; margin: 0 auto; }
 
-#detail .wrap .inner .window .content .current { color: #ffffff; margin: 0 1rem; }
+#detail .wrap .inner .window .content .clanFamily div span { display: block; text-align: center; }
+
+#detail .wrap .inner .window .content .clanFamily .idNumber { font-size: 1rem; }
+
+#detail .wrap .inner .window .content .clanFamily .current { color: #ffffff; background-color: rgba(255, 255, 255, 0.125); }
 
 @media (prefers-color-scheme: dark) { html { background: #333333; }
   :root { background: #333333; }

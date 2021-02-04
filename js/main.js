@@ -1,22 +1,24 @@
 $(function() {
-    calcTableHeight();
-    $(window).resize(function() { calcTableHeight(); })
-    getClanData('byId', getQueryStr('cid'));
-    fetchData()
     var beginIndex = 0,
         stepLength = 20,
         endingIndex = beginIndex + stepLength - 1,
         dataIndex = beginIndex,
         overflowIndex = 0,
         overflowStep = 0;
+    calcTableHeight();
+    $(window).resize(function() { calcTableHeight(); })
+    getClanData('byId', getQueryStr('cid'));
+
+    if (getQueryStr('keyword')) {
+        getClanData()
+        $('#searchstr').val(getQueryStr('keyword'))
+    } else fetchData()
 
     $(document).on('click', '.flipBtn.back', function() {
-        beginIndex = beginIndex
-        endingIndex = endingIndex
         dataIndex = beginIndex
-        fetchData()
         $('.flipBtn').show()
         $('.flipBtn.back').hide()
+        fetchData()
     })
     $('.flipBtn.next').on('click', function() {
         beginIndex += stepLength
@@ -32,6 +34,7 @@ $(function() {
     })
 
     function fetchData() {
+        $.ajaxSetup({ async: false })
         $.ajax({
             url: "./js/clan.json",
             dataType: "json",
@@ -107,7 +110,7 @@ $(function() {
     //详情浮层
     $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
         let cid = $(this).attr('data-clan-id');
-        window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
+        window.history.pushState({ Page: 3 }, '', '?cid=' + cid)
         getClanData('byId', getQueryStr('cid'));
         showDetail()
     })
@@ -118,9 +121,9 @@ $(function() {
     $(document).on('mouseup', '#content tbody tr', function() {
         $(this).removeAttr('style')
     })
-    $(document).on('click', '#detail .clanFamily p', function() { //点击相关军团，切换显示
+    $(document).on('click', '#detail .clanFamily [data-clan-id]', function() { //点击相关军团，切换显示
         let cid = $(this).attr('data-clan-id');
-        window.history.pushState({ Page: 2 }, '', '?cid=' + cid)
+        window.history.pushState({ Page: 4 }, '', '?cid=' + cid)
         $('#detail .content').fadeOut(250)
         setTimeout(function() {
             $('#detail .content>*').remove();
@@ -132,27 +135,21 @@ $(function() {
 
     $('#detail').on('click', function(e) { //关闭浮层
         let target = $(e.target)
-        if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) {
-            window.history.replaceState({ Page: 1 }, '', './')
-            $('#detail .inner').animate({ 'height': '0' }, 500)
-            $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
-            document.title = '闪击战ID大百科'
-            $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
-        }
+        if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
     })
+
+    function restoreDetailWindow() {
+        window.history.replaceState({ Page: 1 }, '', './')
+        $('#detail .inner').animate({ 'height': '0' }, 500)
+        $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
+        document.title = '闪击战ID大百科'
+        $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
+    }
 
     function startSearching() {
         window.history.pushState({ Page: 2 }, '', '?keyword=' + $('#searchstr').val())
         restorePosition()
         getClanData()
-        slideUpNotification()
-        $('.flipBtn').hide()
-        $('#register-banner').prepend('<span class="btn flipBtn back">\
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">\
-            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>\
-        </svg>返回\
-    </span>');
-        $('.flipBtn.back').show()
     }
 
     function slideUpNotification() { if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250); }
@@ -160,10 +157,9 @@ $(function() {
     function getClanData(mode, id) {
         if (!mode) {
             var keyword = getQueryStr('keyword');
-            if (keyword == '' || undefined) {
-                // alert('请输入关键词。')
-                return
-            }
+            console.log(keyword)
+            if (keyword == '' || undefined) return
+            $.ajaxSetup({ async: false })
             $.ajax({
                 url: './js/clan.json',
                 dataType: 'json',
@@ -179,6 +175,12 @@ $(function() {
                     }
                 }
             })
+            let backIcon = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
+                '<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>'
+            slideUpNotification()
+            $('.flipBtn').hide()
+            $('#register-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
+            $('.flipBtn.back').show()
         } else if (mode == 'byId') {
             var id = id;
             $.ajax({
@@ -211,13 +213,11 @@ $(function() {
             dataType: 'json',
             error: function() { console.log('数据获取失败') },
             success: function(data) {
-                let result = toCompare(parentClan, data, 'mid');
-                resultCount = result.length
+                let result = toCompare(parentClan, data, 'mid'),
+                    resultCount = result.length
                 if (resultCount > 0) '该军团有' + (resultCount - 1) + '个分团'
                 $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
-                for (let i in result) {
-                    insertData(result, i, 'mid')
-                }
+                for (let i in result) insertData(result, i, 'mid')
             }
         })
     }
@@ -274,7 +274,7 @@ $(function() {
             Tag = d[i].Tag,
             Full = d[i].Full,
             Desc = d[i].Desc,
-            Estbl = d[i].Estbl,
+            Estbl = d[i].Date,
             MID = d[i].MID,
             tableID;
 
@@ -305,15 +305,13 @@ $(function() {
         }
         // 注入军团族群表
         if (method == 'mid') {
-            let pBegin = '<p data-clan-id="' + ID + '">',
-                insertHTML = '<span class="tag">[' + Tag + '] ' + Full + '</span> ID：' + ID,
-                pEnd = '</p>'
-            if (ID == getQueryStr('cid')) {
-                let left_arrow = '<span class="current">&gt;&gt;</span>',
-                    right_arrow = '<span class="current">&lt;&lt;</span>'
-                insertHTML = [left_arrow, insertHTML, right_arrow].join('')
-            }
-            insertHTML = [pBegin, insertHTML, pEnd].join('')
+            let beginMark = '<div data-clan-id="' + ID + '">',
+                insertHTML = '<span class="tag">[' + Tag + '] ' + Full + '</span>' +
+                '<span class="idNumber">ID：' + ID + '</span>',
+                endMark = '</div>'
+            if (ID == getQueryStr('cid')) beginMark = '<div data-clan-id="' + ID + '"class ="current">'
+
+            insertHTML = [beginMark, insertHTML, endMark].join('')
             $('#detail .clanFamily').append(insertHTML)
         }
         return
@@ -331,7 +329,6 @@ $(function() {
         let reg = new RegExp('(^|&)' + n + '=([^&]*)(&|$)'),
             result = window.location.search.substr(1).match(reg);
         if (!result) return
-
         let decodeR = decodeURIComponent(result[2]);
         if (!decodeR) return
         if (result != null) return decodeR
@@ -348,7 +345,9 @@ $(function() {
     }
 
     function repeatedDesc(MID, Desc) {
-        if (Desc == '/repeat') {
+        var reID = /\/repeat(\(([^)]*)\))?/
+        if (Desc.match(reID)) {
+            if (Desc.match(reID)[2]) MID = Desc.match(reID)[2]
             $.ajaxSetup({ async: false })
             $.ajax({
                 url: './js/clan.json',
@@ -358,7 +357,7 @@ $(function() {
                     repeated_desc = toCompare(MID, data, 'id')
                 }
             })
-            return repeated_desc = repeated_desc[0].Desc
+            return repeated_desc = Desc.replace(reID, repeated_desc[0].Desc)
         } else return null
     }
 })
