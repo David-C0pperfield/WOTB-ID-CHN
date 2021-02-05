@@ -177,20 +177,21 @@ $(function() {
             $('#register-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
             $('.flipBtn.back').show()
         } else if (mode == 'byId') {
-            var id = id;
+            var id = id,
+                detail
 
             if (isNaN(Number(id)) == true) {
-                var detail = toCompare(id, clanData, 'private')
+                detail = toCompare(id, clanData, 'private')
             } else {
                 id = Number(id)
                 if (id == 0 || id % 1 != 0) return
-                var detail = toCompare(id, clanData, 'id')
+                detail = toCompare(id, clanData, 'id')
             }
             let len = detail.length;
             if (len == 0) return
             insertData(detail, 0, 'detail')
             document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科'
-            if (detail[0].Desc != '') $('meta[name="description"]').attr('content', detail[0].Desc)
+            if (detail[0].Desc) $('meta[name="description"]').attr('content', detail[0].Desc)
             showDetail()
         }
     }
