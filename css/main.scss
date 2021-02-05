@@ -294,7 +294,7 @@ body {
 
 #detail {
     display: none;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.3);
     @include blur-bg(12px, 200%);
     width: 100%;
     height: 100%;
