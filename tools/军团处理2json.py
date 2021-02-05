@@ -29,9 +29,9 @@ def xlsxRead():
             if ctype == 2 and cell % 1 == 0:
                 cell = int(cell)
             if ctype == 3:
-                #cell = int(cell)
-                date = datetime(*xldate_as_tuple(cell,0))
-                cell = date.strftime('%Y-%m-%d')
+                cell = int(cell)
+                #date = datetime(*xldate_as_tuple(cell,0))
+                #cell = date.strftime('%Y-%m-%d')
             row_content.append(cell)
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]
