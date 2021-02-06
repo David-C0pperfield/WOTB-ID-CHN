@@ -73,11 +73,10 @@ $(function() {
 
             while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
                 insertData(clanData, dataIndex, 'table')
-                if (dataIndex < total_entries - 1) { dataIndex++ } else return
+                if (dataIndex < total_entries - 1) dataIndex++;
+                else return
             }
         })();
-
-
     }
 
     $(document).on('keydown', function(e) {
@@ -167,9 +166,7 @@ $(function() {
                 resultCount = result.length
             if (resultCount == 0) insertData()
             info('搜索', resultCount);
-            for (let i in result) {
-                insertData(result, i, 'table')
-            }
+            for (let i in result) insertData(result, i, 'table')
             let backIcon = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
                 '<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>'
             slideUpNotification()
@@ -193,9 +190,7 @@ $(function() {
             document.title = '[' + detail[0].Tag + ']' + detail[0].Full + '——闪击战ID百科'
             if (detail[0].Desc) {
                 $('meta[name="description"]').attr('content', detail[0].Desc)
-            } else {
-                $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
-            }
+            } else { $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
             showDetail()
         }
     }
@@ -210,16 +205,23 @@ $(function() {
     }
 
     function toCompare(keyword, data, mode) {
-        let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\*", "\\/"]
-        if (isNaN(Number(keyword))) {
-            for (let i in keyword) {
-                for (let j in filter) {
-                    filtSpecial = new RegExp(filter[j], 'g')
-                    keyword = keyword.replace(filtSpecial, filter[j])
+        switch (keyword) {
+            case !keyword:
+                break;
+            default:
+                let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\*", "\\/"]
+                if (isNaN(Number(keyword))) {
+                    for (let i in keyword) {
+                        for (let j in filter) {
+                            filtSpecial = new RegExp(filter[j], 'g')
+                            keyword = keyword.replace(filtSpecial, filter[j])
+                        }
+                    }
                 }
-            }
+                var strictReg = new RegExp('^' + keyword + '$')
+                break;
         }
-        var strictReg = new RegExp('^' + keyword + '$');
+
 
         if (!(data instanceof Array)) return
         var len = data.length,
@@ -240,6 +242,16 @@ $(function() {
                 for (let i = 0; i < len; i++) {
                     if (String(data[i].Tag).match(strictReg)) arr.push(data[i])
                 }
+                break;
+            case 'analysis':
+                let z = 0;
+                for (let i = 0; i < len; i++) {
+                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/编者/g) && String(data[i].Desc).match(/\d/g)) {
+                        arr.push(data[i])
+                        z++
+                    }
+                }
+                // console.log(z)
                 break;
             default:
                 for (let i = 0; i < len; i++) {
@@ -290,7 +302,7 @@ $(function() {
                 else Estbl = '--' //军团建立日期
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
-                Desc = Desc.replace(/\n/g, '</br>')
+                Desc = Desc.replace(/\n/g, '</br>') //换行符
                 insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + Estbl + '</p>' +
@@ -344,8 +356,8 @@ $(function() {
         let rDate = rd; //源日期
         date = new Date();
         date.setFullYear(1900), date.setMonth(0), date.setDate(rDate - 1) //设置日期
-        let processedDate = [date.getFullYear(), Number(date.getMonth() + 1), date.getDate()],
-            result = processedDate.join('-')
+        let processedDate = [date.getFullYear(), Number(date.getMonth() + 1), date.getDate()], //标准化日期
+            result = processedDate.join('-') //连字符样式
         return result
     }
 
@@ -353,10 +365,25 @@ $(function() {
         var reID = /\/repeat(\(([^)]*)\))?/
         if (Desc.match(reID)) {
             if (Desc.match(reID)[2]) MID = Desc.match(reID)[2]
-
             repeated_desc = toCompare(MID, clanData, 'id')
-
             return repeated_desc = Desc.replace(reID, repeated_desc[0].Desc)
         } else return null
+    }
+
+    var indexList = new Array(),
+        recommendList = toCompare(undefined, clanData, 'analysis')
+    showRecomend()
+    for (let i = 0; i < indexList.length; i++) {
+        console.log(recommendList[indexList[i]])
+    }
+
+    function randomNum() {
+        var rand = parseInt(Math.random() * recommendList.length + 1);
+        for (let i; i < indexList.length; i++) { if (rand == indexList[i]) return false }
+        indexList.push(rand)
+    }
+
+    function showRecomend() {
+        do { randomNum() } while (indexList.length < 5)
     }
 })
