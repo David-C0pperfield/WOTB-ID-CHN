@@ -291,10 +291,13 @@ $(function() {
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
                 Desc = Desc.replace(/\n/g, '</br>')
-                insertHTML = '<div><p class="tag">[' + Tag + '] ' + Full + '</p>' +
+                insertHTML = '<div class="clanInfo">' + '<div class="logo">' + '</div>' +
+                    '<div class="info"><p class="tag">[' + Tag + '] ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + Estbl + '</p></div>' +
-                    '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
+                    '<div class="description">' +
+                    '<h3>简介</h3>' +
+                    '<p>' + Desc + '</p></div></div>'
                 $('#detail .content').append(insertHTML) //插入页面
                 if (MID) getClanFamily(MID) //检测是否有主团
                 repeated_desc = '' //清空变量
