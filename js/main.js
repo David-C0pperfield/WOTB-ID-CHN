@@ -291,9 +291,9 @@ $(function() {
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
                 Desc = Desc.replace(/\n/g, '</br>')
-                insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
+                insertHTML = '<div><p class="tag">[' + Tag + '] ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
-                    '<p>创建日期：' + Estbl + '</p>' +
+                    '<p>创建日期：' + Estbl + '</p></div>' +
                     '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
                 $('#detail .content').append(insertHTML) //插入页面
                 if (MID) getClanFamily(MID) //检测是否有主团
