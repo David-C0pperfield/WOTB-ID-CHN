@@ -372,7 +372,7 @@ $(function() {
 
     var indexList = new Array(),
         recommendList = toCompare(undefined, clanData, 'analysis')
-    showRecomend()
+        // showRecomend()
     for (let i = 0; i < indexList.length; i++) {
         console.log(recommendList[indexList[i]])
     }
