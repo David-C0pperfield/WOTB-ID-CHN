@@ -302,11 +302,14 @@ $(function() {
                 else Estbl = '--' //军团建立日期
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
-                Desc = Desc.replace(/\n/g, '</br>') //换行符
-                insertHTML = '<p class="tag">[' + Tag + '] ' + Full + '</p>' +
+                Desc = Desc.replace(/\n/g, '</br>')
+                insertHTML = '<div class="clanInfo">' + '<div class="logo">' + '</div>' +
+                    '<div class="info"><p class="tag">[' + Tag + '] ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
-                    '<p>创建日期：' + Estbl + '</p>' +
-                    '<div class="description"><h3>简介</h3><p>' + Desc + '</p></div>'
+                    '<p>创建日期：' + Estbl + '</p></div>' +
+                    '<div class="description">' +
+                    '<h3>简介</h3>' +
+                    '<p>' + Desc + '</p></div></div>'
                 $('#detail .content').append(insertHTML) //插入页面
                 if (MID) getClanFamily(MID) //检测是否有主团
                 repeated_desc = '' //清空变量
