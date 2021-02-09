@@ -356,12 +356,15 @@ body {
                     }
                     .clanInfo {
                         .logo {
-                            // border: #000000 1px solid;
+                            height: 4.5rem;
+                            width: 4.5rem;
+                            border-radius: 1rem;
                             display: inline-block;
+                            overflow: hidden;
                             img {
-                                height: 4.5rem;
-                                width: 4.5rem;
+                                height: 100%;
                                 background: radial-gradient(circle, #181818, #080808, #000000);
+                                background-image: url(../img/default_clan_logo.svg);
                             }
                         }
                         .info {
