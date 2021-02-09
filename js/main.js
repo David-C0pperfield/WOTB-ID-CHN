@@ -298,7 +298,7 @@ $(function() {
                 break;
 
             case 'detail':
-                let logoURL = 'img/clan/' + ID + '/0'
+                let logoURL = 'img/clan/' + ID + '/0.png'
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
                 repeatedDesc(MID, Desc) //检测重复指令
