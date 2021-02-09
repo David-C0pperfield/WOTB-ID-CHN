@@ -123,7 +123,9 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .content h3 ~ p { text-align: center; }
 
-#detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border: #000000 1px solid; display: inline-block; background: radial-gradient(circle, #181818, #080808, #000000); }
+#detail .wrap .inner .window .content .clanInfo .logo { display: inline-block; }
+
+#detail .wrap .inner .window .content .clanInfo .logo img { height: 4.5rem; width: 4.5rem; background: radial-gradient(circle, #181818, #080808, #000000); }
 
 #detail .wrap .inner .window .content .clanInfo .info { display: inline-block; margin-left: 1rem; }
 

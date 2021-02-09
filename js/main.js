@@ -303,7 +303,7 @@ $(function() {
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
                 Desc = Desc.replace(/\n/g, '</br>')
-                insertHTML = '<div class="clanInfo">' + '<div class="logo">' + '</div>' +
+                insertHTML = '<div class="clanInfo">' + '<div class="logo">' + ' <img src="img/clan/' + ID + '/0">' + '</div>' +
                     '<div class="info"><p class="tag">[' + Tag + '] ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + Estbl + '</p></div>' +
