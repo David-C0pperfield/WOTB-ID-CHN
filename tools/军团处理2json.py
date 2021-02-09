@@ -19,7 +19,7 @@ def xlsxRead():
     table = data.sheet_by_name(r'军团列表')
     data_list = []
     for i in range(1,table.nrows):
-        title_data =['ID','Tag','Full','Desc','Date','MID']
+        title_data =['ID','Tag','Full','Desc','Date','MID','Logo']
         row_content = []
         row_data = {}
         date = 0
@@ -32,6 +32,11 @@ def xlsxRead():
                 cell = int(cell)
                 #date = datetime(*xldate_as_tuple(cell,0))
                 #cell = date.strftime('%Y-%m-%d')
+            row_content.append(cell)
+            if os.path.exists('../img/clan/{}'.format(row_content[0])):
+                imgList = os.getdir('../img/clan/{}'.format(row_content[0]))
+                for i2 in imgList:
+                    if is.path.splitext(i)[0] == '0'
             row_content.append(cell)
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]

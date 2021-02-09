@@ -7,7 +7,7 @@ html { background: #c4cacf; height: 100%; min-width: 300px; }
 
 a { color: inherit; text-decoration: none; }
 
-body { font-family: sans-serif; }
+body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repeat fixed center; background-size: 100% 100%; }
 
 .btn { cursor: pointer; -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; }
 
@@ -61,7 +61,7 @@ body { font-family: sans-serif; }
 
 #head #notification_zone svg { display: block; margin: 0 auto; }
 
-#content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow-x: scroll; height: 100%; z-index: 50; position: relative; box-sizing: border-box; }
+#content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow-x: scroll; height: 100%; z-index: 50; position: relative; box-sizing: border-box; background: rgba(51, 51, 51, 0.75); backdrop-filter: blur(20px) saturate(0); -webkit-backdrop-filter: blur(20px) saturate(0); }
 
 #content #register-banner { position: relative; height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #465F6E 35%, #465F6E 65%, transparent 97%); position: fixed; -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; }
 
@@ -125,7 +125,7 @@ body { font-family: sans-serif; }
 
 #detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 1rem; display: inline-block; overflow: hidden; }
 
-#detail .wrap .inner .window .content .clanInfo .logo img { height: 100%; background: radial-gradient(circle, #181818, #080808, #000000); background-image: url(../img/default_clan_logo.svg); }
+#detail .wrap .inner .window .content .clanInfo .logo img { height: 100%; background: radial-gradient(circle, #181818, #080808, #000000); background-image: url(../img/default_clan_logo); }
 
 #detail .wrap .inner .window .content .clanInfo .info { display: inline-block; margin-left: 1rem; }
 
@@ -148,7 +148,8 @@ body { font-family: sans-serif; }
   #head #searchbar #inner_s_bar .resetBtn { color: rgba(255, 255, 255, 0.502); }
   #head #searchbar #inner_s_bar .resetBtn:hover { color: white; }
   #head #notification_zone { background: rgba(0, 0, 0, 0.627); color: #fff; }
-  #head #notification_zone .wrap #part2 #links a { color: gold; } }
+  #head #notification_zone .wrap #part2 #links a { color: gold; }
+  #content { background: rgba(25, 25, 25, 0.9); } }
 
 @media screen and (min-width: 1000px) { #content table { width: 960px; } }
 
