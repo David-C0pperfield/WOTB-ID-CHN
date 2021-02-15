@@ -125,7 +125,7 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 1rem; display: inline-block; overflow: hidden; }
 
-#detail .wrap .inner .window .content .clanInfo .logo img { height: 100%; background: radial-gradient(circle, #181818, #080808, #000000); background-image: url(../img/default_clan_logo); }
+#detail .wrap .inner .window .content .clanInfo .logo img { height: 100%; background: radial-gradient(circle, #181818, #080808, #000000); background-image: url("../img/default_clan_logo.svg"); }
 
 #detail .wrap .inner .window .content .clanInfo .info { display: inline-block; margin-left: 1rem; }
 

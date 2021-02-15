@@ -13,7 +13,7 @@ $(function() {
         error: function() { console.log('数据获取失败') },
         success: function(data) { clanData = data }
     })
-
+    console.log(clanData[0])
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
     getClanData('byId', getQueryStr('cid'));
