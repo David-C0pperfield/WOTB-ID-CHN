@@ -150,7 +150,11 @@ $(function() {
     }
 
     function startSearching() {
-        window.history.pushState({ Page: 2 }, '', '?keyword=' + $('#searchstr').val())
+        if ($('#searchstr').val()) window.history.pushState({ Page: 2 }, '', '?keyword=' + $('#searchstr').val());
+        else {
+            alert("您还没有输入关键词！")
+            return
+        }
         restorePosition()
         getClanData()
     }

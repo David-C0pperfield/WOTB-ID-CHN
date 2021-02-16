@@ -19,11 +19,12 @@ def xlsxRead():
     table = data.sheet_by_name(r'军团列表')
     data_list = []
     for i in range(1,table.nrows):
-        title_data =['ID','Tag','Full','Desc','Date','MID','Ext']
+        title_data =['ID','Tag','Full','Desc','Date','MID','Logo','Ext']
         row_content = []
         row_data = {}
         date = 0
         imgExt = 0
+        logoExists = False
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
@@ -37,11 +38,14 @@ def xlsxRead():
             imgList = os.listdir('../img/clan/{}'.format(row_content[0]))
             print (str(row_content[0])+str(imgList))
             for i2 in imgList:
+                if os.path.splitext(i2)[0] == 0:
+                    logoExists = True
                 if os.path.splitext(i2)[1] == '.png':
                     imgExt = 1
                 if os.path.splitext(i2)[1] == '.jpg' or 'jpeg':
                     imgExt = 2
             print(os.path.splitext(i2)[1])
+        row_content.append(logoExists)
         row_content.append(imgExt)
             
         for k in range(len(title_data)):
