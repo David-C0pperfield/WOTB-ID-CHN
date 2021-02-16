@@ -36,15 +36,16 @@ def xlsxRead():
             
         if os.path.exists('../img/clan/{}'.format(row_content[0])):#检测是否有相关图片目录
             imgList = os.listdir('../img/clan/{}'.format(row_content[0]))
-            print (str(row_content[0])+str(imgList))
+            #print (str(row_content[0])+str(imgList))
             for i2 in imgList:
-                if os.path.splitext(i2)[0] == 0:
+                if os.path.splitext(i2)[0] == '0':
+                    print(os.path.splitext(i2))
                     logoExists = True
                 if os.path.splitext(i2)[1] == '.png':
                     imgExt = 1
                 if os.path.splitext(i2)[1] == '.jpg' or 'jpeg':
                     imgExt = 2
-            print(os.path.splitext(i2)[1])
+            #print(os.path.splitext(i2)[1])
         row_content.append(logoExists)
         row_content.append(imgExt)
             
