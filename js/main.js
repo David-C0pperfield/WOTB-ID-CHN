@@ -5,7 +5,8 @@ $(function() {
         endingIndex = beginIndex + stepLength - 1,
         dataIndex = beginIndex,
         overflowIndex = 0,
-        overflowStep = 0;
+        overflowStep = 0,
+        fileExt = { 1: 'png', 2: 'jpeg' };
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
@@ -13,7 +14,7 @@ $(function() {
         error: function() { console.log('数据获取失败') },
         success: function(data) { clanData = data }
     })
-    console.log(clanData[0])
+
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
     getClanData('byId', getQueryStr('cid'));
@@ -282,10 +283,13 @@ $(function() {
         var ID = d[i].ID,
             Tag = d[i].Tag,
             Full = d[i].Full,
-            Desc = d[i].Desc,
-            MID = d[i].MID,
             tableID;
-        if (Desc == '') Desc = '无'
+
+        if (d[i].hasOwnProperty('Desc')) { var Desc = d[i].Desc } else Desc = '无'
+        if (d[i].hasOwnProperty('MID')) var MID = d[i].MID
+        if (d[i].hasOwnProperty('Logo')) var logoExists = true
+        if (d[i].hasOwnProperty('Imgs')) var imgCount = d[i].Imgs
+
         let insertHTML;
         switch (method) {
             case 'table':
@@ -302,18 +306,31 @@ $(function() {
                 break;
 
             case 'detail':
-                let logoURL = 'img/clan/' + ID + '/0.png'
+                var logoURL = 'img src="./img/assets/default_clan_logo.svg"',
+                    imgDisplay = ''
+                if (d[i].hasOwnProperty('Ext')) var extCode = d[i].Ext
+                if (logoExists) logoURL = 'img src="img/clan/' + ID + '/0.' + fileExt[extCode] + '"'
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
+
+                if (imgCount) {
+                    imgDisplay = '<div class="clan-img"><div class = "container">'
+                    for (let i = 0; i < imgCount; i++) {
+                        imgDisplay += '<li><img src="./img/clan/' + ID + '/' + (i + 1) + '.' + fileExt[extCode] + '">' + '</li>'
+                    }
+                    imgDisplay += '</div></div>'
+                        // $('#detail .content').append(imgDisplay)
+                }
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
-                Desc = Desc.replace(/\n/g, '</br>')
-                insertHTML = '<div class="clanInfo">' + '<div class="logo">' + ' <img src="' + logoURL + '" alt="[' + Tag + ']+' + Full + 'Logo">' + '</div>' +
+                Desc = Desc.replace(/\n/g, '</p><p>')
+                insertHTML = '<div class="clanInfo"><div class="logo">' +
+                    ' <' + logoURL + ' alt="[' + Tag + ']+' + Full + 'Logo"></div>' +
                     '<div class="info"><p class="tag">[' + Tag + '] ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + Estbl + '</p></div>' +
-                    '<div class="description">' +
-                    '<h3>简介</h3>' +
+                    '<div class="introduction">' +
+                    '<h3>简介</h3>' + imgDisplay +
                     '<p>' + Desc + '</p></div></div>'
                 $('#detail .content').append(insertHTML) //插入页面
                 if (MID) getClanFamily(MID) //检测是否有主团

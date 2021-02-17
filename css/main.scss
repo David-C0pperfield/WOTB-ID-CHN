@@ -361,29 +361,55 @@ body {
                             vertical-align: middle;
                             margin: 0 0.375em;
                         }
-                        &~p {
-                            text-align: center;
-                        }
                     }
                     .clanInfo {
                         .logo {
                             height: 4.5rem;
                             width: 4.5rem;
-                            border-radius: 1rem;
+                            border-radius: 0.5rem;
+                            box-shadow: 0 0 7.5px 0 #111111;
                             display: inline-block;
                             overflow: hidden;
                             img {
                                 height: 100%;
                                 background: radial-gradient(circle, #181818, #080808, #000000);
-                                background-image: url('../img/assets/default_clan_logo.svg');
+                                // background-image: url('../img/assets/default_clan_logo.svg');
                             }
                         }
                         .info {
                             display: inline-block;
                             margin-left: 1rem;
                         }
+                        .introduction {
+                            p {
+                                margin: 0.5em 0
+                            }
+                            .clan-img {
+                                overflow-x: scroll;
+                                list-style: none;
+                                margin: 0.5rem auto;
+                                .container {
+                                    width: max-content;
+                                    li {
+                                        display: inline-block;
+                                        margin-right: 1.5rem;
+                                        &:last-child {
+                                            margin: 0;
+                                        }
+                                        img {
+                                            border-radius: 0.5rem;
+                                            overflow: hidden;
+                                            width: 576px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     .clanFamily {
+                        p {
+                            text-align: center;
+                        }
                         div {
                             box-sizing: border-box;
                             border-radius: 5px;

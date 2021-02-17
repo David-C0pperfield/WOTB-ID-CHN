@@ -121,13 +121,25 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #detail .wrap .inner .window .content h3::before, #detail .wrap .inner .window .content h3::after { content: ''; display: inline-block; border-bottom: #ffffff solid 1px; width: 25%; vertical-align: middle; margin: 0 0.375em; }
 
-#detail .wrap .inner .window .content h3 ~ p { text-align: center; }
+#detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 0.5rem; box-shadow: 0 0 7.5px 0 #111111; display: inline-block; overflow: hidden; }
 
-#detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 1rem; display: inline-block; overflow: hidden; }
-
-#detail .wrap .inner .window .content .clanInfo .logo img { height: 100%; background: radial-gradient(circle, #181818, #080808, #000000); background-image: url("../img/assets/default_clan_logo.svg"); }
+#detail .wrap .inner .window .content .clanInfo .logo img { height: 100%; background: radial-gradient(circle, #181818, #080808, #000000); }
 
 #detail .wrap .inner .window .content .clanInfo .info { display: inline-block; margin-left: 1rem; }
+
+#detail .wrap .inner .window .content .clanInfo .introduction p { margin: 0.5em 0; }
+
+#detail .wrap .inner .window .content .clanInfo .introduction .clan-img { overflow-x: scroll; list-style: none; margin: 0.5rem auto; }
+
+#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container { width: max-content; }
+
+#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li { display: inline-block; margin-right: 1.5rem; }
+
+#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li:last-child { margin: 0; }
+
+#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li img { border-radius: 0.5rem; overflow: hidden; width: 576px; }
+
+#detail .wrap .inner .window .content .clanFamily p { text-align: center; }
 
 #detail .wrap .inner .window .content .clanFamily div { box-sizing: border-box; border-radius: 5px; padding: 7.5px 30px; margin: 0 auto; }
 
