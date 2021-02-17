@@ -23,8 +23,8 @@ def xlsxRead():
         row_content = []
         row_data = {}
         date = 0
-        imgExt = 0
-        logoExists = False
+        imgExt = []
+        logoExists = None
         img_count = 0
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
@@ -37,20 +37,16 @@ def xlsxRead():
             
         if os.path.exists('../img/clan/{}'.format(row_content[0])):#检测是否有相关图片目录
             imgList = os.listdir('../img/clan/{}'.format(row_content[0]))
-
+            imgList.sort()
+            print (imgList)
             for i2 in imgList:
                 if os.path.splitext(i2)[0] == '0':
-                    logoExists = True
-                    img_count += -1
-                if os.path.splitext(i2)[0] =='.DS_Store':
-                    img_count += -1
-                if os.path.splitext(i2)[1] == '.png':
-                    imgExt = 1
-                elif os.path.splitext(i2)[1] == '.jpg' or 'jpeg':
-                    imgExt = 2
-                
-                img_count += 1
-                
+                    logoExists = getExtFormat(i2)
+                else:
+                    if getExtFormat(i2):
+                        imgExt.append(getExtFormat(i2))
+            print(imgExt)
+
         row_content.append(logoExists)
         row_content.append(imgExt)
         row_content.append(img_count)
@@ -71,7 +67,30 @@ def xlsxRead():
     f = open('../js/clan.json','w+')
     f.write(processed_json)
     f.close()
-    print('json建立完成')
 
+    processed_json=json.dumps(data_list,indent=4,\
+                              sort_keys=False,\
+                              separators=(',',':'),\
+                              ensure_ascii=False)
+    fTest = open('clan.json','w+')
+    fTest.write(processed_json)
+    fTest.close()
+    print('json建立完成')
+    
+def getExtFormat(i):
+    r = None
+    data = os.path.splitext(i)
+    print(data)
+    if data[0] =='.DS_Store':
+        return
+    if data[1] == '.png':
+        r = 1
+    elif data[1] == '.jpg':
+        r = 2
+    elif data[1] == 'jpeg':
+        r = 3
+    
+    return r
+    
 if __name__ == '__main__':
     xlsxRead()

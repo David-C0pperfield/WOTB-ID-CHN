@@ -6,7 +6,11 @@ $(function() {
         dataIndex = beginIndex,
         overflowIndex = 0,
         overflowStep = 0,
-        fileExt = { 1: 'png', 2: 'jpeg' };
+        fileExt = {
+            1: 'png',
+            2: 'jpg',
+            3: 'jpeg'
+        };
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
