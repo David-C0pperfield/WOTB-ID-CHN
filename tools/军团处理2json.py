@@ -35,17 +35,16 @@ def xlsxRead():
                 #cell = date.strftime('%Y-%m-%d')
             row_content.append(cell)
             
-        if os.path.exists('../img/clan/{}'.format(row_content[0])):#检测是否有相关图片目录
+        if os.path.exists('../img/clan/{}'.format(row_content[0])):#检测相关ID图片目录
             imgList = os.listdir('../img/clan/{}'.format(row_content[0]))
-            imgList.sort()
-            print (imgList)
-            for i2 in imgList:
-                if os.path.splitext(i2)[0] == '0':
-                    logoExists = getExtFormat(i2)
-                else:
-                    if getExtFormat(i2):
-                        imgExt.append(getExtFormat(i2))
-            print(imgExt)
+            imgList.sort()#进行排序
+            #print ('文件列表{}'.format(imgList))
+            for p in imgList:
+                if os.path.splitext(p)[0] == '0':
+                    logoExists = getExtFormat(p)
+                elif os.path.splitext(p)[0] != '.DS_Store':
+                    imgExt.append(getExtFormat(p))
+            #print(imgExt)
 
         row_content.append(logoExists)
         row_content.append(imgExt)
@@ -79,17 +78,14 @@ def xlsxRead():
     
 def getExtFormat(i):
     r = None
-    data = os.path.splitext(i)
-    print(data)
-    if data[0] =='.DS_Store':
-        return
-    if data[1] == '.png':
+    data = i
+    extName = data[1]
+    if '.png' in data:
         r = 1
-    elif data[1] == '.jpg':
+    elif '.jpg' in data:
         r = 2
-    elif data[1] == 'jpeg':
+    elif '.jpeg' in data:
         r = 3
-    
     return r
     
 if __name__ == '__main__':
