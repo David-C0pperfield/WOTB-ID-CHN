@@ -133,11 +133,11 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container { width: max-content; }
 
-#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li { display: inline-block; margin-right: 1.5rem; }
+#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li { display: inline-block; margin-right: 1.5rem; vertical-align: middle; }
 
 #detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li:last-child { margin: 0; }
 
-#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li img { border-radius: 0.5rem; overflow: hidden; width: 576px; }
+#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li img { border-radius: 0.5rem; overflow: hidden; height: 30rem; }
 
 #detail .wrap .inner .window .content .clanFamily p { text-align: center; }
 

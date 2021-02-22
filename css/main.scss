@@ -393,13 +393,14 @@ body {
                                     li {
                                         display: inline-block;
                                         margin-right: 1.5rem;
+                                        vertical-align: middle;
                                         &:last-child {
                                             margin: 0;
                                         }
                                         img {
                                             border-radius: 0.5rem;
                                             overflow: hidden;
-                                            width: 576px;
+                                            height: 30rem;
                                         }
                                     }
                                 }

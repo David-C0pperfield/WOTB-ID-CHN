@@ -19,13 +19,13 @@ def xlsxRead():
     table = data.sheet_by_name(r'军团列表')
     data_list = []
     for i in range(1,table.nrows):
-        title_data =['ID','Tag','Full','Desc','Date','MID','Logo','Ext','Imgs']
+        title_data =['ID','Tag','Full','Desc','Date','MID','Logo','Imgs']
         row_content = []
         row_data = {}
         date = 0
         imgExt = []
         logoExists = None
-        img_count = 0
+
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
@@ -48,7 +48,6 @@ def xlsxRead():
 
         row_content.append(logoExists)
         row_content.append(imgExt)
-        row_content.append(img_count)
             
         for k in range(len(title_data)):
             row_data[title_data[k]]=row_content[k]
@@ -66,14 +65,6 @@ def xlsxRead():
     f = open('../js/clan.json','w+')
     f.write(processed_json)
     f.close()
-
-    processed_json=json.dumps(data_list,indent=4,\
-                              sort_keys=False,\
-                              separators=(',',':'),\
-                              ensure_ascii=False)
-    fTest = open('clan.json','w+')
-    fTest.write(processed_json)
-    fTest.close()
     print('json建立完成')
     
 def getExtFormat(i):

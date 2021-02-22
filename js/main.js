@@ -6,7 +6,7 @@ $(function() {
         dataIndex = beginIndex,
         overflowIndex = 0,
         overflowStep = 0,
-        fileExt = {
+        fileExtList = {
             1: 'png',
             2: 'jpg',
             3: 'jpeg'
@@ -291,8 +291,8 @@ $(function() {
 
         if (d[i].hasOwnProperty('Desc')) { var Desc = d[i].Desc } else Desc = '无'
         if (d[i].hasOwnProperty('MID')) var MID = d[i].MID
-        if (d[i].hasOwnProperty('Logo')) var logoExists = true
-        if (d[i].hasOwnProperty('Imgs')) var imgCount = d[i].Imgs
+        if (d[i].hasOwnProperty('Logo')) var logoExt = d[i].Logo
+
 
         let insertHTML;
         switch (method) {
@@ -312,15 +312,15 @@ $(function() {
             case 'detail':
                 var logoURL = 'img src="./img/assets/default_clan_logo.svg"',
                     imgDisplay = ''
-                if (d[i].hasOwnProperty('Ext')) var extCode = d[i].Ext
-                if (logoExists) logoURL = 'img src="img/clan/' + ID + '/0.' + fileExt[extCode] + '"'
+                if (d[i].hasOwnProperty('Imgs')) var imgList = d[i].Imgs
+                if (logoExt) logoURL = 'img src="img/clan/' + ID + '/0.' + fileExtList[logoExt] + '"'
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
-                if (imgCount) {
+                if (imgList) {
                     imgDisplay = '<div class="clan-img"><div class = "container">'
-                    for (let i = 0; i < imgCount; i++) {
-                        imgDisplay += '<li><img src="./img/clan/' + ID + '/' + (i + 1) + '.' + fileExt[extCode] + '">' + '</li>'
+                    for (let i = 0; i < imgList.length; i++) {
+                        imgDisplay += '<li><img src="./img/clan/' + ID + '/' + (i + 1) + '.' + fileExtList[imgList[i]] + '">' + '</li>'
                     }
                     imgDisplay += '</div></div>'
                         // $('#detail .content').append(imgDisplay)
