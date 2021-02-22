@@ -11,7 +11,7 @@ from datetime import datetime
 
 excel_name = r'闪击战ID情报.xlsx'
 def xlsxRead():
-    while os.path.exists(excel_name) == False:
+    while not os.path.exists(excel_name):
         data = input('找不到“{}”，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\
 寻找文件：'.format(excel_name))
 
