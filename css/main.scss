@@ -335,14 +335,14 @@ body {
                 color: #fff;
                 font-size: 20px;
                 box-sizing: border-box;
-                padding: 15px;
                 .dismissBtn {
                     font-size: 1.25em;
                     display: inline-block;
                     position: fixed;
+                    padding: 0.75rem 0 0 0.75rem;
+                    margin: 0 0.75rem 0.75rem 0;
                 }
                 .content {
-                    padding: 2em;
                     box-sizing: border-box;
                     .tag {
                         color: #E9A844;
@@ -363,6 +363,7 @@ body {
                         }
                     }
                     .clanInfo {
+                        margin: 2em;
                         .logo {
                             height: 4.5rem;
                             width: 4.5rem;
@@ -380,34 +381,16 @@ body {
                             display: inline-block;
                             margin-left: 1rem;
                         }
-                        .introduction {
-                            p {
-                                margin: 0.5em 0
-                            }
-                            .clan-img {
-                                overflow-x: scroll;
-                                list-style: none;
-                                margin: 0.5rem auto;
-                                .container {
-                                    width: max-content;
-                                    li {
-                                        display: inline-block;
-                                        margin-right: 1.5rem;
-                                        vertical-align: middle;
-                                        &:last-child {
-                                            margin: 0;
-                                        }
-                                        img {
-                                            border-radius: 0.5rem;
-                                            overflow: hidden;
-                                            height: 30rem;
-                                        }
-                                    }
-                                }
-                            }
+                    }
+                    .introduction {
+                        padding: 0.5em 2em;
+                        p {
+                            margin: 0.5em 0
                         }
+                        @import url('../css/clan_img.min.css');
                     }
                     .clanFamily {
+                        padding: 0.5em 2em;
                         p {
                             text-align: center;
                         }

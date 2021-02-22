@@ -1,4 +1,5 @@
 /*===========*/
+@import url("../css/clan_img.min.css");
 * { margin: 0; padding: 0; }
 
 html { background: #c4cacf; height: 100%; min-width: 300px; }
@@ -109,11 +110,11 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #detail .wrap .inner { height: 0; width: 100%; position: absolute; bottom: 0; }
 
-#detail .wrap .inner .window { position: relative; margin: 0 auto; width: calc(100% - 2 * 55px); min-width: 300px; height: 100%; background-color: rgba(27, 31, 33, 0.9); border-radius: 15px 15px 0 0; overflow-y: scroll; color: #fff; font-size: 20px; box-sizing: border-box; padding: 15px; }
+#detail .wrap .inner .window { position: relative; margin: 0 auto; width: calc(100% - 2 * 55px); min-width: 300px; height: 100%; background-color: rgba(27, 31, 33, 0.9); border-radius: 15px 15px 0 0; overflow-y: scroll; color: #fff; font-size: 20px; box-sizing: border-box; }
 
-#detail .wrap .inner .window .dismissBtn { font-size: 1.25em; display: inline-block; position: fixed; }
+#detail .wrap .inner .window .dismissBtn { font-size: 1.25em; display: inline-block; position: fixed; padding: 0.75rem 0 0 0.75rem; margin: 0 0.75rem 0.75rem 0; }
 
-#detail .wrap .inner .window .content { padding: 2em; box-sizing: border-box; }
+#detail .wrap .inner .window .content { box-sizing: border-box; }
 
 #detail .wrap .inner .window .content .tag { color: #E9A844; }
 
@@ -121,23 +122,19 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #detail .wrap .inner .window .content h3::before, #detail .wrap .inner .window .content h3::after { content: ''; display: inline-block; border-bottom: #ffffff solid 1px; width: 25%; vertical-align: middle; margin: 0 0.375em; }
 
+#detail .wrap .inner .window .content .clanInfo { margin: 2em; }
+
 #detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 0.5rem; box-shadow: 0 0 7.5px 0 #111111; display: inline-block; overflow: hidden; }
 
 #detail .wrap .inner .window .content .clanInfo .logo img { height: 100%; background: radial-gradient(circle, #181818, #080808, #000000); }
 
 #detail .wrap .inner .window .content .clanInfo .info { display: inline-block; margin-left: 1rem; }
 
-#detail .wrap .inner .window .content .clanInfo .introduction p { margin: 0.5em 0; }
+#detail .wrap .inner .window .content .introduction { padding: 0.5em 2em; }
 
-#detail .wrap .inner .window .content .clanInfo .introduction .clan-img { overflow-x: scroll; list-style: none; margin: 0.5rem auto; }
+#detail .wrap .inner .window .content .introduction p { margin: 0.5em 0; }
 
-#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container { width: max-content; }
-
-#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li { display: inline-block; margin-right: 1.5rem; vertical-align: middle; }
-
-#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li:last-child { margin: 0; }
-
-#detail .wrap .inner .window .content .clanInfo .introduction .clan-img .container li img { border-radius: 0.5rem; overflow: hidden; height: 30rem; }
+#detail .wrap .inner .window .content .clanFamily { padding: 0.5em 2em; }
 
 #detail .wrap .inner .window .content .clanFamily p { text-align: center; }
 

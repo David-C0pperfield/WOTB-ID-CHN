@@ -328,14 +328,15 @@ $(function() {
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
                 Desc = Desc.replace(/\n/g, '</p><p>')
-                insertHTML = '<div class="clanInfo"><div class="logo">' +
+                var clanBrief = '<div class="clanInfo"><div class="logo">' +
                     ' <' + logoURL + ' alt="[' + Tag + ']+' + Full + 'Logo"></div>' +
                     '<div class="info"><p class="tag">[' + Tag + '] ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
-                    '<p>创建日期：' + Estbl + '</p></div>' +
-                    '<div class="introduction">' +
-                    '<h3>简介</h3>' + imgDisplay +
-                    '<p>' + Desc + '</p></div></div>'
+                    '<p>创建日期：' + Estbl + '</p></div></div>',
+                    clanIntro = '<div class="introduction"><h3>简介</h3>' +
+                    '<p>' + Desc + '</p></div>';
+
+                insertHTML = clanBrief + imgDisplay + clanIntro
                 $('#detail .content').append(insertHTML) //插入页面
                 if (MID) getClanFamily(MID) //检测是否有主团
                 repeated_desc = '' //清空变量
