@@ -9,7 +9,7 @@ import subprocess
 import time
 from datetime import datetime
 
-file_list = os.listdir('../') + os.listdir('./')
+file_list = os.listdir('./')
 for index in file_list:
     if '闪击战ID情报' and '.xlsx'in index:
         excel_name = index
@@ -82,6 +82,8 @@ def getExtFormat(i):
     elif '.jpeg' in data:
         r = 3
     return r
+
+def findClanXlsx():
     
 if __name__ == '__main__':
     xlsxRead()
