@@ -83,7 +83,5 @@ def getExtFormat(i):
         r = 3
     return r
 
-def findClanXlsx():
-    
 if __name__ == '__main__':
     xlsxRead()
