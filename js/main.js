@@ -205,18 +205,17 @@ $(function() {
     function getClanFamily(i) {
         var parentClan = i,
             result = toCompare(parentClan, clanData, 'mid'),
-            family_branch = []
-            //resultCount = result.length
-            //if (resultCount > 0) var clan_result_count = ''.concat('该军团有', (resultCount - 1), '个分团')
+            family_branch = [];
+        //resultCount = result.length
+        //if (resultCount > 0) var clan_result_count = ''.concat('该军团有', (resultCount - 1), '个分团')
         $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
-        for (let j in result) {
-            family_branch[j] = (toCompare(result[j].ID, clanData, 'mid'))
-        }
-        family_branch.splice(0, 1)
+        for (var j in result) family_branch[j] = (toCompare(result[j].ID, clanData, 'mid')[0])
+        if (!family_branch[j]) family_branch[j] = null
+            // family_branch.splice(0, 1)
+            // console.log(result)
         console.log(family_branch)
-        for (let i in result) insertData(result, i, 'mid')
+        for (let i in result) insertData(result, i, 'mid', family_branch[i])
     }
-
     var filter = ["[", "]", "{", "}", "(", ")", "+", "*", "/"],
         filter_factor = '\\'
     for (let i = 0; i < filter.length; i++) filter[i] = filter_factor + filter[i]
@@ -282,7 +281,7 @@ $(function() {
     }
     var repeated_desc;
 
-    function insertData(d, i, method) {
+    function insertData(d, i, method, family_branch) {
         if (!d) {
             $('#content tbody').append('<tr><td>未搜索到相关内容，相关军团可能未被收录</td></tr>')
             return
@@ -341,17 +340,18 @@ $(function() {
 
                 insertHTML = clanBrief + imgDisplay + clanIntro
                 $('#detail .content').append(insertHTML) //插入页面
-                if (MID) getClanFamily(MID) //检测是否有主团
+                if (MID == -1) { getClanFamily(ID) } else getClanFamily(MID) //检测是否有主团
                 repeated_desc = '' //清空变量
                 break;
 
             case 'mid': // 注入军团族群表
-                let beginMark = '<div data-clan-id="' + ID + '">';
-                insertHTML = '<span class="tag">[' + Tag + '] ' + Full + '</span>' +
+                let beginMark = '<div><div data-clan-id="' + ID + '">';
+                var clan_cell = '<span class="tag">[' + Tag + '] ' + Full + '</span>' +
                     '<span class="idNumber">ID：' + ID + '</span>';
-                let endMark = '</div>'
+                if (family_branch) {}
+                let endMark = '</div></div>'
                 if (ID == getQueryStr('cid')) beginMark = '<div data-clan-id="' + ID + '"class ="current">'
-                insertHTML = [beginMark, insertHTML, endMark].join('')
+                insertHTML = [beginMark, clan_cell, endMark].join('')
                 $('#detail .clanFamily').append(insertHTML)
                 break;
         }

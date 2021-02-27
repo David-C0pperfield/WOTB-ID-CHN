@@ -33,7 +33,7 @@ def xlsxRead():
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
-            if ctype == 2 or ctype == 3 and cell % 1 == 0:
+            if ctype == 2 and cell % 1 == 0 or ctype == 3:
                 cell = int(cell)
                 #date = datetime(*xldate_as_tuple(cell,0))
                 #cell = date.strftime('%Y-%m-%d')
@@ -69,6 +69,17 @@ def xlsxRead():
     f = open('../js/clan.json','w+')
     f.write(processed_json)
     f.close()
+    '''
+    processed_json=json.dumps(data_list,\
+                              indent = 4,\
+                              sort_keys=False,\
+                              separators=(',',':'),\
+                              ensure_ascii=False)
+
+    f = open('clan.json','w+')
+    f.write(processed_json)
+    f.close()
+    '''
     print('json建立完成')
     
 def getExtFormat(i):
