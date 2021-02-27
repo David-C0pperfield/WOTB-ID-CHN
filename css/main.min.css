@@ -138,9 +138,9 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #detail .wrap .inner .window .content .clanFamily p { text-align: center; }
 
-#detail .wrap .inner .window .content .clanFamily div { box-sizing: border-box; border-radius: 5px; padding: 7.5px 30px; margin: 0 auto; }
+#detail .wrap .inner .window .content .clanFamily div[data-clan-id] { width: fit-content; box-sizing: border-box; border-radius: 5px; padding: 7.5px 30px; margin: 0 auto; }
 
-#detail .wrap .inner .window .content .clanFamily div span { display: block; text-align: center; }
+#detail .wrap .inner .window .content .clanFamily div[data-clan-id] span { display: block; text-align: center; }
 
 #detail .wrap .inner .window .content .clanFamily .idNumber { font-size: 1rem; }
 

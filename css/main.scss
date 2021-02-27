@@ -394,7 +394,8 @@ body {
                         p {
                             text-align: center;
                         }
-                        div {
+                        div[data-clan-id] {
+                            width: fit-content;
                             box-sizing: border-box;
                             border-radius: 5px;
                             padding: 7.5px 30px;
