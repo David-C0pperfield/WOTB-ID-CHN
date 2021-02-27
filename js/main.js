@@ -204,11 +204,16 @@ $(function() {
 
     function getClanFamily(i) {
         var parentClan = i,
-            result = toCompare(parentClan, clanData, 'mid')
+            result = toCompare(parentClan, clanData, 'mid'),
+            family_branch = []
             //resultCount = result.length
             //if (resultCount > 0) var clan_result_count = ''.concat('该军团有', (resultCount - 1), '个分团')
         $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
-        for (let j in result) { console.log(toCompare(result[j].ID, clanData, 'byID')) }
+        for (let j in result) {
+            family_branch[j] = (toCompare(result[j].ID, clanData, 'mid'))
+        }
+        family_branch.splice(0, 1)
+        console.log(family_branch)
         for (let i in result) insertData(result, i, 'mid')
     }
 
