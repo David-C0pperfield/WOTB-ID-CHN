@@ -209,13 +209,21 @@ $(function() {
         //resultCount = result.length
         //if (resultCount > 0) var clan_result_count = ''.concat('该军团有', (resultCount - 1), '个分团')
         $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
-        for (var j in result) family_branch[j] = (toCompare(result[j].ID, clanData, 'mid')[0])
-        if (!family_branch[j]) family_branch[j] = null
-            // family_branch.splice(0, 1)
-            // console.log(result)
+        for (let i in result) { //寻找深层次军团族
+            family_branch[i] = (toCompare(result[i].ID, clanData, 'mid')[0])
+            if (family_branch[i] != undefined) {
+                if (family_branch[i].ID == family_branch[i].MID) {
+                    family_branch[i] = toCompare(-result[i].ID, clanData, 'mid')[0]
+                }
+            }
+        }
+        for (let i in family_branch) { if (!family_branch[i]) family_branch[i] = null }
+        // family_branch.splice(0, 1)
+        // console.log(result)
         console.log(family_branch)
         for (let i in result) insertData(result, i, 'mid', family_branch[i])
     }
+
     var filter = ["[", "]", "{", "}", "(", ")", "+", "*", "/"],
         filter_factor = '\\'
     for (let i = 0; i < filter.length; i++) filter[i] = filter_factor + filter[i]
@@ -340,7 +348,7 @@ $(function() {
 
                 insertHTML = clanBrief + imgDisplay + clanIntro
                 $('#detail .content').append(insertHTML) //插入页面
-                if (MID == -1) { getClanFamily(ID) } else getClanFamily(MID) //检测是否有主团
+                if (MID) getClanFamily(MID) //检测是否有主团
                 repeated_desc = '' //清空变量
                 break;
 
