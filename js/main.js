@@ -59,23 +59,21 @@ $(function() {
         })();
         (function loadList() {
             $('#content tbody').empty()
-
-            if (beginIndex < 0) {
+            if (beginIndex < 0) { //index为负数时
                 beginIndex = 0
                 endingIndex = beginIndex + stepLength - 1
 
-            } //index为负数时的处理
-            if (endingIndex > total_entries - 1) {
+            }
+            if (endingIndex > total_entries - 1) { //超出的处理
                 overflowIndex = endingIndex
                 endingIndex = total_entries - 1
                 overflowStep = overflowIndex - endingIndex
 
-            } //超出的处理
-            if (overflowStep != 0) {
+            }
+            if (overflowStep != 0) { //补回溢出的读取长度
                 endingIndex += overflowStep
                 overflowStep = 0
-            } //补回溢出的读取长度
-
+            }
             while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
                 insertData(clanData, dataIndex, 'table')
                 if (dataIndex < total_entries - 1) dataIndex++;
@@ -169,7 +167,7 @@ $(function() {
     function getClanData(mode, id) {
         if (!mode) {
             var keyword = getQueryStr('keyword');
-            if (keyword == '' || undefined) return
+            if (!keyword) return
             $('#content tbody').empty()
             let result = toCompare(keyword, clanData),
                 resultCount = result.length
@@ -186,7 +184,7 @@ $(function() {
             var id = id,
                 detail
 
-            if (isNaN(Number(id)) == true) {
+            if (isNaN(Number(id))) {
                 detail = toCompare(id, clanData, 'private')
             } else {
                 id = Number(id)
@@ -205,20 +203,24 @@ $(function() {
     }
 
     function getClanFamily(i) {
-        var parentClan = i;
-        let result = toCompare(parentClan, clanData, 'mid'),
-            resultCount = result.length
-        if (resultCount > 0) '该军团有' + (resultCount - 1) + '个分团'
+        var parentClan = i,
+            result = toCompare(parentClan, clanData, 'mid')
+            //resultCount = result.length
+            //if (resultCount > 0) var clan_result_count = ''.concat('该军团有', (resultCount - 1), '个分团')
         $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
+        for (let j in result) { console.log(toCompare(result[j].ID, clanData, 'byID')) }
         for (let i in result) insertData(result, i, 'mid')
     }
+
+    var filter = ["[", "]", "{", "}", "(", ")", "+", "*", "/"],
+        filter_factor = '\\'
+    for (let i = 0; i < filter.length; i++) filter[i] = filter_factor + filter[i]
 
     function toCompare(keyword, data, mode) {
         switch (keyword) {
             case !keyword:
                 break;
             default:
-                let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\*", "\\/"]
                 if (isNaN(Number(keyword))) {
                     for (let i in keyword) {
                         for (let j in filter) {
@@ -230,8 +232,6 @@ $(function() {
                 var strictReg = new RegExp('^' + keyword + '$')
                 break;
         }
-
-
         if (!(data instanceof Array)) return
         var len = data.length,
             arr = [],
@@ -278,7 +278,6 @@ $(function() {
     var repeated_desc;
 
     function insertData(d, i, method) {
-
         if (!d) {
             $('#content tbody').append('<tr><td>未搜索到相关内容，相关军团可能未被收录</td></tr>')
             return
@@ -288,7 +287,6 @@ $(function() {
             Tag = d[i].Tag,
             Full = d[i].Full,
             tableID;
-
         if (d[i].hasOwnProperty('Desc')) { var Desc = d[i].Desc } else Desc = '无'
         if (d[i].hasOwnProperty('MID')) var MID = d[i].MID
         if (d[i].hasOwnProperty('Logo')) var logoExt = d[i].Logo
@@ -300,7 +298,7 @@ $(function() {
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
                 if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
-                if (isNaN(ID) == true) tableID = Tag;
+                if (isNaN(ID)) tableID = Tag;
                 else tableID = ID
                 insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
                     '</td><td>' + '[' + Tag + '] ' + Full +
