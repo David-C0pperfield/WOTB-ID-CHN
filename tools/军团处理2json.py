@@ -9,7 +9,11 @@ import subprocess
 import time
 from datetime import datetime
 
-excel_name = r'闪击战ID情报.xlsx'
+file_list = os.listdir('../')
+for index in file_list:
+    if '闪击战ID情报' and '.xlsx'in index:
+        excel_name = '../' +  index
+        
 def xlsxRead():
     while not os.path.exists(excel_name):
         data = input('找不到“{}”，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\

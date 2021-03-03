@@ -1,2 +1,3 @@
 #!/bin/bash
-python3 /Library/WebServer/Documents/WOTB-ID-CHN/tools/军团处理2json.py
+cd /Library/WebServer/Documents/WOTB-ID-CHN/tools/
+python3 ./军团处理2json.py
