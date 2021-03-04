@@ -348,7 +348,10 @@ $(function() {
 
                 insertHTML = clanBrief + imgDisplay + clanIntro
                 $('#detail .content').append(insertHTML) //插入页面
-                if (MID) getClanFamily(MID) //检测是否有主团
+                if (MID) {
+                    if (MID < 0) MID = -MID
+                    getClanFamily(MID)
+                } //检测是否有主团
                 repeated_desc = '' //清空变量
                 break;
 
