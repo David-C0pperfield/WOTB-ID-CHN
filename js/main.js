@@ -31,10 +31,11 @@ $(function() {
 
     $(document).on('click', '.flipBtn.back', function() {
         dataIndex = beginIndex
-        $('.flipBtn').show()
+            // $('.flipBtn').show()
         $('.flipBtn.back').hide()
         window.history.replaceState({ Page: 1 }, '', './')
-        fetchData()
+            // fetchData()
+        showRecommend()
     })
     $('.flipBtn.next').on('click', function() {
         beginIndex += stepLength
@@ -227,7 +228,12 @@ $(function() {
     }
 
     var filter = ["[", "]", "{", "}", "(", ")", "+", "*", "/"],
-        filter_factor = '\\'
+        filter_factor = '\\',
+        filterWords = ["编者", '幽灵团', "孤儿"],
+        blacklist = []
+    for (let i in filterWords) {
+        blacklist.push(new RegExp(filterWords[i], "g"))
+    }
     for (let i = 0; i < filter.length; i++) filter[i] = filter_factor + filter[i]
 
     function toCompare(keyword, data, mode) {
@@ -269,7 +275,7 @@ $(function() {
             case 'analysis':
                 let z = 0;
                 for (let i = 0; i < len; i++) {
-                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/编者/g) && String(data[i].Desc).match(/\d/g)) {
+                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/编者/g) && !String(data[i].Desc).match(/幽灵团/g) && String(data[i].Desc).match(/\d/g)) {
                         arr.push(data[i])
                         z++
                     }
@@ -430,9 +436,10 @@ $(function() {
     }
 
 
-    function showRecomend() {
+    function showRecommend() {
         var clan, ID, tag, fname, Desc
-
+        $('#recommend').empty()
+        $('#register-banner').html('军团推荐')
         do { randomNum() } while (indexList.length < 5)
         for (let i in indexList) {
             clan = recommendList[indexList[i]]
@@ -449,6 +456,8 @@ $(function() {
                 '<br>ID：<span class="desc-color">' + ID + '</span>' +
                 '<div class="desc-color">' + desc + '</div></div>')
         }
+        indexList = []
     }
-    showRecomend()
+    showRecommend()
+    console.log(recommendList.length)
 })
