@@ -50,6 +50,7 @@ a {
 }
 
 body {
+    height: 100%;
     font-family: sans-serif;
     background: url('../img/assets/bg.jpeg') no-repeat fixed center;
     background-size: 100% 100%;
@@ -58,6 +59,14 @@ body {
 .btn {
     cursor: pointer;
     @include disable-user-select()
+}
+
+.orange {
+    color: #E9A844;
+}
+
+.desc-color {
+    color: #b3b9be;
 }
 
 #head {
@@ -226,7 +235,7 @@ body {
         #465F6E 35%,
         #465F6E 65%,
         transparent 97%);
-        position: fixed;
+        // position: fixed;
         @include disable-user-select();
         .flipBtn {
             * {
@@ -243,9 +252,10 @@ body {
             }
         }
     }
-    table {
+    table.clan_lib {
+        display: none;
         @include disable-user-select();
-        margin: 42px auto 0;
+        margin: 0 auto;
         border-collapse: collapse;
         // width: 720px;
         thead {
@@ -266,9 +276,6 @@ body {
                 border-bottom: 1px solid rgba(255, 255, 255, 0.094);
                 &:last-child {
                     border-bottom: 0;
-                }
-                td:nth-child(2) {
-                    color: #E9A844;
                 }
             }
         }
@@ -299,6 +306,23 @@ body {
                     }
                 }
             }
+        }
+    }
+    #recommend {
+        .clan-card {
+            height: 15rem;
+            width: 20rem;
+            vertical-align: top;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            // border-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent 40%);
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 0.625rem;
+            margin: 1rem;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent 75%);
+            display: inline-block;
+            justify-content: space-around;
         }
     }
 }
@@ -345,9 +369,6 @@ body {
                 }
                 .content {
                     box-sizing: border-box;
-                    .tag {
-                        color: #E9A844;
-                    }
                     h3 {
                         display: inline-block;
                         text-align: center;
