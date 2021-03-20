@@ -38,29 +38,29 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #head hr { margin: 10px auto; }
 
-#head #notification_zone { display: none; height: 300px; background: rgba(255, 255, 255, 0.627); color: #000; box-sizing: border-box; line-height: 1.5em; box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.376); position: relative; overflow: hidden; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); padding-bottom: 40px; }
+#head #announcement_zone { display: none; height: 300px; background: rgba(255, 255, 255, 0.627); color: #000; box-sizing: border-box; line-height: 1.5em; box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.376); position: relative; overflow: hidden; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); padding-bottom: 40px; }
 
-#head #notification_zone .wrap { padding: 15px 25px; height: calc(100% - 20px); overflow-y: scroll; }
+#head #announcement_zone .wrap { padding: 15px 25px; height: calc(100% - 20px); overflow-y: scroll; }
 
-#head #notification_zone .wrap section { margin-bottom: 10px; }
+#head #announcement_zone .wrap section { margin-bottom: 10px; }
 
-#head #notification_zone .wrap section:last-child { margin-bottom: 0; }
+#head #announcement_zone .wrap section:last-child { margin-bottom: 0; }
 
-#head #notification_zone .wrap #part1 p { margin-bottom: 5px; }
+#head #announcement_zone .wrap #part1 p { margin-bottom: 5px; }
 
-#head #notification_zone .wrap #part1 p:last-child { margin-bottom: 0; }
+#head #announcement_zone .wrap #part1 p:last-child { margin-bottom: 0; }
 
-#head #notification_zone .wrap #part2 { text-align: center; justify-content: space-evenly; }
+#head #announcement_zone .wrap #part2 { text-align: center; justify-content: space-evenly; }
 
-#head #notification_zone .wrap #part2 #acknowledgement { padding: 0 10px; display: inline-block; text-align: center; }
+#head #announcement_zone .wrap #part2 #acknowledgement { padding: 0 10px; display: inline-block; text-align: center; }
 
-#head #notification_zone .wrap #part2 #links { padding: 0 10px; text-align: center; display: inline-block; }
+#head #announcement_zone .wrap #part2 #links { padding: 0 10px; text-align: center; display: inline-block; }
 
-#head #notification_zone .wrap #part2 #links a { color: darkviolet; }
+#head #announcement_zone .wrap #part2 #links a { color: darkviolet; }
 
-#head #notification_zone .toCollapse { text-align: center; width: 100%; position: absolute; bottom: 0; }
+#head #announcement_zone .toCollapse { text-align: center; width: 100%; position: absolute; bottom: 0; }
 
-#head #notification_zone svg { display: block; margin: 0 auto; }
+#head #announcement_zone svg { display: block; margin: 0 auto; }
 
 #content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow-x: scroll; height: 100%; z-index: 50; position: relative; box-sizing: border-box; background: rgba(51, 51, 51, 0.75); backdrop-filter: blur(20px) saturate(0); -webkit-backdrop-filter: blur(20px) saturate(0); }
 
@@ -76,7 +76,7 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
 
 #content #register-banner .flipBtn.next { right: 35px; }
 
-#content table { margin: 42px auto 0; border-collapse: collapse; }
+#content table { -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; margin: 42px auto 0; border-collapse: collapse; }
 
 #content table thead { background-color: #465F6E; width: 100%; }
 
@@ -156,8 +156,8 @@ body { font-family: sans-serif; background: url("../img/assets/bg.jpeg") no-repe
   #head #searchbar #inner_s_bar .searchIcon:hover { color: white; }
   #head #searchbar #inner_s_bar .resetBtn { color: rgba(255, 255, 255, 0.502); }
   #head #searchbar #inner_s_bar .resetBtn:hover { color: white; }
-  #head #notification_zone { background: rgba(0, 0, 0, 0.627); color: #fff; }
-  #head #notification_zone .wrap #part2 #links a { color: gold; }
+  #head #announcement_zone { background: rgba(0, 0, 0, 0.627); color: #fff; }
+  #head #announcement_zone .wrap #part2 #links a { color: gold; }
   #content { background: rgba(25, 25, 25, 0.9); } }
 
 @media screen and (min-width: 1000px) { #content table { width: 960px; } }

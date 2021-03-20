@@ -136,7 +136,7 @@ body {
     hr {
         margin: 10px auto;
     }
-    #notification_zone {
+    #announcement_zone {
         display: none;
         height: 300px;
         background: rgba(255, 255, 255, 0.627);
@@ -244,6 +244,7 @@ body {
         }
     }
     table {
+        @include disable-user-select();
         margin: 42px auto 0;
         border-collapse: collapse;
         // width: 720px;
@@ -457,7 +458,7 @@ body {
                 }
             }
         }
-        #notification_zone {
+        #announcement_zone {
             background: rgba(0, 0, 0, 0.627);
             color: #fff;
             .wrap {

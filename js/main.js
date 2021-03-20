@@ -21,12 +21,13 @@ $(function() {
 
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
-    getClanData('byId', getQueryStr('cid'));
 
-    if (getQueryStr('keyword')) {
-        getClanData()
-        $('#searchstr').val(getQueryStr('keyword'))
-    } else fetchData()
+    // getClanData('byId', getQueryStr('cid'));
+
+    // if (getQueryStr('keyword')) {
+    //     getClanData()
+    //     $('#searchstr').val(getQueryStr('keyword'))
+    // } else fetchData()
 
     $(document).on('click', '.flipBtn.back', function() {
         dataIndex = beginIndex
@@ -98,9 +99,9 @@ $(function() {
         $('#searchstr').focus();
     })
 
-    function slideDownNotification() { setTimeout(function() { $('#notification_zone').slideDown(250); }, 450) }
+    function slideDownAnnouncement() { setTimeout(function() { $('#announcement_zone').slideDown(250); }, 450) }
     $('#searchstr').on('click', function() { //聚焦时显示横幅
-        if ($('#searchstr').is(':focus')) $('#notification_zone').slideDown(250)
+        if ($('#searchstr').is(':focus')) $('#announcement_zone').slideDown(250)
     })
     $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
@@ -108,23 +109,23 @@ $(function() {
     })
     $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
-        if (!target.is('#searchstr') && !target.is('#notification_zone .wrap') && !target.is('#notification_zone .wrap *') || (target.is('#notification_zone .toCollapse') || target.is('#notification_zone .toCollapse *'))) {
-            slideUpNotification()
+        if (!target.is('#searchstr') && !target.is('#announcement_zone .wrap') && !target.is('#announcement_zone .wrap *') || (target.is('#announcement_zone .toCollapse') || target.is('#announcement_zone .toCollapse *'))) {
+            slideUpAnnouncement()
         }
     })
 
     //详情浮层
-    $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
+    $(document).on('click', '#content tbody tr[data-clan-id]', function() { //点击条目，显示浮层
         let cid = $(this).attr('data-clan-id');
         window.history.pushState({ Page: 3 }, '', '?cid=' + cid)
         getClanData('byId', getQueryStr('cid'));
         showDetail()
     })
-    $(document).on('mousedown', '#content tbody tr', function(e) {
+    $(document).on('mousedown', '#content tbody tr[data-clan-id]', function(e) {
         if (e.which != 1) return
         $(this).css({ 'background-color': 'rgba(70, 94, 109, 0.5)' })
     })
-    $(document).on('mouseup', '#content tbody tr', function() {
+    $(document).on('mouseup', '#content tbody tr[data-clan-id]', function() {
         $(this).removeAttr('style')
     })
     $(document).on('click', '#detail .clanFamily [data-clan-id]', function() { //点击相关军团，切换显示
@@ -162,7 +163,7 @@ $(function() {
         getClanData()
     }
 
-    function slideUpNotification() { if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250); }
+    function slideUpAnnouncement() { if ($('#announcement_zone').css('display') != 'none') $('#announcement_zone').slideUp(250); }
 
     function getClanData(mode, id) {
         if (!mode) {
@@ -176,7 +177,7 @@ $(function() {
             for (let i in result) insertData(result, i, 'table')
             let backIcon = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
                 '<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>'
-            slideUpNotification()
+            slideUpAnnouncement()
             $('.flipBtn').hide()
             $('#register-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
             $('.flipBtn.back').show()
@@ -359,7 +360,7 @@ $(function() {
                 let beginMark = '<div><div data-clan-id="' + ID + '">';
                 var clan_cell = '<span class="tag">[' + Tag + '] ' + Full + '</span>' +
                     '<span class="idNumber">ID：' + ID + '</span>';
-                if (family_branch) {}
+                // if (family_branch) {}
                 let endMark = '</div></div>'
                 if (ID == getQueryStr('cid')) beginMark = '<div data-clan-id="' + ID + '"class ="current">'
                 insertHTML = [beginMark, clan_cell, endMark].join('')
@@ -422,12 +423,15 @@ $(function() {
     }
 
     function randomNum() {
-        var rand = parseInt(Math.random() * recommendList.length + 1);
+        var rand = parseInt(Math.random() * recommendList.length);
         for (let i; i < indexList.length; i++) { if (rand == indexList[i]) return false }
         indexList.push(rand)
     }
 
+
     function showRecomend() {
         do { randomNum() } while (indexList.length < 5)
+        for (let i in indexList) console.log(recommendList[indexList[i]])
     }
+    showRecomend()
 })
