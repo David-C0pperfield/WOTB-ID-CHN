@@ -66,7 +66,7 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #head #announcement_zone svg { display: block; margin: 0 auto; }
 
-#content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow-x: scroll; height: 100%; z-index: 50; position: relative; box-sizing: border-box; background: #333333; backdrop-filter: blur(20px) saturate(0); -webkit-backdrop-filter: blur(20px) saturate(0); }
+#content { padding-top: 56px; color: #fff; text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); -webkit-overflow-scrolling: touch; overflow-x: scroll; height: 100%; z-index: 50; position: relative; box-sizing: border-box; background: rgba(25, 25, 25, 0.8); backdrop-filter: blur(20px) saturate(0); -webkit-backdrop-filter: blur(20px) saturate(0); }
 
 #content #title-banner { position: relative; height: 42px; width: 100%; line-height: 42px; text-align: center; background: linear-gradient(to right, transparent 3%, #465F6E 35%, #465F6E 65%, transparent 97%); -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; }
 
