@@ -224,10 +224,10 @@ $(function() {
                 }
             }
         }
-        for (let i in family_branch) { if (!family_branch[i]) family_branch[i] = null }
+        // for (let i in family_branch) { if (!family_branch[i]) family_branch[i] = null }
         // family_branch.splice(0, 1)
         // console.log(result)
-        console.log(family_branch)
+        // console.log(family_branch)
         for (let i in result) insertData(result, i, 'mid', family_branch[i])
     }
 
@@ -453,7 +453,10 @@ $(function() {
             desc = clan.Desc
             if (clan.hasOwnProperty('MID')) var MID = clan.MID
             repeatedDesc(MID, desc)
-            if (repeatedDesc(MID, desc)) desc = repeatedDesc(MID, desc)
+            if (repeatedDesc(MID, desc)) {
+                desc = repeatedDesc(MID, desc)
+                repeated_desc = ''
+            }
             desc = desc.replace(/\n/g, '<br>')
             $('#recommend').append('<div class="clan-card" data-clan-id=' + ID + '>' +
                 '<span class="orange">' + tag + ' ' + fname + '</span>' +
