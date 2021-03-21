@@ -434,7 +434,6 @@ $(function() {
         var rand = parseInt(Math.random() * recommendList.length);
         return rand
     }
-    console.log(recommendList[100])
 
     function showRecommend() {
         var clan, ID, tag, fname, Desc, rand, family_list = []
