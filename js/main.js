@@ -21,19 +21,23 @@ $(function() {
 
     calcTableHeight();
     $(window).resize(function() { calcTableHeight(); })
+
     getClanData('byId', getQueryStr('cid'));
 
-    if (getQueryStr('keyword')) {
-        getClanData()
-        $('#searchstr').val(getQueryStr('keyword'))
-    } else fetchData()
+    // if (getQueryStr('keyword')) {
+    //     getClanData()
+    //     $('#searchstr').val(getQueryStr('keyword'))
+    // } else fetchData()
 
     $(document).on('click', '.flipBtn.back', function() {
         dataIndex = beginIndex
-        $('.flipBtn').show()
+            // $('.flipBtn').show()
         $('.flipBtn.back').hide()
         window.history.replaceState({ Page: 1 }, '', './')
-        fetchData()
+            // fetchData()
+        $('table.clan_lib').css('display', 'none')
+        $('#recommend').css('display', 'block')
+        showRecommend()
     })
     $('.flipBtn.next').on('click', function() {
         beginIndex += stepLength
@@ -50,32 +54,30 @@ $(function() {
 
     function fetchData() {
         restorePosition()
-        if (clanData === undefined) return false;
+        if (!clanData) return false;
         var total_entries = clanData.length;
-        info('收录', total_entries);
+        changeTitle('收录', total_entries);
         (function judgePage() {
             if (beginIndex <= 0) { $('.flipBtn.prev').hide() } else $('.flipBtn.prev').show()
             if (endingIndex >= total_entries - 1) { $('.flipBtn.next').hide() } else $('.flipBtn.next').show()
         })();
         (function loadList() {
             $('#content tbody').empty()
-
-            if (beginIndex < 0) {
+            if (beginIndex < 0) { //index为负数时
                 beginIndex = 0
                 endingIndex = beginIndex + stepLength - 1
 
-            } //index为负数时的处理
-            if (endingIndex > total_entries - 1) {
+            }
+            if (endingIndex > total_entries - 1) { //超出的处理
                 overflowIndex = endingIndex
                 endingIndex = total_entries - 1
                 overflowStep = overflowIndex - endingIndex
 
-            } //超出的处理
-            if (overflowStep != 0) {
+            }
+            if (overflowStep != 0) { //补回溢出的读取长度
                 endingIndex += overflowStep
                 overflowStep = 0
-            } //补回溢出的读取长度
-
+            }
             while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
                 insertData(clanData, dataIndex, 'table')
                 if (dataIndex < total_entries - 1) dataIndex++;
@@ -92,7 +94,7 @@ $(function() {
         }
     })
     $('#search_btn').on('click', function() {
-        if ($('#searchstr').val() == '') return
+        if (!$('#searchstr').val()) return
         startSearching()
     })
     $('.btn.resetBtn>*').on('click', function() {
@@ -100,9 +102,9 @@ $(function() {
         $('#searchstr').focus();
     })
 
-    function slideDownNotification() { setTimeout(function() { $('#notification_zone').slideDown(250); }, 450) }
+    function slideDownAnnouncement() { setTimeout(function() { $('#announcement_zone').slideDown(250); }, 450) }
     $('#searchstr').on('click', function() { //聚焦时显示横幅
-        if ($('#searchstr').is(':focus')) $('#notification_zone').slideDown(250)
+        if ($('#searchstr').is(':focus')) $('#announcement_zone').slideDown(250)
     })
     $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
@@ -110,23 +112,23 @@ $(function() {
     })
     $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
-        if (!target.is('#searchstr') && !target.is('#notification_zone .wrap') && !target.is('#notification_zone .wrap *') || (target.is('#notification_zone .toCollapse') || target.is('#notification_zone .toCollapse *'))) {
-            slideUpNotification()
+        if (!target.is('#searchstr') && !target.is('#announcement_zone .wrap') && !target.is('#announcement_zone .wrap *') || (target.is('#announcement_zone .toCollapse') || target.is('#announcement_zone .toCollapse *'))) {
+            slideUpAnnouncement()
         }
     })
 
     //详情浮层
-    $(document).on('click', '#content tbody tr', function() { //点击条目，显示浮层
+    $(document).on('click', '#content tbody tr[data-clan-id],.clan-card[data-clan-id]', function() { //点击条目，显示浮层
         let cid = $(this).attr('data-clan-id');
         window.history.pushState({ Page: 3 }, '', '?cid=' + cid)
         getClanData('byId', getQueryStr('cid'));
         showDetail()
     })
-    $(document).on('mousedown', '#content tbody tr', function(e) {
+    $(document).on('mousedown', '#content tbody tr[data-clan-id]', function(e) {
         if (e.which != 1) return
         $(this).css({ 'background-color': 'rgba(70, 94, 109, 0.5)' })
     })
-    $(document).on('mouseup', '#content tbody tr', function() {
+    $(document).on('mouseup', '#content tbody tr[data-clan-id]', function() {
         $(this).removeAttr('style')
     })
     $(document).on('click', '#detail .clanFamily [data-clan-id]', function() { //点击相关军团，切换显示
@@ -160,33 +162,35 @@ $(function() {
             alert("您还没有输入关键词！")
             return
         }
+        $('#recommend').css('display', 'none')
+        $('table.clan_lib').css('display', 'block')
         restorePosition()
         getClanData()
     }
 
-    function slideUpNotification() { if ($('#notification_zone').css('display') != 'none') $('#notification_zone').slideUp(250); }
+    function slideUpAnnouncement() { if ($('#announcement_zone').css('display') != 'none') $('#announcement_zone').slideUp(250); }
 
     function getClanData(mode, id) {
         if (!mode) {
             var keyword = getQueryStr('keyword');
-            if (keyword == '' || undefined) return
+            if (!keyword) return
             $('#content tbody').empty()
             let result = toCompare(keyword, clanData),
                 resultCount = result.length
             if (resultCount == 0) insertData()
-            info('搜索', resultCount);
+            changeTitle('搜索到', resultCount);
             for (let i in result) insertData(result, i, 'table')
             let backIcon = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
                 '<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>'
-            slideUpNotification()
+            slideUpAnnouncement()
             $('.flipBtn').hide()
-            $('#register-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
+            $('#title-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
             $('.flipBtn.back').show()
-        } else if (mode == 'byId') {
+        } else if (mode.match(/byID/gi)) {
             var id = id,
                 detail
 
-            if (isNaN(Number(id)) == true) {
+            if (isNaN(Number(id))) {
                 detail = toCompare(id, clanData, 'private')
             } else {
                 id = Number(id)
@@ -202,23 +206,45 @@ $(function() {
             } else { $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
             showDetail()
         }
+
     }
 
     function getClanFamily(i) {
-        var parentClan = i;
-        let result = toCompare(parentClan, clanData, 'mid'),
-            resultCount = result.length
-        if (resultCount > 0) '该军团有' + (resultCount - 1) + '个分团'
+        var parentClan = i,
+            result = toCompare(parentClan, clanData, 'mid'),
+            family_branch = [];
+        //resultCount = result.length
+        //if (resultCount > 0) var clan_result_count = ''.concat('该军团有', (resultCount - 1), '个分团')
         $('#detail .content').append('<div class="clanFamily"><h3>相关军团</h3></div>')
-        for (let i in result) insertData(result, i, 'mid')
+        for (let i in result) { //寻找深层次军团族
+            family_branch[i] = (toCompare(result[i].ID, clanData, 'mid')[0])
+            if (family_branch[i]) {
+                if (family_branch[i].ID == family_branch[i].MID) {
+                    family_branch[i] = toCompare(-result[i].ID, clanData, 'mid')[0]
+                }
+            }
+        }
+        for (let i in family_branch) { if (!family_branch[i]) family_branch[i] = null }
+        // family_branch.splice(0, 1)
+        // console.log(result)
+        console.log(family_branch)
+        for (let i in result) insertData(result, i, 'mid', family_branch[i])
     }
+
+    var filter = ["[", "]", "{", "}", "(", ")", "+", "*", "/"],
+        filter_factor = '\\',
+        filterWords = ["编者", '幽灵团', "孤儿"],
+        blacklist = []
+    for (let i in filterWords) {
+        blacklist.push(new RegExp(filterWords[i], "g"))
+    }
+    for (let i = 0; i < filter.length; i++) filter[i] = filter_factor + filter[i]
 
     function toCompare(keyword, data, mode) {
         switch (keyword) {
             case !keyword:
                 break;
             default:
-                let filter = ["\\[", "\\]", "\\{", "\\}", "\\(", "\\)", "\\+", "\\*", "\\/"]
                 if (isNaN(Number(keyword))) {
                     for (let i in keyword) {
                         for (let j in filter) {
@@ -230,8 +256,6 @@ $(function() {
                 var strictReg = new RegExp('^' + keyword + '$')
                 break;
         }
-
-
         if (!(data instanceof Array)) return
         var len = data.length,
             arr = [],
@@ -255,7 +279,7 @@ $(function() {
             case 'analysis':
                 let z = 0;
                 for (let i = 0; i < len; i++) {
-                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/编者/g) && String(data[i].Desc).match(/\d/g)) {
+                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/^编者/g) && !String(data[i].Desc).match(/幽灵团/g) && String(data[i].Desc).match(/\d/g)) {
                         arr.push(data[i])
                         z++
                     }
@@ -271,24 +295,21 @@ $(function() {
         return arr
     }
 
-    function info(action, number) {
-        $('.info .action').html(action);
-        $('.info .total_entries').html(number);
+    function changeTitle(action, number) {
+        if (!number) { $('#title-banner .title').html(action) } else { $('#title-banner .title').html("共" + action + number + "个军团"); }
     }
     var repeated_desc;
 
-    function insertData(d, i, method) {
-
+    function insertData(d, i, method, family_branch) {
         if (!d) {
             $('#content tbody').append('<tr><td>未搜索到相关内容，相关军团可能未被收录</td></tr>')
             return
         }
         i = i || 0
         var ID = d[i].ID,
-            Tag = d[i].Tag,
+            Tag = '[' + d[i].Tag + ']',
             Full = d[i].Full,
             tableID;
-
         if (d[i].hasOwnProperty('Desc')) { var Desc = d[i].Desc } else Desc = '无'
         if (d[i].hasOwnProperty('MID')) var MID = d[i].MID
         if (d[i].hasOwnProperty('Logo')) var logoExt = d[i].Logo
@@ -300,10 +321,10 @@ $(function() {
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
                 if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
-                if (isNaN(ID) == true) tableID = Tag;
+                if (isNaN(ID)) tableID = Tag;
                 else tableID = ID
                 insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
-                    '</td><td>' + '[' + Tag + '] ' + Full +
+                    '</td><td class="orange">' + Tag + ' ' + Full +
                     '</td><td>' + Desc + '</td></tr>'
                 $('#content tbody').append(insertHTML) //插入页面
                 repeated_desc = '' //清空变量
@@ -329,8 +350,8 @@ $(function() {
                 if (repeated_desc) Desc = repeated_desc
                 Desc = Desc.replace(/\n/g, '</p><p>')
                 var clanBrief = '<div class="clanInfo"><div class="logo">' +
-                    ' <' + logoURL + ' alt="[' + Tag + ']+' + Full + 'Logo"></div>' +
-                    '<div class="info"><p class="tag">[' + Tag + '] ' + Full + '</p>' +
+                    ' <' + logoURL + ' alt="' + Tag + Full + 'Logo"></div>' +
+                    '<div class="info"><p class="orange">' + Tag + ' ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + Estbl + '</p></div></div>',
                     clanIntro = '<div class="introduction"><h3>简介</h3>' +
@@ -338,17 +359,21 @@ $(function() {
 
                 insertHTML = clanBrief + imgDisplay + clanIntro
                 $('#detail .content').append(insertHTML) //插入页面
-                if (MID) getClanFamily(MID) //检测是否有主团
+                if (MID) {
+                    if (MID < 0) MID = -MID
+                    getClanFamily(MID)
+                } //检测是否有主团
                 repeated_desc = '' //清空变量
                 break;
 
             case 'mid': // 注入军团族群表
-                let beginMark = '<div data-clan-id="' + ID + '">';
-                insertHTML = '<span class="tag">[' + Tag + '] ' + Full + '</span>' +
+                let beginMark = '<div><div data-clan-id="' + ID + '">';
+                var clan_cell = '<span class="orange">' + Tag + ' ' + Full + '</span>' +
                     '<span class="idNumber">ID：' + ID + '</span>';
-                let endMark = '</div>'
+                // if (family_branch) {}
+                let endMark = '</div></div>'
                 if (ID == getQueryStr('cid')) beginMark = '<div data-clan-id="' + ID + '"class ="current">'
-                insertHTML = [beginMark, insertHTML, endMark].join('')
+                insertHTML = [beginMark, clan_cell, endMark].join('')
                 $('#detail .clanFamily').append(insertHTML)
                 break;
         }
@@ -358,7 +383,7 @@ $(function() {
     function removeInput(t) { $(t).val('') }
 
     function calcTableHeight() {
-        tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #register-banner').outerHeight() - $('#head').outerHeight()
+        tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #title-banner').outerHeight() - $('#head').outerHeight()
         $('table tbody').css({ 'height': tablePosition + 'px' })
         return tablePosition;
     }
@@ -395,8 +420,9 @@ $(function() {
         var reID = /\/repeat(\(([^)]*)\))?/
         if (Desc.match(reID)) {
             if (Desc.match(reID)[2]) MID = Desc.match(reID)[2]
-            repeated_desc = toCompare(MID, clanData, 'id')
-            return repeated_desc = Desc.replace(reID, repeated_desc[0].Desc)
+            var temp = toCompare(MID, clanData, 'id')
+            repeated_desc = Desc.replace(reID, temp[0].Desc)
+            return Desc.replace(reID, temp[0].Desc)
         } else return null
     }
 
@@ -408,12 +434,33 @@ $(function() {
     }
 
     function randomNum() {
-        var rand = parseInt(Math.random() * recommendList.length + 1);
+        var rand = parseInt(Math.random() * recommendList.length);
         for (let i; i < indexList.length; i++) { if (rand == indexList[i]) return false }
         indexList.push(rand)
     }
 
-    function showRecomend() {
+
+    function showRecommend() {
+        var clan, ID, tag, fname, Desc
+        $('#recommend').empty()
+        changeTitle('军团推荐')
         do { randomNum() } while (indexList.length < 5)
+        for (let i in indexList) {
+            clan = recommendList[indexList[i]]
+            ID = clan.ID
+            tag = '[' + clan.Tag + ']'
+            fname = clan.Full
+            desc = clan.Desc
+            if (clan.hasOwnProperty('MID')) var MID = clan.MID
+            repeatedDesc(MID, desc)
+            if (repeatedDesc(MID, desc)) desc = repeatedDesc(MID, desc)
+            desc = desc.replace(/\n/g, '<br>')
+            $('#recommend').append('<div class="clan-card" data-clan-id=' + ID + '>' +
+                '<span class="orange">' + tag + ' ' + fname + '</span>' +
+                '<br>ID：<span class="desc-color">' + ID + '</span>' +
+                '<div class="desc-color">' + desc + '</div></div>')
+        }
+        indexList = []
     }
+    showRecommend()
 })
