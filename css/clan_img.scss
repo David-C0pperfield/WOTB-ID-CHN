@@ -11,14 +11,23 @@
             vertical-align: middle;
             &:first-child {
                 margin-left: 5rem;
+                @media screen and (max-width: 768px) {
+                    margin-left: 2rem;
+                }
             }
             &:last-child {
                 margin-right: 5rem;
+                @media screen and (max-width: 768px) {
+                    margin-right: 2rem;
+                }
             }
             img {
                 border-radius: 0.5rem;
                 overflow: hidden;
                 height: 30rem;
+                @media screen and (max-width: 768px) {
+                    height: 12rem;
+                }
             }
         }
     }

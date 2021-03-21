@@ -9,9 +9,13 @@ import subprocess
 import time
 from datetime import datetime
 
-excel_name = r'闪击战ID情报.xlsx'
+file_list = os.listdir('../')
+for index in file_list:
+    if '闪击战ID情报' and '.xlsx'in index:
+        excel_name = '../' +  index
+        
 def xlsxRead():
-    while os.path.exists(excel_name) == False:
+    while not os.path.exists(excel_name):
         data = input('找不到“{}”，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\
 寻找文件：'.format(excel_name))
 
@@ -29,7 +33,7 @@ def xlsxRead():
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
-            if ctype == 2 or ctype == 3 and cell % 1 == 0:
+            if ctype == 2 and cell % 1 == 0 or ctype == 3:
                 cell = int(cell)
                 #date = datetime(*xldate_as_tuple(cell,0))
                 #cell = date.strftime('%Y-%m-%d')
@@ -65,6 +69,17 @@ def xlsxRead():
     f = open('../js/clan.json','w+')
     f.write(processed_json)
     f.close()
+    '''
+    processed_json=json.dumps(data_list,\
+                              indent = 4,\
+                              sort_keys=False,\
+                              separators=(',',':'),\
+                              ensure_ascii=False)
+
+    f = open('clan.json','w+')
+    f.write(processed_json)
+    f.close()
+    '''
     print('json建立完成')
     
 def getExtFormat(i):
@@ -78,6 +93,6 @@ def getExtFormat(i):
     elif '.jpeg' in data:
         r = 3
     return r
-    
+
 if __name__ == '__main__':
     xlsxRead()

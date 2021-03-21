@@ -1,0 +1,8 @@
+.inputs { color: #ffffff; font-size: 2rem; }
+
+.inputs label { text-shadow: 0 0 15px #000000; }
+
+.inputs input { height: 2rem; vertical-align: middle; -webkit-appearance: none; font-size: 24px; }
+
+#result { color: #ffffff; font-size: 2rem; text-shadow: 0 0 15px #000000; }
+/*# sourceMappingURL=calculator.min.css.map */
