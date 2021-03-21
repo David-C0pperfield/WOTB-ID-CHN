@@ -221,7 +221,7 @@ body {
     box-sizing: border-box;
     background: rgba(51, 51, 51, 0.75);
     @include blur-bg();
-    #register-banner {
+    #title-banner {
         &>* {
             vertical-align: middle;
         }

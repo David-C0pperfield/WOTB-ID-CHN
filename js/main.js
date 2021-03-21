@@ -35,6 +35,8 @@ $(function() {
         $('.flipBtn.back').hide()
         window.history.replaceState({ Page: 1 }, '', './')
             // fetchData()
+        $('table.clan_lib').css('display', 'none')
+        $('#recommend').css('display', 'block')
         showRecommend()
     })
     $('.flipBtn.next').on('click', function() {
@@ -160,6 +162,8 @@ $(function() {
             alert("您还没有输入关键词！")
             return
         }
+        $('#recommend').css('display', 'none')
+        $('table.clan_lib').css('display', 'block')
         restorePosition()
         getClanData()
     }
@@ -180,7 +184,7 @@ $(function() {
                 '<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>'
             slideUpAnnouncement()
             $('.flipBtn').hide()
-            $('#register-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
+            $('#title-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
             $('.flipBtn.back').show()
         } else if (mode.match(/byID/gi)) {
             var id = id,
@@ -275,7 +279,7 @@ $(function() {
             case 'analysis':
                 let z = 0;
                 for (let i = 0; i < len; i++) {
-                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/编者/g) && !String(data[i].Desc).match(/幽灵团/g) && String(data[i].Desc).match(/\d/g)) {
+                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/^编者/g) && !String(data[i].Desc).match(/幽灵团/g) && String(data[i].Desc).match(/\d/g)) {
                         arr.push(data[i])
                         z++
                     }
@@ -292,7 +296,7 @@ $(function() {
     }
 
     function changeTitle(action, number) {
-        $('.title').html("共" + action + number + "个军团");
+        if (!number) { $('#title-banner .title').html(action) } else { $('#title-banner .title').html("共" + action + number + "个军团"); }
     }
     var repeated_desc;
 
@@ -379,7 +383,7 @@ $(function() {
     function removeInput(t) { $(t).val('') }
 
     function calcTableHeight() {
-        tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #register-banner').outerHeight() - $('#head').outerHeight()
+        tablePosition = $(window).height() - $('table thead').outerHeight() - $('#content #title-banner').outerHeight() - $('#head').outerHeight()
         $('table tbody').css({ 'height': tablePosition + 'px' })
         return tablePosition;
     }
@@ -439,7 +443,7 @@ $(function() {
     function showRecommend() {
         var clan, ID, tag, fname, Desc
         $('#recommend').empty()
-        $('#register-banner').html('军团推荐')
+        changeTitle('军团推荐')
         do { randomNum() } while (indexList.length < 5)
         for (let i in indexList) {
             clan = recommendList[indexList[i]]
@@ -459,5 +463,4 @@ $(function() {
         indexList = []
     }
     showRecommend()
-    console.log(recommendList.length)
 })
