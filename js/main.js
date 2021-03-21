@@ -429,22 +429,26 @@ $(function() {
     var indexList = new Array(),
         recommendList = toCompare(undefined, clanData, 'analysis')
         // showRecomend()
-    for (let i = 0; i < indexList.length; i++) {
-        console.log(recommendList[indexList[i]])
-    }
 
     function randomNum() {
         var rand = parseInt(Math.random() * recommendList.length);
-        for (let i; i < indexList.length; i++) { if (rand == indexList[i]) return false }
-        indexList.push(rand)
+        return rand
     }
-
+    console.log(recommendList[100])
 
     function showRecommend() {
-        var clan, ID, tag, fname, Desc
+        var clan, ID, tag, fname, Desc, rand, family_list = []
         $('#recommend').empty()
         changeTitle('军团推荐')
-        do { randomNum() } while (indexList.length < 5)
+        do {
+            rand = randomNum()
+            if ($.inArray(rand, indexList) == -1) {
+                if (!recommendList[rand].hasOwnProperty('MID') || $.inArray(recommendList[rand].MID, family_list) == -1) {
+                    indexList.push(rand)
+                    family_list.push(recommendList[rand].MID)
+                }
+            }
+        } while (indexList.length < 5)
         for (let i in indexList) {
             clan = recommendList[indexList[i]]
             ID = clan.ID
