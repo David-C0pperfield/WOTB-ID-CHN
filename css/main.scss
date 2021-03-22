@@ -398,6 +398,7 @@ body {
                             display: inline-block;
                             overflow: hidden;
                             margin-right: 0.5rem;
+                            transform-style: preserve-3d; //transform 圆角矩形遮罩修复
                             img {
                                 transform: translate(calc( -1 * (100% - 72px) / 2), 0px);
                                 height: 100%;

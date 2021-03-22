@@ -130,7 +130,7 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #detail .wrap .inner .window .content .clanInfo { margin: 2rem 0.5rem 1rem 2rem; }
 
-#detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 0.5rem; box-shadow: 0 0 7.5px 0 #111111; display: inline-block; overflow: hidden; margin-right: 0.5rem; }
+#detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 0.5rem; box-shadow: 0 0 7.5px 0 #111111; display: inline-block; overflow: hidden; margin-right: 0.5rem; transform-style: preserve-3d; }
 
 #detail .wrap .inner .window .content .clanInfo .logo img { transform: translate(calc( -1 * (100% - 72px) / 2), 0px); height: 100%; background: #ffffff; }
 
