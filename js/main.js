@@ -27,7 +27,7 @@ $(function() {
     // if (getQueryStr('keyword')) {
     //     getClanData()
     //     $('#searchstr').val(getQueryStr('keyword'))
-    // } else fetchData()
+    // }
 
     $(document).on('click', '.flipBtn.back', function() {
         dataIndex = beginIndex
@@ -273,7 +273,7 @@ $(function() {
                 break;
             case 'private':
                 for (let i = 0; i < len; i++) {
-                    if (String(data[i].Tag).match(strictReg)) arr.push(data[i])
+                    if (String(data[i].ID).match(strictReg)) arr.push(data[i])
                 }
                 break;
             case 'analysis':
@@ -321,9 +321,9 @@ $(function() {
                 repeatedDesc(MID, Desc) //检测重复指令
                 if (repeated_desc) Desc = repeated_desc
                 if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
-                if (isNaN(ID)) tableID = Tag;
+                    // if (isNaN(ID)) tableID = Tag;
                 else tableID = ID
-                insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
+                insertHTML = '<tr data-clan-id=' + ID + '><td>' + ID +
                     '</td><td class="orange">' + Tag + ' ' + Full +
                     '</td><td>' + Desc + '</td></tr>'
                 $('#content tbody').append(insertHTML) //插入页面
@@ -434,7 +434,6 @@ $(function() {
         var rand = parseInt(Math.random() * recommendList.length);
         return rand
     }
-    console.log(recommendList[100])
 
     function showRecommend() {
         var clan, ID, tag, fname, Desc, rand, family_list = []

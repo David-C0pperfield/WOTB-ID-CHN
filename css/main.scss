@@ -180,6 +180,9 @@ body {
             #part2 {
                 text-align: center;
                 justify-content: space-evenly;
+                &>section {
+                    vertical-align: top;
+                }
                 #acknowledgement {
                     padding: 0 10px;
                     display: inline-block;
@@ -396,6 +399,7 @@ body {
                             overflow: hidden;
                             margin-right: 0.5rem;
                             img {
+                                transform: translate(calc( -1 * (100% - 72px) / 2), 0px);
                                 height: 100%;
                                 background: #ffffff;
                             }
