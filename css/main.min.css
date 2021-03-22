@@ -56,6 +56,8 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #head #announcement_zone .wrap #part2 { text-align: center; justify-content: space-evenly; }
 
+#head #announcement_zone .wrap #part2 > section { vertical-align: top; }
+
 #head #announcement_zone .wrap #part2 #acknowledgement { padding: 0 10px; display: inline-block; text-align: center; }
 
 #head #announcement_zone .wrap #part2 #links { padding: 0 10px; text-align: center; display: inline-block; }

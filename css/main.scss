@@ -180,6 +180,9 @@ body {
             #part2 {
                 text-align: center;
                 justify-content: space-evenly;
+                &>section {
+                    vertical-align: top;
+                }
                 #acknowledgement {
                     padding: 0 10px;
                     display: inline-block;
