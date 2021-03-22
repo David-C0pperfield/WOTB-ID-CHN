@@ -323,7 +323,7 @@ $(function() {
                 if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
                     // if (isNaN(ID)) tableID = Tag;
                 else tableID = ID
-                insertHTML = '<tr data-clan-id=' + tableID + '><td>' + ID +
+                insertHTML = '<tr data-clan-id=' + ID + '><td>' + ID +
                     '</td><td class="orange">' + Tag + ' ' + Full +
                     '</td><td>' + Desc + '</td></tr>'
                 $('#content tbody').append(insertHTML) //插入页面

@@ -399,6 +399,7 @@ body {
                             overflow: hidden;
                             margin-right: 0.5rem;
                             img {
+                                transform: translate(calc( -1 * (100% - 72px) / 2), 0px);
                                 height: 100%;
                                 background: #ffffff;
                             }
