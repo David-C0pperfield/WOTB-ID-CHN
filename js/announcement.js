@@ -9,9 +9,9 @@ $(function() {
         p = a
 
         //Version Info
-        var ver = unescape((p.match(/Ver:(.*)[\n|$]/g))[0])
-        ver = ver.replace(/Ver:(.*)[\n|$]/g, '<span class="version">版本$1</span>')
-        p = p.replace(/Ver:(.*)[\n|$]/g, '')
+        var ver = p.match(/Ver:(.*)[\n|$]?/g)
+        ver = unescape(ver).replace(/Ver:(.*)[\n|$]?/g, '<span class="version">版本$1</span>')
+        p = p.replace(/Ver:(.*)[\n|$]?/g, '')
 
         /* ------ */
         p = p.replace(/^\*(.+)/gm, '<li>$1</li>')
