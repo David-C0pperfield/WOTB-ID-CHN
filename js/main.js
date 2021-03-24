@@ -150,7 +150,7 @@ $(function() {
     $('#detail').on('click', function(e) { //关闭浮层
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
-        $('meta[itemprop="image"]').attr('<meta itemprop="image" content="favicon.ico">')
+        $('meta[itemprop="image"]').attr('content', '"favicon.ico">')
     })
 
     function restoreDetailWindow() {
@@ -344,7 +344,7 @@ $(function() {
                     let LogoID = parseInt(Math.random() * rLogo.length)
                     logoURL = 'img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png'
                 }
-                $('head').append('<meta itemprop="image" content="' + logoURL + '">')
+                $('meta[itemprop="image"]').append('content=', '"' + logoURL + '"')
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
