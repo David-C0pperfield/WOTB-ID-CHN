@@ -28,7 +28,7 @@ $(function() {
         return [p, ver]
     }
     var processed = processDate(announcement)
-    console.log(processed);
+        // console.log(processed);
     $('#announcement_zone #part1').html(processed)
 
 })

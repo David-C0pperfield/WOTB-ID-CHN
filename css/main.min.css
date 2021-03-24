@@ -110,9 +110,15 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #content #recommend { text-align: center; }
 
-#content #recommend .clan-card { height: 15rem; width: 20rem; vertical-align: top; overflow: hidden; border-top: 1px solid rgba(255, 255, 255, 0.5); border-radius: 5px; box-sizing: border-box; padding: 0.625rem; margin: 1rem; text-align: left; background: linear-gradient(to bottom, rgba(128, 128, 128, 0.25), rgba(0, 0, 0, 0.15) 90%); display: inline-block; transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s; }
+#content #recommend .clan-card { height: 15rem; width: 20rem; vertical-align: top; margin: 1rem; text-align: left; display: inline-block; transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s; position: relative; }
 
 #content #recommend .clan-card:hover { scale: 1.1; }
+
+#content #recommend .clan-card .logo { text-align: center; position: relative; top: 2rem; width: 4rem; height: 4rem; margin: 0 auto; overflow: hidden; border-radius: 2rem; background-color: rgba(255, 255, 255, 0.1); }
+
+#content #recommend .clan-card .logo img { height: 4rem; }
+
+#content #recommend .clan-card .card-content { width: 100%; height: calc(100% - 1rem); border-top: 1px solid rgba(255, 255, 255, 0.5); box-sizing: border-box; padding: 2.625rem 0.625rem 0.625rem; overflow: hidden; border-radius: 5px; background: linear-gradient(to bottom, rgba(128, 128, 128, 0.25), rgba(0, 0, 0, 0.15) 90%); }
 
 #detail { display: none; background-color: rgba(0, 0, 0, 0.3); backdrop-filter: blur(12px) saturate(200%); -webkit-backdrop-filter: blur(12px) saturate(200%); width: 100%; height: 100%; position: fixed; top: 0; z-index: 500; overflow: hidden; }
 
@@ -134,7 +140,7 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #detail .wrap .inner .window .content .clanInfo .logo { height: 4.5rem; width: 4.5rem; border-radius: 0.5rem; box-shadow: 0 0 7.5px 0 #111111; display: inline-block; overflow: hidden; margin-right: 0.5rem; transform-style: preserve-3d; }
 
-#detail .wrap .inner .window .content .clanInfo .logo img { transform: translate(calc( -1 * (100% - 72px) / 2), 0px); height: 100%; }
+#detail .wrap .inner .window .content .clanInfo .logo img { transform: translate(calc( -1 * (100% - 72px) / 2), 0px); height: 100%; background: rgba(255, 255, 255, 0.1); }
 
 #detail .wrap .inner .window .content .clanInfo .info { display: inline-block; }
 
