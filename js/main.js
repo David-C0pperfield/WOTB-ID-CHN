@@ -473,7 +473,7 @@ $(function() {
                 logoURL = '<img src="img/clan/' + ID + '/0.' + fileExtList[logo] + '">'
             } else {
                 let LogoID = parseInt(Math.random() * rLogo.length)
-                logoURL = '<img src="img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png">'
+                logoURL = '<img src="img/icons/clanEmblems1x/clan-icon-v2-' + rLogo[LogoID] + '.png">'
             }
             repeatedDesc(MID, desc)
             if (repeatedDesc(MID, desc)) {
@@ -483,9 +483,10 @@ $(function() {
             desc = desc.replace(/\n/g, '<br>')
             $('#recommend').append('<div class="clan-card" data-clan-id=' + ID + '>' +
                 '<div class="logo">' + logoURL + '</div>' +
+                '<div class="card-content">' +
                 '<span class="orange">' + tag + ' ' + fname + '</span>' +
                 '<br>ID：<span class="desc-color">' + ID + '</span>' +
-                '<div class="desc-color">' + desc + '</div></div>')
+                '<div class="desc-color">' + desc + '</div></div></div>')
         }
         indexList = []
     }
