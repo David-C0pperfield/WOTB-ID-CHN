@@ -14,7 +14,7 @@ $(function() {
         rLogo = [];
     for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
     for (let i = 2; i <= 26; i++) rLogo.push(10000 + i)
-    console.log(rLogo);
+
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
@@ -335,10 +335,15 @@ $(function() {
                 break;
 
             case 'detail':
-                var logoURL = 'img src="./img/assets/default_clan_logo.svg"',
+                var logoURL = '',
                     imgDisplay = ''
                 if (d[i].hasOwnProperty('Imgs')) var imgList = d[i].Imgs
-                if (logoExt) logoURL = 'img src="img/clan/' + ID + '/0.' + fileExtList[logoExt] + '"'
+                if (logoExt) {
+                    logoURL = 'img src="img/clan/' + ID + '/0.' + fileExtList[logoExt] + '"'
+                } else {
+                    let LogoID = parseInt(Math.random() * rLogo.length)
+                    logoURL = 'img src="img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png"'
+                }
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
