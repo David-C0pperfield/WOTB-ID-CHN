@@ -159,7 +159,7 @@ $(function() {
         document.title = '闪击战ID大百科'
         $('meta[itemprop="name"').attr('content', '闪击战ID大百科')
         $('meta[name="description"],meta[itemprop="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
-        $('meta[itemprop="image"]').attr('content', '"../favicon.ico">')
+        $('meta[itemprop="image"]').attr('content', '"./favicon.ico">')
     }
 
     function startSearching() {
@@ -346,7 +346,7 @@ $(function() {
                     let LogoID = parseInt(Math.random() * rLogo.length)
                     logoURL = 'img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png'
                 }
-                $('meta[itemprop="image"]').append('content=', '../' + logoURL)
+                $('meta[itemprop="image"]').append('content=', './' + logoURL)
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
