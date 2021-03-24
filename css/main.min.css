@@ -116,7 +116,7 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #content #recommend .clan-card .logo { text-align: center; position: relative; top: 2rem; width: 4rem; height: 4rem; margin: 0 auto; overflow: hidden; border-radius: 2rem; background-color: rgba(255, 255, 255, 0.1); }
 
-#content #recommend .clan-card .logo img { height: 4rem; }
+#content #recommend .clan-card .logo img { height: 4rem; transform: translateX(calc(-1 *(100% - 4rem) / 2)); }
 
 #content #recommend .clan-card .card-content { width: 100%; height: calc(100% - 1rem); border-top: 1px solid rgba(255, 255, 255, 0.5); box-sizing: border-box; padding: 2.625rem 0.625rem 0.625rem; overflow: hidden; border-radius: 5px; background: linear-gradient(to bottom, rgba(128, 128, 128, 0.25), rgba(0, 0, 0, 0.15) 90%); }
 

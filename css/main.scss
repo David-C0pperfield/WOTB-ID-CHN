@@ -337,6 +337,7 @@ body {
                 background-color: rgba(255, 255, 255, 0.1);
                 img {
                     height: 4rem;
+                    transform: translateX(calc(-1 *(100% - 4rem) / 2));
                 }
             }
             .card-content {
