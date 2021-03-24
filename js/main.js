@@ -14,7 +14,7 @@ $(function() {
         rLogo = [];
     for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
     for (let i = 2; i <= 26; i++) rLogo.push(20000 + i)
-
+    $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/favicon.ico')
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
@@ -157,7 +157,9 @@ $(function() {
         $('#detail .inner').animate({ 'height': '0' }, 500)
         $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
         document.title = '闪击战ID大百科'
-        $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
+        $('meta[itemprop="name"').attr('content', '闪击战ID大百科')
+        $('meta[name="description"],meta[itemprop="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
+        $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/favicon.ico')
     }
 
     function startSearching() {
@@ -205,9 +207,10 @@ $(function() {
             if (len == 0) return
             insertData(detail, 0, 'detail')
             document.title = '[' + detail[0].Tag + '] ' + detail[0].Full + '——闪击战ID百科'
+            $('meta[itemprop="name"]').attr('content', '[' + detail[0].Tag + '] ' + detail[0].Full + '——闪击战ID百科')
             if (detail[0].Desc) {
-                $('meta[name="description"]').attr('content', detail[0].Desc)
-            } else { $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
+                $('meta[name="description"],meta[itemprop="description"]').attr('content', detail[0].Desc)
+            } else { $('meta[name="description",meta[itemprop="description"]]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
             showDetail()
         }
 
@@ -338,11 +341,12 @@ $(function() {
                     imgDisplay = ''
                 if (d[i].hasOwnProperty('Imgs')) var imgList = d[i].Imgs
                 if (logoExt) {
-                    logoURL = 'img src="img/clan/' + ID + '/0.' + fileExtList[logoExt] + '"'
+                    logoURL = 'img/clan/' + ID + '/0.' + fileExtList[logoExt]
                 } else {
                     let LogoID = parseInt(Math.random() * rLogo.length)
-                    logoURL = 'img src="img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png"'
+                    logoURL = 'img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png'
                 }
+                $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/' + logoURL)
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
@@ -358,7 +362,7 @@ $(function() {
                 if (repeated_desc) Desc = repeated_desc
                 Desc = Desc.replace(/\n/g, '</p><p>')
                 var clanBrief = '<div class="clanInfo"><div class="logo">' +
-                    ' <' + logoURL + ' alt="' + Tag + Full + 'Logo"></div>' +
+                    ' <img src="' + logoURL + '" alt="' + Tag + Full + 'Logo"></div>' +
                     '<div class="info"><p class="orange">' + Tag + ' ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + Estbl + '</p></div></div>',
