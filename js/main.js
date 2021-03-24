@@ -10,7 +10,11 @@ $(function() {
             1: 'png',
             2: 'jpg',
             3: 'jpeg'
-        };
+        },
+        rLogo = [];
+    for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
+    for (let i = 2; i <= 26; i++) rLogo.push(10000 + i)
+    console.log(rLogo);
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
