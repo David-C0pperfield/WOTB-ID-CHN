@@ -346,7 +346,7 @@ $(function() {
                     let LogoID = parseInt(Math.random() * rLogo.length)
                     logoURL = 'img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png'
                 }
-                $('meta[itemprop="image"]').attr('content=', window.location.protocol + window.location.host + '/' + logoURL)
+                $('meta[itemprop="image"]').attr('content', window.location.protocol + window.location.host + '/' + logoURL)
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
