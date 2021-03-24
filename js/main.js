@@ -150,6 +150,7 @@ $(function() {
     $('#detail').on('click', function(e) { //关闭浮层
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
+        $('meta[itemprop="image"]').attr('<meta itemprop="image" content="favicon.ico">')
     })
 
     function restoreDetailWindow() {
@@ -338,11 +339,12 @@ $(function() {
                     imgDisplay = ''
                 if (d[i].hasOwnProperty('Imgs')) var imgList = d[i].Imgs
                 if (logoExt) {
-                    logoURL = 'img src="img/clan/' + ID + '/0.' + fileExtList[logoExt] + '"'
+                    logoURL = 'img/clan/' + ID + '/0.' + fileExtList[logoExt]
                 } else {
                     let LogoID = parseInt(Math.random() * rLogo.length)
-                    logoURL = 'img src="img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png"'
+                    logoURL = 'img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png'
                 }
+                $('head').append('<meta itemprop="image" content="' + logoURL + '">')
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
@@ -358,7 +360,7 @@ $(function() {
                 if (repeated_desc) Desc = repeated_desc
                 Desc = Desc.replace(/\n/g, '</p><p>')
                 var clanBrief = '<div class="clanInfo"><div class="logo">' +
-                    ' <' + logoURL + ' alt="' + Tag + Full + 'Logo"></div>' +
+                    ' <img src="' + logoURL + '" alt="' + Tag + Full + 'Logo"></div>' +
                     '<div class="info"><p class="orange">' + Tag + ' ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + Estbl + '</p></div></div>',
