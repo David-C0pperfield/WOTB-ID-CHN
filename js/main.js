@@ -14,7 +14,7 @@ $(function() {
         rLogo = [];
     for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
     for (let i = 2; i <= 26; i++) rLogo.push(20000 + i)
-    console.log(rLogo);
+
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
@@ -318,7 +318,6 @@ $(function() {
         if (d[i].hasOwnProperty('MID')) var MID = d[i].MID
         if (d[i].hasOwnProperty('Logo')) var logoExt = d[i].Logo
 
-
         let insertHTML;
         switch (method) {
             case 'table':
@@ -445,7 +444,9 @@ $(function() {
     }
 
     function showRecommend() {
-        var clan, ID, tag, fname, Desc, rand, family_list = []
+        var clan, ID, tag, fname, Desc, rand, family_list = [],
+            logo,
+            logoURL
         $('#recommend').empty()
         changeTitle('军团推荐')
         do {
@@ -458,12 +459,22 @@ $(function() {
             }
         } while (indexList.length < 5)
         for (let i in indexList) {
+            logo = null
             clan = recommendList[indexList[i]]
             ID = clan.ID
             tag = '[' + clan.Tag + ']'
             fname = clan.Full
             desc = clan.Desc
             if (clan.hasOwnProperty('MID')) var MID = clan.MID
+            if (clan.hasOwnProperty('Logo')) {
+                logo = clan.Logo
+            }
+            if (logo) {
+                logoURL = '<img src="img/clan/' + ID + '/0.' + fileExtList[logo] + '">'
+            } else {
+                let LogoID = parseInt(Math.random() * rLogo.length)
+                logoURL = '<img src="img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png">'
+            }
             repeatedDesc(MID, desc)
             if (repeatedDesc(MID, desc)) {
                 desc = repeatedDesc(MID, desc)
@@ -471,6 +482,7 @@ $(function() {
             }
             desc = desc.replace(/\n/g, '<br>')
             $('#recommend').append('<div class="clan-card" data-clan-id=' + ID + '>' +
+                '<div class="logo">' + logoURL + '</div>' +
                 '<span class="orange">' + tag + ' ' + fname + '</span>' +
                 '<br>ID：<span class="desc-color">' + ID + '</span>' +
                 '<div class="desc-color">' + desc + '</div></div>')
