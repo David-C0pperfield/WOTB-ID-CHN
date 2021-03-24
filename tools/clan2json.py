@@ -45,9 +45,9 @@ def xlsxRead():
             #print ('文件列表{}'.format(imgList))
             for p in imgList:
                 if os.path.splitext(p)[0] == '0':
-                    logoExists = getExtFormat(p)
+                    logoExists = getExtFormat(p,row_content[0])
                 elif os.path.splitext(p)[0] != '.DS_Store':
-                    imgExt.append(getExtFormat(p))
+                    imgExt.append(getExtFormat(p,row_content[0]))
             #print(imgExt)
 
         row_content.append(logoExists)
@@ -82,15 +82,25 @@ def xlsxRead():
     '''
     print('json建立完成')
     
-def getExtFormat(i):
+def getExtFormat(i,j):
     r = None
-    data = i
+    data = os.path.splitext(i)
+    fileName = data[0]
     extName = data[1]
-    if '.png' in data:
+
+    if extName.isupper():
+        print(extName)
+        ExtName = extName.lower()
+        newName =fileName + ExtName
+        print(newName)
+        ID = j
+        os.rename('../img/clan/{}/{}'.format(ID,data[0]+data[1]),'../img/clan/{}/{}'.format(ID,newName))
+        
+    if '.png' in extName:
         r = 1
-    elif '.jpg' in data:
+    elif '.jpg' in extName:
         r = 2
-    elif '.jpeg' in data:
+    elif '.jpeg' in extName:
         r = 3
     return r
 
