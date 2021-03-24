@@ -150,7 +150,6 @@ $(function() {
     $('#detail').on('click', function(e) { //关闭浮层
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
-        $('meta[itemprop="image"]').attr('content', '"favicon.ico">')
     })
 
     function restoreDetailWindow() {
@@ -158,7 +157,9 @@ $(function() {
         $('#detail .inner').animate({ 'height': '0' }, 500)
         $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
         document.title = '闪击战ID大百科'
-        $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
+        $('meta[itemprop="name"').attr('content', '闪击战ID大百科')
+        $('meta[name="description"],meta[itemprop="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
+        $('meta[itemprop="image"]').attr('content', '"../favicon.ico">')
     }
 
     function startSearching() {
@@ -206,9 +207,10 @@ $(function() {
             if (len == 0) return
             insertData(detail, 0, 'detail')
             document.title = '[' + detail[0].Tag + '] ' + detail[0].Full + '——闪击战ID百科'
+            $('meta[itemprop="name"]').attr('content', '[' + detail[0].Tag + '] ' + detail[0].Full + '——闪击战ID百科')
             if (detail[0].Desc) {
-                $('meta[name="description"]').attr('content', detail[0].Desc)
-            } else { $('meta[name="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
+                $('meta[name="description"],meta[itemprop="description"]').attr('content', detail[0].Desc)
+            } else { $('meta[name="description",meta[itemprop="description"]]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
             showDetail()
         }
 
@@ -344,7 +346,7 @@ $(function() {
                     let LogoID = parseInt(Math.random() * rLogo.length)
                     logoURL = 'img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png'
                 }
-                $('meta[itemprop="image"]').append('content=', '"' + logoURL + '"')
+                $('meta[itemprop="image"]').append('content=', '../' + logoURL)
                 if (d[i].Date) var Estbl = processDate(d[i].Date);
                 else Estbl = '--' //军团建立日期
 
