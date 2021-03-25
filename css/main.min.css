@@ -84,7 +84,7 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #content table.clan_lib { display: none; -o-user-select: none; user-select: none; unselectable: on; -webkit-user-select: none; -moz-user-select: none; margin: 0 auto; border-collapse: collapse; }
 
-#content table.clan_lib thead { background-color: #465F6E; width: 100%; }
+#content table.clan_lib thead { background-color: #465F6E; width: 100%; display: block; }
 
 #content table.clan_lib thead th { border-right: 1px solid #34424C; }
 
