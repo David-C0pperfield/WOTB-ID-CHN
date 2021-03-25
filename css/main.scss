@@ -264,6 +264,7 @@ body {
         thead {
             background-color: #465F6E;
             width: 100%;
+            display: block;
             th {
                 border-right: 1px solid #34424C;
                 &:last-child {
