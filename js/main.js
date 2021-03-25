@@ -286,7 +286,14 @@ $(function() {
             case 'analysis':
                 let z = 0;
                 for (let i = 0; i < len; i++) {
-                    if (String(data[i].Desc).length > 10 && !String(data[i].Desc).match(/^编者/g) && !String(data[i].Desc).match(/幽灵团/g) && String(data[i].Desc).match(/\d/g)) {
+                    var tempDesc = String(data[i].Desc)
+                    if (tempDesc.match(/\/repeat/g)) {
+                        tempDesc = repeatedDesc(data[i].MID, tempDesc)
+                    }
+                    if (tempDesc.length > 10 &&
+                        !tempDesc.match(/^编者/g) &&
+                        !tempDesc.match(/幽灵团/g) &&
+                        tempDesc.match(/\d/g)) {
                         arr.push(data[i])
                         z++
                     }
@@ -433,8 +440,10 @@ $(function() {
         if (Desc.match(reID)) {
             if (Desc.match(reID)[2]) MID = Desc.match(reID)[2]
             var temp = toCompare(MID, clanData, 'id')
-            repeated_desc = Desc.replace(reID, temp[0].Desc)
-            return Desc.replace(reID, temp[0].Desc)
+            if (temp[0].hasOwnProperty('Desc')) {
+                repeated_desc = Desc.replace(reID, temp[0].Desc)
+                return Desc.replace(reID, temp[0].Desc)
+            } else return ''
         } else return null
     }
 
