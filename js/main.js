@@ -210,7 +210,7 @@ $(function() {
             $('meta[itemprop="name"]').attr('content', '[' + detail[0].Tag + '] ' + detail[0].Full + '——闪击战ID百科')
             if (detail[0].Desc) {
                 $('meta[name="description"],meta[itemprop="description"]').attr('content', detail[0].Desc)
-            } else { $('meta[name="description",meta[itemprop="description"]]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
+            } else { $('meta[name="description"],meta[itemprop="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589') }
             showDetail()
         }
 
