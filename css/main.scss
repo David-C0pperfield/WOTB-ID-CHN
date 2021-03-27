@@ -350,6 +350,9 @@ body {
                 overflow: hidden;
                 border-radius: 5px;
                 background: linear-gradient(to bottom, rgba(128, 128, 128, 0.25), rgba(0, 0, 0, 0.15) 90%);
+                span.date {
+                    margin-left: 1rem;
+                }
             }
         }
     }

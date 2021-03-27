@@ -28,10 +28,10 @@ $(function() {
 
     getClanData('byId', getQueryStr('cid'));
 
-    // if (getQueryStr('keyword')) {
-    //     getClanData()
-    //     $('#searchstr').val(getQueryStr('keyword'))
-    // }
+    if (getQueryStr('keyword')) {
+        $('#searchstr').val(getQueryStr('keyword'))
+        startSearching()
+    }
 
     $(document).on('click', '.flipBtn.back', function() {
         dataIndex = beginIndex
@@ -121,7 +121,7 @@ $(function() {
         }
     })
 
-    //详情浮层
+    /* ------ 详情浮层 ------ */
     $(document).on('click', '#content tbody tr[data-clan-id],.clan-card[data-clan-id]', function() { //点击条目，显示浮层
         let cid = $(this).attr('data-clan-id');
         window.history.pushState({ Page: 3 }, '', '?cid=' + cid)
@@ -195,14 +195,10 @@ $(function() {
         } else if (mode.match(/byID/gi)) {
             var id = id,
                 detail
+            id = Number(id)
+            if (id == 0 || id % 1 != 0) return
+            detail = toCompare(id, clanData, 'id')
 
-            if (isNaN(Number(id))) {
-                detail = toCompare(id, clanData, 'private')
-            } else {
-                id = Number(id)
-                if (id == 0 || id % 1 != 0) return
-                detail = toCompare(id, clanData, 'id')
-            }
             let len = detail.length;
             if (len == 0) return
             insertData(detail, 0, 'detail')
@@ -331,16 +327,14 @@ $(function() {
         let insertHTML;
         switch (method) {
             case 'table':
-                repeatedDesc(MID, Desc) //检测重复指令
-                if (repeated_desc) Desc = repeated_desc
+                var reDesc = repeatedDesc(MID, Desc) //检测重复指令
+                if (reDesc) Desc = reDesc
                 if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
-                    // if (isNaN(ID)) tableID = Tag;
                 else tableID = ID
                 insertHTML = '<tr data-clan-id=' + ID + '><td>' + ID +
                     '</td><td class="orange">' + Tag + ' ' + Full +
                     '</td><td>' + Desc + '</td></tr>'
                 $('#content tbody').append(insertHTML) //插入页面
-                repeated_desc = '' //清空变量
                 break;
 
             case 'detail':
@@ -365,8 +359,8 @@ $(function() {
                     imgDisplay += '</div></div>'
                         // $('#detail .content').append(imgDisplay)
                 }
-                repeatedDesc(MID, Desc) //检测重复指令
-                if (repeated_desc) Desc = repeated_desc
+                var reDesc = repeatedDesc(MID, Desc) //检测重复指令
+                if (reDesc) Desc = reDesc
                 Desc = Desc.replace(/\n/g, '</p><p>')
                 var clanBrief = '<div class="clanInfo"><div class="logo">' +
                     ' <img src="' + logoURL + '" alt="' + Tag + Full + 'Logo"></div>' +
@@ -436,13 +430,14 @@ $(function() {
     }
 
     function repeatedDesc(MID, Desc) {
-        var reID = /\/repeat(\(([^)]*)\))?/
+        var reID = /\/repeat(\(([^)]*)\))?/,
+            repicID = /\/repic/
         if (Desc.match(reID)) {
             if (Desc.match(reID)[2]) MID = Desc.match(reID)[2]
             var temp = toCompare(MID, clanData, 'id')
             if (temp[0].hasOwnProperty('Desc')) {
-                repeated_desc = Desc.replace(reID, temp[0].Desc)
-                return Desc.replace(reID, temp[0].Desc)
+                var output = Desc.replace(reID, temp[0].Desc)
+                return output
             } else return ''
         } else return null
     }
@@ -457,9 +452,7 @@ $(function() {
     }
 
     function showRecommend() {
-        var clan, ID, tag, fname, Desc, rand, family_list = [],
-            logo,
-            logoURL
+        var clan, ID, tag, fname, Desc, rand, logo, date, logoURL, family_list = []
         $('#recommend').empty()
         changeTitle('军团推荐')
         do {
@@ -479,9 +472,11 @@ $(function() {
             fname = clan.Full
             desc = clan.Desc
             if (clan.hasOwnProperty('MID')) var MID = clan.MID
-            if (clan.hasOwnProperty('Logo')) {
-                logo = clan.Logo
-            }
+            if (clan.hasOwnProperty('Date')) {
+                date = processDate(clan.Date)
+                date = ['<span class="date">创建于：<span class="desc-color">', date, '</span></span>'].join('')
+            } else date = ''
+            if (clan.hasOwnProperty('Logo')) logo = clan.Logo
             if (logo) {
                 logoURL = '<img src="img/clan/' + ID + '/0.' + fileExtList[logo] + '">'
             } else {
@@ -491,14 +486,13 @@ $(function() {
             repeatedDesc(MID, desc)
             if (repeatedDesc(MID, desc)) {
                 desc = repeatedDesc(MID, desc)
-                repeated_desc = ''
             }
             desc = desc.replace(/\n/g, '<br>')
             $('#recommend').append('<div class="clan-card" data-clan-id=' + ID + '>' +
                 '<div class="logo">' + logoURL + '</div>' +
                 '<div class="card-content">' +
                 '<span class="orange">' + tag + ' ' + fname + '</span>' +
-                '<br>ID：<span class="desc-color">' + ID + '</span>' +
+                '<br>ID：<span class="desc-color">' + ID + '</span>' + date +
                 '<div class="desc-color">' + desc + '</div></div></div>')
         }
         indexList = []
