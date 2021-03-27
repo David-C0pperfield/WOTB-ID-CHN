@@ -284,7 +284,7 @@ $(function() {
                 for (let i = 0; i < len; i++) {
                     var tempDesc = String(data[i].Desc)
                     if (tempDesc.match(/\/repeat/g)) {
-                        tempDesc = repeatedDesc(data[i].MID, tempDesc)
+                        tempDesc = toRepeat(data[i].MID, tempDesc)
                     }
                     if (tempDesc.length > 10 &&
                         !tempDesc.match(/^编者/g) &&
@@ -320,20 +320,20 @@ $(function() {
             Tag = '[' + d[i].Tag + ']',
             Full = d[i].Full,
             tableID;
-        if (d[i].hasOwnProperty('Desc')) { var Desc = d[i].Desc } else Desc = '无'
+        if (d[i].hasOwnProperty('Desc')) { var desc = d[i].Desc } else desc = '无'
         if (d[i].hasOwnProperty('MID')) var MID = d[i].MID
         if (d[i].hasOwnProperty('Logo')) var logoExt = d[i].Logo
 
         let insertHTML;
         switch (method) {
             case 'table':
-                var reDesc = repeatedDesc(MID, Desc) //检测重复指令
-                if (reDesc) Desc = reDesc
-                if (Desc.length > 20) Desc = Desc.substr(0, 19) + '…'
+                var reDesc = toRepeat(MID, desc) //检测重复指令
+                if (reDesc) desc = reDesc.Desc
+                if (desc.length > 20) desc = desc.substr(0, 19) + '…'
                 else tableID = ID
                 insertHTML = '<tr data-clan-id=' + ID + '><td>' + ID +
                     '</td><td class="orange">' + Tag + ' ' + Full +
-                    '</td><td>' + Desc + '</td></tr>'
+                    '</td><td>' + desc + '</td></tr>'
                 $('#content tbody').append(insertHTML) //插入页面
                 break;
 
@@ -348,8 +348,8 @@ $(function() {
                     logoURL = 'img/icons/clanEmblems2x/clan-icon-v2-' + rLogo[LogoID] + '.png'
                 }
                 $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/' + logoURL)
-                if (d[i].Date) var Estbl = processDate(d[i].Date);
-                else Estbl = '--' //军团建立日期
+                if (d[i].Date) var estbl = processDate(d[i].Date);
+                else estbl = '--' //军团建立日期
 
                 if (imgList) {
                     imgDisplay = '<div class="clan-img"><div class = "container">'
@@ -359,16 +359,16 @@ $(function() {
                     imgDisplay += '</div></div>'
                         // $('#detail .content').append(imgDisplay)
                 }
-                var reDesc = repeatedDesc(MID, Desc) //检测重复指令
-                if (reDesc) Desc = reDesc
-                Desc = Desc.replace(/\n/g, '</p><p>')
+                var reDesc = toRepeat(MID, desc) //检测重复指令
+                if (reDesc) desc = reDesc.Desc
+                desc = desc.replace(/\n/g, '</p><p>')
                 var clanBrief = '<div class="clanInfo"><div class="logo">' +
                     ' <img src="' + logoURL + '" alt="' + Tag + Full + 'Logo"></div>' +
                     '<div class="info"><p class="orange">' + Tag + ' ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
-                    '<p>创建日期：' + Estbl + '</p></div></div>',
+                    '<p>创建日期：' + estbl + '</p></div></div>',
                     clanIntro = '<div class="introduction"><h3>简介</h3>' +
-                    '<p>' + Desc + '</p></div>';
+                    '<p>' + desc + '</p></div>';
 
                 insertHTML = clanBrief + imgDisplay + clanIntro
                 $('#detail .content').append(insertHTML) //插入页面
@@ -429,18 +429,21 @@ $(function() {
         return result
     }
 
-    function repeatedDesc(MID, Desc) {
-        var reID = /\/repeat(\(([^)]*)\))?/,
-            repicID = /\/repic/
-        if (Desc.match(reID)) {
-            if (Desc.match(reID)[2]) MID = Desc.match(reID)[2]
+    function toRepeat(MID, Desc) {
+        var descOut, iconOut, picOut, output,
+            re_reg = /\/repeat(\(([^)]*)\))?/
+
+        if (Desc.match(re_reg)) {
+            if (Desc.match(re_reg)[2]) MID = Desc.match(re_reg)[2]
             var temp = toCompare(MID, clanData, 'id')
             if (temp[0].hasOwnProperty('Desc')) {
-                var output = Desc.replace(reID, temp[0].Desc)
-                return output
-            } else return ''
+                descOut = Desc.replace(re_reg, temp[0].Desc)
+            }
         } else return null
+        return output = { 'Icon': iconOut, 'Desc': descOut, 'Pic': picOut }
     }
+
+
 
     var indexList = new Array(),
         recommendList = toCompare(undefined, clanData, 'analysis')
@@ -483,9 +486,9 @@ $(function() {
                 let LogoID = parseInt(Math.random() * rLogo.length)
                 logoURL = '<img src="img/icons/clanEmblems1x/clan-icon-v2-' + rLogo[LogoID] + '.png">'
             }
-            repeatedDesc(MID, desc)
-            if (repeatedDesc(MID, desc)) {
-                desc = repeatedDesc(MID, desc)
+            toRepeat(MID, desc)
+            if (toRepeat(MID, desc)) {
+                desc = toRepeat(MID, desc)
             }
             desc = desc.replace(/\n/g, '<br>')
             $('#recommend').append('<div class="clan-card" data-clan-id=' + ID + '>' +
