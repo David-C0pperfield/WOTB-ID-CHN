@@ -474,7 +474,7 @@ $(function() {
             if (clan.hasOwnProperty('MID')) var MID = clan.MID
             if (clan.hasOwnProperty('Date')) {
                 date = processDate(clan.Date)
-                date = ['<li>创建于：<span class="desc-color">', date, '</span></li>'].join('')
+                date = ['<span class="date">创建于：<span class="desc-color">', date, '</span></span>'].join('')
             } else date = ''
             if (clan.hasOwnProperty('Logo')) logo = clan.Logo
             if (logo) {
@@ -492,7 +492,7 @@ $(function() {
                 '<div class="logo">' + logoURL + '</div>' +
                 '<div class="card-content">' +
                 '<span class="orange">' + tag + ' ' + fname + '</span>' +
-                '<br><li>ID：<span class="desc-color">' + ID + '</span></li>' + date +
+                '<br>ID：<span class="desc-color">' + ID + '</span>' + date +
                 '<div class="desc-color">' + desc + '</div></div></div>')
         }
         indexList = []
