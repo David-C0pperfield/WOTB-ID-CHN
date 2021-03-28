@@ -33,6 +33,8 @@ def xlsxRead():
         for j in range (table.ncols):
             ctype = table.cell(i,j).ctype
             cell = table.cell_value(i,j)
+            if ctype==1 and '\'=' in cell:
+                cell=cell.replace('\'=','=')
             if ctype == 2 and cell % 1 == 0 or ctype == 3:
                 cell = int(cell)
                 #date = datetime(*xldate_as_tuple(cell,0))
