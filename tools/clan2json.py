@@ -93,7 +93,7 @@ def getExtFormat(i,j):
     if extName.isupper():
         print(extName)
         ExtName = extName.lower()
-        newName =fileName + ExtName
+        newName = fileName + ExtName
         print(newName)
         ID = j
         os.rename('../img/clan/{}/{}'.format(ID,data[0]+data[1]),'../img/clan/{}/{}'.format(ID,newName))
