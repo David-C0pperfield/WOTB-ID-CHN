@@ -193,10 +193,11 @@ $(function() {
             $('#title-banner').prepend('<span class="btn flipBtn back">' + backIcon + '返回</span>');
             $('.flipBtn.back').show()
         } else if (mode.match(/byID/gi)) {
-            var id = id,
+            var id = String(id),
                 detail
-            id = Number(id)
-            if (id == 0 || id % 1 != 0) return
+
+
+            if ((id == 0 || id % 1 != 0) && !id.match(/隐藏/g)) return
             detail = toCompare(id, clanData, 'id')
 
             let len = detail.length;
