@@ -195,8 +195,6 @@ $(function() {
         } else if (mode.match(/byID/gi)) {
             var id = String(id),
                 detail
-
-
             if ((id == 0 || id % 1 != 0) && !id.match(/隐藏/g)) return
             detail = toCompare(id, clanData, 'id')
 
