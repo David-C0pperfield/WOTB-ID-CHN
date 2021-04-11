@@ -273,11 +273,6 @@ $(function() {
                     if (String(data[i].MID).match(strictReg)) arr.push(data[i])
                 }
                 break;
-            case 'private':
-                for (let i = 0; i < len; i++) {
-                    if (String(data[i].ID).match(strictReg)) arr.push(data[i])
-                }
-                break;
             case 'analysis':
                 let z = 0;
                 for (let i = 0; i < len; i++) {
