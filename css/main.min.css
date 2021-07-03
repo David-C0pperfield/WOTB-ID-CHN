@@ -118,7 +118,7 @@ body { height: 100%; font-family: sans-serif; background: url("../img/assets/bg.
 
 #content #recommend .clan-card .logo img { height: 100%; transform: translate(calc(-1 *(100% - 4rem) / 2), 0px); }
 
-#content #recommend .clan-card .card-content { width: 100%; height: calc(100% - 1rem); border-top: 1px solid rgba(255, 255, 255, 0.5); box-sizing: border-box; padding: 2.625rem 0.625rem 0.625rem; overflow: hidden; border-radius: 12px; background: linear-gradient(to bottom, rgba(128, 128, 128, 0.25), rgba(0, 0, 0, 0.15) 90%); }
+#content #recommend .clan-card .card-content { width: 100%; height: calc(100% - 1rem); border-top: 1px solid rgba(192, 192, 192, 0.5); box-sizing: border-box; padding: 2.625rem 0.625rem 0.625rem; overflow: hidden; border-radius: 12px; background: linear-gradient(to bottom, rgba(128, 128, 128, 0.25), rgba(0, 0, 0, 0.15) 90%); }
 
 #content #recommend .clan-card .card-content span.date { margin-left: 1rem; }
 
