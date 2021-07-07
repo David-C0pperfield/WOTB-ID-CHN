@@ -1,5 +1,11 @@
 $(function() {
     var clanData,
+        beginIndex = 0,
+        stepLength = 20,
+        endingIndex = beginIndex + stepLength - 1,
+        dataIndex = beginIndex,
+        overflowIndex = 0,
+        overflowStep = 0,
         fileExtList = {
             1: 'png',
             2: 'jpg',
@@ -27,6 +33,63 @@ $(function() {
         startSearching()
     }
 
+    $(document).on('click', '.flipBtn.back', function() {
+        dataIndex = beginIndex
+            // $('.flipBtn').show()
+        $('.flipBtn.back').hide()
+        window.history.replaceState({ Page: 1 }, '', './')
+            // fetchData()
+        $('table.clan_lib').css('display', 'none')
+        $('#recommend').css('display', 'block')
+        showRecommend()
+    })
+    $('.flipBtn.next').on('click', function() {
+        beginIndex += stepLength
+        endingIndex += stepLength
+        dataIndex = beginIndex
+        fetchData()
+    })
+    $('.flipBtn.prev').on('click', function() {
+        beginIndex += -stepLength
+        endingIndex += -stepLength
+        dataIndex = beginIndex
+        fetchData()
+    })
+
+    function fetchData() {
+        restorePosition()
+        if (!clanData) return false;
+        var total_entries = clanData.length;
+        changeTitle('收录', total_entries);
+        (function judgePage() {
+            if (beginIndex <= 0) { $('.flipBtn.prev').hide() } else $('.flipBtn.prev').show()
+            if (endingIndex >= total_entries - 1) { $('.flipBtn.next').hide() } else $('.flipBtn.next').show()
+        })();
+        (function loadList() {
+            $('#content tbody').empty()
+            if (beginIndex < 0) { //index为负数时
+                beginIndex = 0
+                endingIndex = beginIndex + stepLength - 1
+
+            }
+            if (endingIndex > total_entries - 1) { //超出的处理
+                overflowIndex = endingIndex
+                endingIndex = total_entries - 1
+                overflowStep = overflowIndex - endingIndex
+
+            }
+            if (overflowStep != 0) { //补回溢出的读取长度
+                endingIndex += overflowStep
+                overflowStep = 0
+            }
+            while (dataIndex >= beginIndex && dataIndex <= endingIndex) {
+                insertData(clanData, dataIndex, 'table')
+                if (dataIndex < total_entries - 1) dataIndex++;
+                else return
+            }
+        })();
+    }
+
     $(document).on('keydown', function(e) {
         var keyFind = e.which
         if ((e.ctrlKey && keyFind == 70) || (e.metaKey && keyFind == 70)) {
@@ -43,31 +106,23 @@ $(function() {
         $('#searchstr').focus();
     })
 
-    // 告示横幅
-    function slideDownAnnouncement() {
-        //自动展开横幅
-        setTimeout(function() { $('#announcement_zone').slideDown(250); }, 450)
-    }
-
-    $('#searchstr').on('click', function() { // 输入框聚焦时显示横幅
+    function slideDownAnnouncement() { setTimeout(function() { $('#announcement_zone').slideDown(250); }, 450) }
+    $('#searchstr').on('click', function() { //聚焦时显示横幅
         if ($('#searchstr').is(':focus')) $('#announcement_zone').slideDown(250)
     })
-
-    $(document).on('click', function(e) { // 单击收回横幅
+    $('#searchstr').on('keydown', function(e) { //检测回车
+        var key = e.which;
+        if (key == 13) startSearching();
+    })
+    $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
         if (!target.is('#searchstr') && !target.is('#announcement_zone .wrap') && !target.is('#announcement_zone .wrap *') || (target.is('#announcement_zone .toCollapse') || target.is('#announcement_zone .toCollapse *'))) {
             slideUpAnnouncement()
         }
     })
 
-    // 快捷键
-    $('#searchstr').on('keydown', function(e) { //检测回车
-        var key = e.which;
-        if (key == 13) startSearching();
-    })
-
     /* ------ 详情浮层 ------ */
-    $(document).on('click', '#content tbody tr[data-clan-id],.clan-card[data-clan-id]', function() { // 点击条目，显示浮层
+    $(document).on('click', '#content tbody tr[data-clan-id],.clan-card[data-clan-id]', function() { //点击条目，显示浮层
         let cid = $(this).attr('data-clan-id');
         window.history.pushState({ Page: 3 }, '', '?cid=' + cid)
         getClanData('byId', getQueryStr('cid'));
@@ -108,9 +163,8 @@ $(function() {
     }
 
     function startSearching() {
-        if ($('#searchstr').val()) {
-            window.history.pushState({ Page: 2 }, '', '?keyword=' + $('#searchstr').val());
-        } else {
+        if ($('#searchstr').val()) window.history.pushState({ Page: 2 }, '', '?keyword=' + $('#searchstr').val());
+        else {
             alert("您还没有输入关键词！")
             return
         }
@@ -303,7 +357,7 @@ $(function() {
                 if (reDesc) desc = reDesc.Desc
                 desc = desc.replace(/\n/g, '</p><p>')
                 var clanBrief = '<div class="clanInfo"><div class="logo">' +
-                    '<img src="' + logoURL + '" alt="' + Tag + Full + 'Logo"></div>' +
+                    ' <img src="' + logoURL + '" alt="' + Tag + Full + 'Logo"></div>' +
                     '<div class="info"><p class="orange">' + Tag + ' ' + Full + '</p>' +
                     '<p>ID：' + ID + '</p>' +
                     '<p>创建日期：' + estbl + '</p></div></div>',
