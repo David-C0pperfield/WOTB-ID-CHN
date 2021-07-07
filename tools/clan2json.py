@@ -9,21 +9,22 @@ import subprocess
 import time
 from datetime import datetime
 
-file_list = os.listdir('../')
+file_list = os.listdir("../")
+fname_keyword = r"闪击战团ID"
 for index in file_list:
-    if '闪击战ID情报' and '.xlsx'in index:
-        excel_name = '../' +  index
+    if fname_keyword and ".xlsx" in index:
+        excel_name = "../" +  index
         
 def xlsxRead():
     while not os.path.exists(excel_name):
-        data = input('找不到“{}”，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\
-寻找文件：'.format(excel_name))
+        data = input("找不到'{}'，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\
+寻找文件：".format(excel_name))
 
     data = xlrd.open_workbook(excel_name)
-    table = data.sheet_by_name(r'军团列表')
+    table = data.sheet_by_name(r"军团列表")
     data_list = []
     for i in range(1,table.nrows):
-        title_data =['ID','Tag','Full','Desc','Date','MID','Logo','Imgs']
+        title_data =["ID", "Tag", "Full", "Desc", "Date", "MID", "Logo", "Imgs"]
         row_content = []
         row_data = {}
         date = 0
@@ -41,14 +42,14 @@ def xlsxRead():
                 #cell = date.strftime('%Y-%m-%d')
             row_content.append(cell)
             
-        if os.path.exists('../img/clan/{}'.format(row_content[0])):#检测相关ID图片目录
-            imgList = os.listdir('../img/clan/{}'.format(row_content[0]))
+        if os.path.exists("../img/clan/{}".format(row_content[0])):#检测相关ID图片目录
+            imgList = os.listdir("../img/clan/{}".format(row_content[0]))
             imgList.sort()#进行排序
             #print ('文件列表{}'.format(imgList))
             for p in imgList:
-                if os.path.splitext(p)[0] == '0':
+                if os.path.splitext(p)[0] == "0":
                     logoExists = getExtFormat(p,row_content[0])
-                elif os.path.splitext(p)[0] != '.DS_Store':
+                elif os.path.splitext(p)[0] != ".DS_Store":
                     imgExt.append(getExtFormat(p,row_content[0]))
             #print(imgExt)
 
@@ -65,7 +66,7 @@ def xlsxRead():
     print('共{}条数据'.format(i))
     processed_json=json.dumps(data_list,\
                               sort_keys=False,\
-                              separators=(',',':'),\
+                              separators=(",", ":"),\
                               ensure_ascii=False)
 
     f = open('../js/clan.json','w+')
@@ -96,9 +97,9 @@ def getExtFormat(i,j):
         newName = fileName + extName
         print(newName)
         ID = j
-        os.rename('../img/clan/{}/{}'.format(ID,data[0]+data[1]),'../img/clan/{}/{}'.format(ID,newName))
+        os.rename("../img/clan/{}/{}".format(ID,data[0]+data[1]),"../img/clan/{}/{}".format(ID,newName))
         
-    if '.png' in extName:
+    if ".png" in extName:
         r = 1
     elif '.jpg' in extName:
         r = 2
