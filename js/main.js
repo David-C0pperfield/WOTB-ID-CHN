@@ -174,15 +174,17 @@ $(function() {
             restoreDetailWindow()
                 // beginDrag_y = 0
             distance = 0
-        } else {
-            $(this).css({ "transform": "translateY(" + 0 + "px)" })
-        }
+        } else $(this).css({ "transform": "translateY(" + 0 + "px)" })
     })
 
     function restoreDetailWindow() {
         window.history.replaceState({ Page: 1 }, '', './')
         $('#detail .inner').animate({ 'height': '0' }, { queue: false, duration: 500 })
-        $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
+        $('#detail').fadeOut(600, function() {
+            $('#detail .content').empty()
+            $("#detail .window").css({ "transform": "translateY(" + 0 + "px)" })
+        });
+
         document.title = '闪击战ID大百科'
         $('meta[itemprop="name"').attr('content', '闪击战ID大百科')
         $('meta[name="description"],meta[itemprop="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
