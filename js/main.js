@@ -155,7 +155,7 @@ $(function() {
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
     })
-    var beginDrag_y;
+    var beginDrag_y, distance = 0;
     $('#detail .window').on('touchstart', function(e) {
         e.preventDefault()
         beginDrag_y = e.touches[0].pageY
@@ -164,19 +164,19 @@ $(function() {
     $('#detail .window').on('touchmove', function(e) {
         e.preventDefault()
         page_y = e.touches[0].pageY
-        var distance = page_y - beginDrag_y
+        distance = page_y - beginDrag_y
             // if (distance == 0) return
         $(this).css({ "transform": "translateY(" + (0.1875 * distance) + "px)" })
+    })
+
+    $('#detail .window').on('touchend', function(e) {
         if (distance > 128) {
             restoreDetailWindow()
                 // beginDrag_y = 0
             distance = 0
-            return
+        } else {
+            $(this).css({ "transform": "translateY(" + 0 + "px)" })
         }
-    })
-
-    $('#detail .window').on('touchend', function(e) {
-        $(this).css({ "transform": "translateY(" + 0 + "px)" })
     })
 
     function restoreDetailWindow() {
