@@ -156,12 +156,12 @@ $(function() {
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
     })
     var beginDrag_y, distance = 0;
-    $('#detail .window').on('touchstart', function(e) {
+    $('#detail .inner').on('touchstart', function(e) {
         // e.preventDefault()
         beginDrag_y = e.touches[0].pageY
 
     })
-    $('#detail .window').on('touchmove', function(e) {
+    $('#detail .inner').on('touchmove', function(e) {
         e.preventDefault()
         page_y = e.touches[0].pageY
         distance = page_y - beginDrag_y
@@ -169,7 +169,7 @@ $(function() {
         $(this).css({ "transform": "translateY(" + (0.1875 * distance) + "px)" })
     })
 
-    $('#detail .window').on('touchend', function(e) {
+    $('#detail .inner').on('touchend', function(e) {
         if (distance > 128) {
             restoreDetailWindow()
                 // beginDrag_y = 0
@@ -182,7 +182,7 @@ $(function() {
         $('#detail .inner').animate({ 'height': '0' }, { queue: false, duration: 500 })
         $('#detail').fadeOut(600, function() {
             $('#detail .content').empty()
-            $("#detail .window").css({ "transform": "translateY(" + 0 + "px)" })
+            $("#detail .inner").css({ "transform": "translateY(" + 0 + "px)" })
         });
 
         document.title = '闪击战ID大百科'
