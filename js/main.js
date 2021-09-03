@@ -28,10 +28,7 @@ $(function() {
 
     getClanData('byId', getQueryStr('cid'));
 
-    $('#searchstr').on('propertychange', function() {
-        console.log('xxx')
-    })
-    $('#searchstr').val('')
+
     if (getQueryStr('keyword')) {
         $('#searchstr').val(getQueryStr('keyword'))
         startSearching()
@@ -113,6 +110,7 @@ $(function() {
     function slideDownAnnouncement() { setTimeout(function() { $('#announcement_zone').slideDown(250); }, 450) }
     $('#searchstr').on('click', function() { //聚焦时显示横幅
         if ($('#searchstr').is(':focus')) $('#announcement_zone').slideDown(250)
+        this.select()
     })
     $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
