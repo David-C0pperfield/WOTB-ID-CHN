@@ -167,17 +167,17 @@ $(function() {
         var distance = page_y - beginDrag_y
             // if (distance == 0) return
         $(this).css({ "transform": "translateY(" + (0.1875 * distance) + "px)" })
-        if (distance > 100) {
+        if (distance > 128) {
             restoreDetailWindow()
-            beginDrag_y = 0
+                // beginDrag_y = 0
             distance = 0
             return
         }
     })
 
-    // $('#detail .window').on('touchend', function(e) {
-    //     $(this).css({ "transform": "translateY(" + 0 + "px)" })
-    // })
+    $('#detail .window').on('touchend', function(e) {
+        $(this).css({ "transform": "translateY(" + 0 + "px)" })
+    })
 
     function restoreDetailWindow() {
         window.history.replaceState({ Page: 1 }, '', './')
