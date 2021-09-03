@@ -85,7 +85,7 @@ def xlsxRead():
     '''
     print('json建立完成')
     
-def getExtFormat(i,j):
+def getExtFormat(i,ID):
     r = None
     data = os.path.splitext(i)
     fileName = data[0]
@@ -96,7 +96,6 @@ def getExtFormat(i,j):
         extName = extName.lower()
         newName = fileName + extName
         print(newName)
-        ID = j
         os.rename("../img/clan/{}/{}".format(ID,data[0]+data[1]),"../img/clan/{}/{}".format(ID,newName))
         
     if ".png" in extName:
@@ -104,8 +103,12 @@ def getExtFormat(i,j):
     elif '.jpg' in extName:
         r = 2
     elif '.jpeg' in extName:
-        r = 3
+        extName = '.jpg'
+        newName = fileName + extName
+        print(newName)
+        os.rename("../img/clan/{}/{}".format(ID,data[0]+data[1]),"../img/clan/{}/{}".format(ID,newName))
+        r = 2
     return r
-
+    
 if __name__ == '__main__':
     xlsxRead()

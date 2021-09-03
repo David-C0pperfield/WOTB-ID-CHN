@@ -9,7 +9,7 @@ $(function() {
         fileExtList = {
             1: 'png',
             2: 'jpg',
-            3: 'jpeg'
+            3: 'jpg'
         },
         rLogo = [];
     for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
@@ -27,6 +27,7 @@ $(function() {
     $(window).resize(function() { calcTableHeight(); })
 
     getClanData('byId', getQueryStr('cid'));
+
 
     if (getQueryStr('keyword')) {
         $('#searchstr').val(getQueryStr('keyword'))
@@ -92,9 +93,11 @@ $(function() {
 
     $(document).on('keydown', function(e) {
         var keyFind = e.which
-        if ((e.ctrlKey && keyFind == 70) || (e.metaKey && keyFind == 70)) {
+        if ((e.ctrlKey || e.metaKey) && keyFind == 70) {
             e.preventDefault();
             $('#searchstr').focus();
+            $('#searchstr').select()
+            restoreDetailWindow()
         }
     })
     $('#search_btn').on('click', function() {
@@ -107,8 +110,9 @@ $(function() {
     })
 
     function slideDownAnnouncement() { setTimeout(function() { $('#announcement_zone').slideDown(250); }, 450) }
-    $('#searchstr').on('click', function() { //聚焦时显示横幅
-        if ($('#searchstr').is(':focus')) $('#announcement_zone').slideDown(250)
+    $('#searchstr').on('click focus', function() { //聚焦时显示横幅
+        $('#announcement_zone').slideDown(250)
+        this.select()
     })
     $('#searchstr').on('keydown', function(e) { //检测回车
         var key = e.which;
@@ -116,7 +120,7 @@ $(function() {
     })
     $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
-        if (!target.is('#searchstr') && !target.is('#announcement_zone .wrap') && !target.is('#announcement_zone .wrap *') || (target.is('#announcement_zone .toCollapse') || target.is('#announcement_zone .toCollapse *'))) {
+        if (!target.is('#searchstr') && !target.is('#announcement_zone .wrap') && !target.is('#announcement_zone .wrap *') || target.is('#announcement_zone .toCollapse') || target.is('#announcement_zone .toCollapse *')) {
             slideUpAnnouncement()
         }
     })
@@ -147,15 +151,40 @@ $(function() {
         $('#detail .content').fadeIn(350)
     })
 
-    $('#detail').on('click', function(e) { //关闭浮层
+    $('#detail').on('click keydown', function(e) { //关闭浮层
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
+    })
+    var beginDrag_y, distance = 0;
+    $('#detail .window').on('touchstart', function(e) {
+        // e.preventDefault()
+        beginDrag_y = e.touches[0].pageY
+
+    })
+    $('#detail .window').on('touchmove', function(e) {
+        e.preventDefault()
+        page_y = e.touches[0].pageY
+        distance = page_y - beginDrag_y
+            // if (distance == 0) return
+        $(this).css({ "transform": "translateY(" + (0.1875 * distance) + "px)" })
+    })
+
+    $('#detail .window').on('touchend', function(e) {
+        if (distance > 128) {
+            restoreDetailWindow()
+                // beginDrag_y = 0
+            distance = 0
+        } else $(this).css({ "transform": "translateY(" + 0 + "px)" })
     })
 
     function restoreDetailWindow() {
         window.history.replaceState({ Page: 1 }, '', './')
-        $('#detail .inner').animate({ 'height': '0' }, 500)
-        $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
+        $('#detail .inner').animate({ 'height': '0' }, { queue: false, duration: 500 })
+        $('#detail').fadeOut(600, function() {
+            $('#detail .content').empty()
+            $("#detail .window").css({ "transform": "translateY(" + 0 + "px)" })
+        });
+
         document.title = '闪击战ID大百科'
         $('meta[itemprop="name"').attr('content', '闪击战ID大百科')
         $('meta[name="description"],meta[itemprop="description"]').attr('content', '本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589')
@@ -406,11 +435,11 @@ $(function() {
     }
 
     function restorePosition() {
-        $('table tbody').animate({ scrollTop: 0 }, 500)
+        $('table tbody').animate({ scrollTop: 0 }, { queue: false, duration: 500 })
     }
 
     function showDetail() {
-        $('#detail .inner').animate({ 'height': '100%' }, 450);
+        $('#detail .inner').animate({ 'height': '100%' }, { queue: false, duration: 450 });
         $('#detail').fadeIn(400)
     }
 
