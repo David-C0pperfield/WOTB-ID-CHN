@@ -154,7 +154,7 @@ $(function() {
     var beginDrag_y;
     $('#detail .window').on('touchstart', function(e) {
         beginDrag_y = e.touches[0].pageY
-        console.log(beginDrag_y)
+            // console.log(beginDrag_y)
     })
     $('#detail .window').on('touchmove', function(e) {
         page_y = e.touches[0].pageY
@@ -167,11 +167,11 @@ $(function() {
             distance = 0
             return
         }
+    })
 
-    })
-    $('#detail .window').on('touchend', function(e) {
-        $(this).css({ "transform": "translateY(" + 0 + "px)" })
-    })
+    // $('#detail .window').on('touchend', function(e) {
+    //     $(this).css({ "transform": "translateY(" + 0 + "px)" })
+    // })
 
     function restoreDetailWindow() {
         window.history.replaceState({ Page: 1 }, '', './')
