@@ -93,7 +93,7 @@ $(function() {
 
     $(document).on('keydown', function(e) {
         var keyFind = e.which
-        if ((e.ctrlKey && keyFind == 70) || (e.metaKey && keyFind == 70)) {
+        if ((e.ctrlKey || e.metaKey) && keyFind == 70) {
             e.preventDefault();
             $('#searchstr').focus();
             $('#searchstr').select()
@@ -120,7 +120,7 @@ $(function() {
     })
     $(document).on('click', function(e) { //单击收回横幅
         var target = $(e.target)
-        if (!target.is('#searchstr') && !target.is('#announcement_zone .wrap') && !target.is('#announcement_zone .wrap *') || (target.is('#announcement_zone .toCollapse') || target.is('#announcement_zone .toCollapse *'))) {
+        if (!target.is('#searchstr') && !target.is('#announcement_zone .wrap') && !target.is('#announcement_zone .wrap *') || target.is('#announcement_zone .toCollapse') || target.is('#announcement_zone .toCollapse *')) {
             slideUpAnnouncement()
         }
     })
