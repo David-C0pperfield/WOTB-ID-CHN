@@ -157,7 +157,7 @@ $(function() {
     })
     var beginDrag_y, distance = 0;
     $('#detail .window').on('touchstart', function(e) {
-        e.preventDefault()
+        // e.preventDefault()
         beginDrag_y = e.touches[0].pageY
 
     })
