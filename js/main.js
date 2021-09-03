@@ -155,6 +155,27 @@ $(function() {
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
     })
+    var beginDrag_y;
+    $('#detail .window').on('touchstart', function(e) {
+        beginDrag_y = e.touches[0].pageY
+        console.log(beginDrag_y)
+    })
+    $('#detail .window').on('touchmove', function(e) {
+        page_y = e.touches[0].pageY
+        var distance = page_y - beginDrag_y
+            // if (distance == 0) return
+        $(this).css({ "transform": "translateY(" + (0.1875 * distance) + "px)" })
+        if (distance > 100) {
+            restoreDetailWindow()
+            beginDrag_y = 0
+            distance = 0
+            return
+        }
+
+    })
+    $('#detail .window').on('touchend', function(e) {
+        $(this).css({ "transform": "translateY(" + 0 + "px)" })
+    })
 
     function restoreDetailWindow() {
         window.history.replaceState({ Page: 1 }, '', './')
