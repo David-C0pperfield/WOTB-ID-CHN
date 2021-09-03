@@ -170,12 +170,11 @@ $(function() {
     $('#detail .content').on('touchmove', function(e) {
         page_y = e.touches[0].pageY
         drag_distance = page_y - beginDrag_y
-        if (element_ceil_position == 32) {
+        if (element_ceil_position == 32 && !scroll_flag) {
             $("#detail .window").css({ "transform": "translateY(" + (0.1875 * drag_distance) + "px)" })
         }
     })
 
-    $('#detail .content').on("scroll", function(e) { console.log("123123") })
     $('#detail .content').on('touchend', function(e) {
         element_ceil_position = $(this).position().top
         if (element_ceil_position == 32) {
