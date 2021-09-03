@@ -155,26 +155,39 @@ $(function() {
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
     })
-    var beginDrag_y, distance = 0;
-    $('#detail .window').on('touchstart', function(e) {
-        // e.preventDefault()
+
+    // Dropdown Gestures
+    var beginDrag_y,
+        drag_distance = 0,
+        element_ceil_position,
+        element_ceil_position_end,
+        element_move_distance,
+        scroll_flag = false; //to improve the scroll experience, use the scroll flag to prevent dismissing the detail layer.
+    $('#detail .content').on('touchstart', function(e) {
         beginDrag_y = e.touches[0].pageY
 
     })
-    $('#detail .window').on('touchmove', function(e) {
-        e.preventDefault()
+    $('#detail .content').on('touchmove', function(e) {
         page_y = e.touches[0].pageY
-        distance = page_y - beginDrag_y
-            // if (distance == 0) return
-        $(this).css({ "transform": "translateY(" + (0.1875 * distance) + "px)" })
+        drag_distance = page_y - beginDrag_y
+        if (element_ceil_position == 32) {
+            $("#detail .window").css({ "transform": "translateY(" + (0.1875 * drag_distance) + "px)" })
+        }
     })
 
-    $('#detail .window').on('touchend', function(e) {
-        if (distance > 128) {
+    $('#detail .content').on("scroll", function(e) { console.log("123123") })
+    $('#detail .content').on('touchend', function(e) {
+        element_ceil_position = $(this).position().top
+        if (element_ceil_position == 32) {
+            scroll_flag = false
+        }
+        if (drag_distance < -1 / 4 * $("#detail .wrap .inner .window").height()) { scroll_flag = true }
+        if (drag_distance > 128 && element_ceil_position == 32 && !scroll_flag) {
             restoreDetailWindow()
                 // beginDrag_y = 0
-            distance = 0
-        } else $(this).css({ "transform": "translateY(" + 0 + "px)" })
+            drag_distance = 0
+
+        } else $("#detail .window").css({ "transform": "translateY(" + 0 + "px)" })
     })
 
     function restoreDetailWindow() {
@@ -441,6 +454,7 @@ $(function() {
     function showDetail() {
         $('#detail .inner').animate({ 'height': '100%' }, { queue: false, duration: 450 });
         $('#detail').fadeIn(400)
+        scroll_flag = false
     }
 
     function processDate(rd) { //处理日期
