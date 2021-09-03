@@ -96,6 +96,8 @@ $(function() {
         if ((e.ctrlKey && keyFind == 70) || (e.metaKey && keyFind == 70)) {
             e.preventDefault();
             $('#searchstr').focus();
+            $('#searchstr').select()
+            restoreDetailWindow()
         }
     })
     $('#search_btn').on('click', function() {
@@ -108,8 +110,8 @@ $(function() {
     })
 
     function slideDownAnnouncement() { setTimeout(function() { $('#announcement_zone').slideDown(250); }, 450) }
-    $('#searchstr').on('click', function() { //聚焦时显示横幅
-        if ($('#searchstr').is(':focus')) $('#announcement_zone').slideDown(250)
+    $('#searchstr').on('click focus', function() { //聚焦时显示横幅
+        $('#announcement_zone').slideDown(250)
         this.select()
     })
     $('#searchstr').on('keydown', function(e) { //检测回车
@@ -149,7 +151,7 @@ $(function() {
         $('#detail .content').fadeIn(350)
     })
 
-    $('#detail').on('click', function(e) { //关闭浮层
+    $('#detail').on('click keydown', function(e) { //关闭浮层
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
     })
