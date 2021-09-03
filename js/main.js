@@ -180,7 +180,8 @@ $(function() {
         if (element_ceil_position == 32) {
             scroll_flag = false
         }
-        if (drag_distance < -1 / 4 * $("#detail .wrap .inner .window").height()) { scroll_flag = true }
+        console.log(drag_distance)
+        if (drag_distance < -1 / 5 * $("#detail .wrap .inner .window").height()) { scroll_flag = true }
         if (drag_distance > 128 && element_ceil_position == 32 && !scroll_flag) {
             restoreDetailWindow()
                 // beginDrag_y = 0
