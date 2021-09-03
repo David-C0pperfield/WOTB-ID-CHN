@@ -9,7 +9,7 @@ $(function() {
         fileExtList = {
             1: 'png',
             2: 'jpg',
-            3: 'jpeg'
+            3: 'jpg'
         },
         rLogo = [];
     for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
@@ -28,6 +28,10 @@ $(function() {
 
     getClanData('byId', getQueryStr('cid'));
 
+    $('#searchstr').on('propertychange', function() {
+        console.log('xxx')
+    })
+    $('#searchstr').val('')
     if (getQueryStr('keyword')) {
         $('#searchstr').val(getQueryStr('keyword'))
         startSearching()
