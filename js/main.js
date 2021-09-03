@@ -157,10 +157,12 @@ $(function() {
     })
     var beginDrag_y;
     $('#detail .window').on('touchstart', function(e) {
+        e.preventDefault()
         beginDrag_y = e.touches[0].pageY
-            // console.log(beginDrag_y)
+
     })
     $('#detail .window').on('touchmove', function(e) {
+        e.preventDefault()
         page_y = e.touches[0].pageY
         var distance = page_y - beginDrag_y
             // if (distance == 0) return
@@ -179,7 +181,7 @@ $(function() {
 
     function restoreDetailWindow() {
         window.history.replaceState({ Page: 1 }, '', './')
-        $('#detail .inner').animate({ 'height': '0' }, 500)
+        $('#detail .inner').animate({ 'height': '0' }, { queue: false, duration: 500 })
         $('#detail').fadeOut(600, function() { $('#detail .content').empty() });
         document.title = '闪击战ID大百科'
         $('meta[itemprop="name"').attr('content', '闪击战ID大百科')
@@ -431,11 +433,11 @@ $(function() {
     }
 
     function restorePosition() {
-        $('table tbody').animate({ scrollTop: 0 }, 500)
+        $('table tbody').animate({ scrollTop: 0 }, { queue: false, duration: 500 })
     }
 
     function showDetail() {
-        $('#detail .inner').animate({ 'height': '100%' }, 450);
+        $('#detail .inner').animate({ 'height': '100%' }, { queue: false, duration: 450 });
         $('#detail').fadeIn(400)
     }
 
