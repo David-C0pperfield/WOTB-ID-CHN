@@ -377,7 +377,6 @@ body {
             height: 0;
             width: 100%;
             position: absolute;
-            transition: 0.25s cubic-bezier(0, 1.3, .64, 1.04);
             bottom: 0;
             .window {
                 position: relative;
@@ -391,6 +390,7 @@ body {
                 color: #fff;
                 font-size: 20px;
                 box-sizing: border-box;
+                transition: 0.25s cubic-bezier(0, 1.3, .64, 1.04);
                 .dismissBtn {
                     font-size: 1.25em;
                     display: inline-block;
