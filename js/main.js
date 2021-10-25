@@ -14,7 +14,9 @@ $(function() {
         rLogo = [];
     for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
     for (let i = 2; i <= 26; i++) rLogo.push(20000 + i)
+
     $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/favicon.ico')
+
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
@@ -23,16 +25,19 @@ $(function() {
         success: function(data) { clanData = data }
     })
 
-    calcTableHeight();
+    $(document).ready(function() {
+        console.log('loaded')
+        calcTableHeight();
+        getClanData('byId', getQueryStr('cid'));
+
+        if (getQueryStr('keyword')) {
+            $('#searchstr').val(getQueryStr('keyword'))
+            startSearching()
+        }
+
+    })
+
     $(window).resize(function() { calcTableHeight(); })
-
-    getClanData('byId', getQueryStr('cid'));
-
-
-    if (getQueryStr('keyword')) {
-        $('#searchstr').val(getQueryStr('keyword'))
-        startSearching()
-    }
 
     $(document).on('click', '.flipBtn.back', function() {
         dataIndex = beginIndex
@@ -276,13 +281,10 @@ $(function() {
     }
 
     var filter = ["[", "]", "{", "}", "(", ")", "+", "*", "/"],
-        filter_factor = '\\',
         filterWords = ["编者", '幽灵团', "孤儿"],
         blacklist = []
-    for (let i in filterWords) {
-        blacklist.push(new RegExp(filterWords[i], "g"))
-    }
-    for (let i = 0; i < filter.length; i++) filter[i] = filter_factor + filter[i]
+    for (let i in filterWords) blacklist.push(new RegExp(filterWords[i], "g"))
+    for (let i = 0; i < filter.length; i++) filter[i] = '\\' + filter[i]
 
     function toCompare(keyword, data, mode) {
         switch (keyword) {
