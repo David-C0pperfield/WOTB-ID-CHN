@@ -1,7 +1,7 @@
 $(function() {
     var announcement, r = {} //,Rule
     $.ajaxSetup({ async: false })
-    $.get("announcement.txt", function(d) { //Data
+    $.get("./announcement.txt", function(d) { //Data
         announcement = d;
     });
 
