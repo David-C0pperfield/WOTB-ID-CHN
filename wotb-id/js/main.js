@@ -14,7 +14,9 @@ $(function() {
         rLogo = [];
     for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
     for (let i = 2; i <= 26; i++) rLogo.push(20000 + i)
+
     $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/favicon.ico')
+
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
@@ -23,16 +25,23 @@ $(function() {
         success: function(data) { clanData = data }
     })
 
-    calcTableHeight();
+    $(document).ready(function() {
+
+        console.log('loaded')
+        calcTableHeight();
+        getClanData('byId', getQueryStr('cid'));
+
+        if (getQueryStr('keyword')) {
+            $('#searchstr').val(getQueryStr('keyword'))
+            startSearching()
+        }
+        //Detect the strings in the search box.
+        if (!$(this).val()) $('.btn.resetBtn>*').hide()
+        else $('.btn.resetBtn>*').show()
+
+    })
+
     $(window).resize(function() { calcTableHeight(); })
-
-    getClanData('byId', getQueryStr('cid'));
-
-
-    if (getQueryStr('keyword')) {
-        $('#searchstr').val(getQueryStr('keyword'))
-        startSearching()
-    }
 
     $(document).on('click', '.flipBtn.back', function() {
         dataIndex = beginIndex
@@ -104,6 +113,10 @@ $(function() {
         if (!$('#searchstr').val()) return
         startSearching()
     })
+    $('#searchstr').on('focus keyup', function() {
+        if (!$(this).val()) $('.btn.resetBtn>*').hide()
+        else $('.btn.resetBtn>*').show()
+    });
     $('.btn.resetBtn>*').on('click', function() {
         removeInput('#searchstr');
         $('#searchstr').focus();
@@ -155,26 +168,39 @@ $(function() {
         let target = $(e.target)
         if (!target.is('#detail .inner *') || target.is('#detail .dismissBtn *')) restoreDetailWindow()
     })
-    var beginDrag_y, distance = 0;
-    $('#detail .window').on('touchstart', function(e) {
-        // e.preventDefault()
+
+    // Dropdown Gestures
+    var beginDrag_y,
+        drag_distance = 0,
+        element_ceil_position,
+        element_ceil_position_end,
+        element_move_distance,
+        scroll_flag = false; //to improve the scroll experience, use the scroll flag to prevent dismissing the detail layer.
+    $('#detail .content').on('touchstart', function(e) {
         beginDrag_y = e.touches[0].pageY
 
     })
-    $('#detail .window').on('touchmove', function(e) {
-        e.preventDefault()
+    $('#detail .content').on('touchmove', function(e) {
         page_y = e.touches[0].pageY
-        distance = page_y - beginDrag_y
-            // if (distance == 0) return
-        $(this).css({ "transform": "translateY(" + (0.1875 * distance) + "px)" })
+        drag_distance = page_y - beginDrag_y
+        if (element_ceil_position == 32 && !scroll_flag) {
+            $("#detail .window").css({ "transform": "translateY(" + (0.1875 * drag_distance) + "px)" })
+        }
     })
 
-    $('#detail .window').on('touchend', function(e) {
-        if (distance > 128) {
+    $('#detail .content').on('touchend', function(e) {
+        element_ceil_position = $(this).position().top
+        if (element_ceil_position == 32) {
+            scroll_flag = false
+        }
+        console.log(drag_distance)
+        if (drag_distance < -1 / 5 * $("#detail .wrap .inner .window").height()) { scroll_flag = true }
+        if (drag_distance > 128 && element_ceil_position == 32 && !scroll_flag) {
             restoreDetailWindow()
                 // beginDrag_y = 0
-            distance = 0
-        } else $(this).css({ "transform": "translateY(" + 0 + "px)" })
+            drag_distance = 0
+
+        } else $("#detail .window").css({ "transform": "translateY(" + 0 + "px)" })
     })
 
     function restoreDetailWindow() {
@@ -263,13 +289,10 @@ $(function() {
     }
 
     var filter = ["[", "]", "{", "}", "(", ")", "+", "*", "/"],
-        filter_factor = '\\',
         filterWords = ["编者", '幽灵团', "孤儿"],
         blacklist = []
-    for (let i in filterWords) {
-        blacklist.push(new RegExp(filterWords[i], "g"))
-    }
-    for (let i = 0; i < filter.length; i++) filter[i] = filter_factor + filter[i]
+    for (let i in filterWords) blacklist.push(new RegExp(filterWords[i], "g"))
+    for (let i = 0; i < filter.length; i++) filter[i] = '\\' + filter[i]
 
     function toCompare(keyword, data, mode) {
         switch (keyword) {
@@ -441,6 +464,7 @@ $(function() {
     function showDetail() {
         $('#detail .inner').animate({ 'height': '100%' }, { queue: false, duration: 450 });
         $('#detail').fadeIn(400)
+        scroll_flag = false
     }
 
     function processDate(rd) { //处理日期
@@ -500,7 +524,7 @@ $(function() {
             if (clan.hasOwnProperty('MID')) var MID = clan.MID
             if (clan.hasOwnProperty('Date')) {
                 date = processDate(clan.Date)
-                date = ['<span class="date">创建于：<span class="desc-color">', date, '</span></span>'].join('')
+                date = ['<span class="date">建于：<span class="desc-color">', date, '</span></span>'].join('')
             } else date = ''
             if (clan.hasOwnProperty('Logo')) logo = clan.Logo
             if (logo) {
