@@ -26,6 +26,7 @@ $(function() {
     })
 
     $(document).ready(function() {
+
         console.log('loaded')
         calcTableHeight();
         getClanData('byId', getQueryStr('cid'));
@@ -34,6 +35,9 @@ $(function() {
             $('#searchstr').val(getQueryStr('keyword'))
             startSearching()
         }
+        //Detect the strings in the search box.
+        if (!$(this).val()) $('.btn.resetBtn>*').hide()
+        else $('.btn.resetBtn>*').show()
 
     })
 
@@ -109,6 +113,10 @@ $(function() {
         if (!$('#searchstr').val()) return
         startSearching()
     })
+    $('#searchstr').on('focus keyup', function() {
+        if (!$(this).val()) $('.btn.resetBtn>*').hide()
+        else $('.btn.resetBtn>*').show()
+    });
     $('.btn.resetBtn>*').on('click', function() {
         removeInput('#searchstr');
         $('#searchstr').focus();
@@ -516,7 +524,7 @@ $(function() {
             if (clan.hasOwnProperty('MID')) var MID = clan.MID
             if (clan.hasOwnProperty('Date')) {
                 date = processDate(clan.Date)
-                date = ['<span class="date">创建于：<span class="desc-color">', date, '</span></span>'].join('')
+                date = ['<span class="date">建于：<span class="desc-color">', date, '</span></span>'].join('')
             } else date = ''
             if (clan.hasOwnProperty('Logo')) logo = clan.Logo
             if (logo) {
