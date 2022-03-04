@@ -2,9 +2,13 @@
 
 function countDown() {
     _time=$1
+    _message=${2}
+    if [ -z "$2" ];then 
+        _message="Countdown"
+    fi
     echo
     for ((i = _time; i > 0; i--)); do
-        echo -ne "Countdown ${i}"
+        echo -ne "${_message} ${i}"
         sleep 1
         echo -ne "\r"
     done
@@ -30,8 +34,8 @@ Type \033[31mesc\033[0m to exit
         2)
             sudo apachectl restart
             ;;
-        e | esc | exit)
-            countDown 5
+        -1 | e | esc | exit )
+            countDown 5 "The program will exit in"
             exit
             ;;
         *)
