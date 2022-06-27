@@ -218,7 +218,8 @@ $(function() {
     }
 
     function startSearching() {
-        if ($('#searchstr').val()) window.history.pushState({ Page: 2 }, '', '?keyword=' + $('#searchstr').val());
+        var keyword = $('#searchstr').val();
+        if (keyword) window.history.pushState({ Page: 2 }, '', '?keyword=' + keyword);
         else {
             alert("您还没有输入关键词！")
             return
@@ -227,6 +228,7 @@ $(function() {
         $('table.clan_lib').css('display', 'block')
         restorePosition()
         getClanData()
+        recordSearchAction(keyword);
     }
 
     function slideUpAnnouncement() { if ($('#announcement_zone').css('display') != 'none') $('#announcement_zone').slideUp(250); }
@@ -548,4 +550,28 @@ $(function() {
         indexList = []
     }
     showRecommend()
+
+    /**
+     * 用于后台记录搜索操作
+     * @param {*} keyword 搜索关键词
+     */
+    function recordSearchAction(keyword){
+        $.ajax({
+            Headers:{
+                "Access-Control-Allow-Origin":"*"
+            },
+            url: "http://clanarc.com/clanLookup/recordLookup", 
+            data: {
+                    'keyword':keyword,
+                    },
+            type: 'post',
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            dataType: "json",
+            async: false, 
+            success: function (data) {
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+    }
 })
