@@ -12,11 +12,7 @@ $(function() {
             3: 'jpg'
         },
         rLogo = [];
-    for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
-    for (let i = 2; i <= 26; i++) rLogo.push(20000 + i)
-
-    $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/favicon.ico')
-
+    // 获取军团数据
     $.ajaxSetup({ async: false })
     $.ajax({
         url: "./js/clan.json",
@@ -25,8 +21,18 @@ $(function() {
         success: function(data) { clanData = data }
     })
 
-    $(document).ready(function() {
+    // class Clan = 
 
+    // 生成随机数以随机分配对应文件名的军团标志
+    for (let i = 0; i <= 24; i++) rLogo.push(10000 + i)
+    for (let i = 2; i <= 26; i++) rLogo.push(20000 + i)
+
+    $('meta[itemprop="image"]').attr('content', window.location.protocol + '//' + window.location.host + '/favicon.ico')
+
+
+
+    $(document).ready(function() {
+        // 加载完后，计算窗口高度，检测关键词
         console.log('loaded')
         calcTableHeight();
         getClanData('byId', getQueryStr('cid'));
@@ -360,7 +366,7 @@ $(function() {
 
     function insertData(d, i, method, family_branch) {
         if (!d) {
-            $('#content tbody').append('<tr><td>未搜索到相关内容，相关军团可能未被收录</td></tr>')
+            $('#content tbody').append('<tr><td>未搜索到相关内容，相关军团可能尚未收录</td></tr>')
             return
         }
         i = i || 0

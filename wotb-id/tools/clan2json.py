@@ -17,8 +17,8 @@ for index in file_list:
         
 def xlsxRead():
     while not os.path.exists(excel_name):
-        data = input("找不到'{}'，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\
-寻找文件：".format(excel_name))
+        data = input(f"找不到'{excel_name}'，请寻找相关文件后键入路径或放入同一文件夹后回车。\n\
+寻找文件：")
 
     data = xlrd.open_workbook(excel_name)
     table = data.sheet_by_name(r"军团列表")
@@ -42,8 +42,8 @@ def xlsxRead():
                 #cell = date.strftime('%Y-%m-%d')
             row_content.append(cell)
             
-        if os.path.exists("../img/clan/{}".format(row_content[0])):#检测相关ID图片目录
-            imgList = os.listdir("../img/clan/{}".format(row_content[0]))
+        if os.path.exists(f"../img/clan/{row_content[0]}"):#检测相关ID图片目录
+            imgList = os.listdir(f"../img/clan/{row_content[0]}")
             imgList.sort()#进行排序
             #print ('文件列表{}'.format(imgList))
             for p in imgList:
@@ -63,7 +63,7 @@ def xlsxRead():
                 del row_data[m]
         data_list.append(row_data)
         
-    print('共{}条数据'.format(i))
+    print(f'共{i}条数据')
     processed_json=json.dumps(data_list,\
                               sort_keys=False,\
                               separators=(",", ":"),\
@@ -96,7 +96,7 @@ def getExtFormat(i,ID):
         extName = extName.lower()
         newName = fileName + extName
         print(newName)
-        os.rename("../img/clan/{}/{}".format(ID,data[0]+data[1]),"../img/clan/{}/{}".format(ID,newName))
+        os.rename(f"../img/clan/{ID}/{data[0]+data[1]}",f"../img/clan/{ID}/{newName}")
         
     if ".png" in extName:
         r = 1
@@ -106,7 +106,7 @@ def getExtFormat(i,ID):
         extName = '.jpg'
         newName = fileName + extName
         print(newName)
-        os.rename("../img/clan/{}/{}".format(ID,data[0]+data[1]),"../img/clan/{}/{}".format(ID,newName))
+        os.rename(f"../img/clan/{ID}/{data[0]+data[1]}",f"../img/clan/{ID}/{newName}")
         r = 2
     return r
     
