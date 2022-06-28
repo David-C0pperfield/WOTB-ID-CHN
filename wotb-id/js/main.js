@@ -560,7 +560,7 @@ $(function() {
             Headers:{
                 "Access-Control-Allow-Origin":"*"
             },
-            url: "http://clanarc.com/clanLookup/recordLookup", 
+            url: "https://clanarc.com/clanLookup/recordLookup", 
             data: {
                     'keyword':keyword,
                     },
