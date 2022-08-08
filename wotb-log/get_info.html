@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <meta author="科波菲尔">
+    <meta name="description" content="本网页旨在帮助国服玩家刊载军团简介。有意见或建议请加Q群：715200589">
+    <meta name="keyword" content="WOT,WOTB,坦克世界闪击战,军团, 通信录, 名册">
+
+    <meta itemprop="name" content="日志信息提取器（试验）">
+    <meta itemprop="description" content="本网页可提取wotb的日志信息">
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+    <div id="main">
+        <div id="description">
+            <h1>上传WoTB日志以提取数据。</h1>
+        </div>
+        <br/>
+        <form id="upload">
+            <label for="file">上传日志</label>
+            <input type="file" name="log_name" accept=".txt" id="upload_file" />
+            <input type="button" name="上传" value="处理" id="submit">
+        </form>
+        <div id="result">
+            <div id="processed_data"></div>
+            <div id="raw_data"></div>
+        </div>
+
+    </div>
+</body>
+
+</html>
